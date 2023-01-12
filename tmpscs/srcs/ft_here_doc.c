@@ -1,0 +1,124 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_here_doc.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
+/*   Updated: 2023/01/09 18:01:50 by tlarraze         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	ft_check_here_doc_or_infile(t_parsed *lst)
+{
+	int	i;
+	int	c;
+
+	c = 0;
+	i = 0;
+	while (lst && lst->redirections && lst->redirections[i])
+	{
+		if (lst->redirections[i][0] == 'H')
+			c++;
+		if (lst->redirections[i][0] == '<')
+			c++;
+		i++;
+	}
+	return (c);
+}
+
+int	ft_create_here_doc(t_parsed *lst, int c)
+{
+	int		fd;
+	int		i;
+
+	i = 0;
+	while (lst && lst->redirections && lst->redirections[i])
+	{
+		if (lst->redirections[i][0] == 'H')
+		{
+			if (i + 1 != ft_check_here_doc_or_infile(lst))
+				ft_fake_here_doc(lst, i);
+			if (i + 1 == ft_check_here_doc_or_infile(lst))
+				fd = ft_real_here_doc(lst, i, c);
+		}
+		i++;
+	}
+	return (fd);
+}
+
+void	ft_here_doc(t_parsed *lst)
+{
+	int	i;
+
+	i = 0;
+	if (ft_check_here_doc(lst) == 0)
+		return ;
+	while (lst)
+	{
+		if (ft_mini_check_here_doc(lst) != 0)
+		{
+			ft_create_here_doc(lst, i);
+		}
+		lst = lst->next;
+		i++;
+	}
+}
+
+int	ft_real_here_doc(t_parsed *lst, int i, int c)
+{
+	int		fd;
+	char	*str;
+	char	*tmp;
+
+	str = ft_strjoin(HEREDOC, ft_itoa(c));
+	fd = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	free(str);
+	if (fd < 0)
+		exit(1);
+	while (1)
+	{
+		str = readline("< ");
+		if (str == NULL)
+			ft_putchar_fd('\n', fd);
+		if (ft_strncmp(str, lst->redirections[i] + 1,
+			ft_strlen(lst->redirections[i] + 1)) == 0)
+		{
+			free(str);
+			break;
+		}
+		if (str != NULL)
+		{
+			tmp = ft_strjoin(str, "\n");
+			ft_putstr_fd(tmp, fd);
+			free(tmp);
+		}
+		if (str != NULL)
+			free(str);
+	}
+	close(fd);
+	// str = ft_strjoin(HEREDOC, ft_itoa(c));
+	// fd = open(str, O_CREAT | O_RDONLY, 0644);
+	// free(str);
+	return (fd);	
+}
+
+void	ft_fake_here_doc(t_parsed *lst, int i)
+{
+	char *str;
+
+	while (1)
+	{
+		str = readline("< ");
+		if (ft_strncmp(str, lst->redirections[i] + 1,
+			ft_strlen(lst->redirections[i] + 1)) == 0)
+		{
+			free(str);
+			break;
+		}
+		free(str);
+	}
+}
