@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/11 16:36:29 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:50:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_pipex(t_parsed *lst, t_nod *env, int i)
 	else if (ft_search_built_in(lst) != 0)
 		ft_call_built_in(lst, env);
 	ft_free_double(tab, path);
-	exit(0);
+	exit(1);
 	return (0);
 }
 
