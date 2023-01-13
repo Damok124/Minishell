@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 13:39:18 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:27:29 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_execute(char *str, t_nod *env)
 	int			i;
 	int			stock[2];
 
-	i = 0;
 	stock[0] = dup(STDIN);
 	stock[1] = dup(STDOUT);
 	head = ft_minishell_parsing(ft_strdup(str), env);
@@ -32,12 +31,13 @@ int	ft_execute(char *str, t_nod *env)
 	i = ft_here_doc(lst);
 	if (i != 0)
 	{
-		printf("\n%d\n", i);
+		ft_free_parsed(head);
 		if (i == -1)
 			return (0);
 		else
 			return (130);
 	}
+	i = 0;
 	if (g_child_id == -2)
 		return (0);
 	while (lst)
@@ -59,6 +59,7 @@ int	ft_execute(char *str, t_nod *env)
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
+		ft_check_unset_export(lst, env, i);
 		id = fork();
 		if (id == -1)
 			exit(1);

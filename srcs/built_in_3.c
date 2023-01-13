@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/11 16:37:57 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:29:52 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ int	ft_search_built_in(t_parsed *lst)
 		return (7);
 	return (0);
 }
+
+void	ft_check_unset_export(t_parsed *lst, t_nod *env, int i)
+{
+	if (i != 0)
+		return ;
+	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "unset", 6) == 0)
+		ft_unset(lst->cmds, env);
+	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "export", 6) == 0)
+		ft_export(lst->cmds, env);
+}
+
 
 char **ft_env_to_tab(t_nod *nod)
 {

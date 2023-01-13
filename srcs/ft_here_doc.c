@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 16:16:59 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:04:15 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ int	ft_here_doc(t_parsed *lst)
 			{
 				res = ft_create_here_doc(lst, i);
 				if (res == -1)
-					exit(-1);
+					exit (-1);
 				exit(0);
 			}
 			else
 				waitpid(g_child_id, &g_child_id, 0);
+			if (g_child_id != 0)
+				return (g_child_id);
 			if (g_child_id == 33280) ////////////////////////////////////////////
 				return (-1);
 		}
@@ -102,7 +104,7 @@ int	ft_real_here_doc(t_parsed *lst, int i, int c)
 			//ft_putchar_fd('\n', fd);
 			printf("Minishell: warning: here-document delimited by ");
 			printf("end-of-file (wanted `%s')\n", lst->redirections[i] + 1);
-			exit(-1);
+			return (-1);
 		}
 		if (str && lst && lst->redirections && ft_strncmp(str,
 				lst->redirections[i] + 1, ft_strlen(lst->redirections[i] + 1) + 1) == 0)

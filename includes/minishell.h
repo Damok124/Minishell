@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/13 13:37:40 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:28:26 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_env(t_nod *env);
 t_nod	*ft_init_lst(char **env);
 t_nod	*ft_init_nod(char *str);
 char	**ft_env_to_tab(t_nod *nod);
+void	ft_check_unset_export(t_parsed *lst, t_nod *env, int i);
 
 /////////////////////////
 //	EXEC
