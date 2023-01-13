@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 18:10:49 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:55:25 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_get_env(char *str, t_nod *env)
 	tmp = env;
 	while (tmp != NULL)
 	{
+		printf("MAXITMPKEYYYY :%s\n", tmp->key);////////////////////////////
 		if (ft_strncmp(str, tmp->key, ft_strlen(str)) == 0)
 			return (tmp->value);
 		tmp = tmp->next;

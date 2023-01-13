@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 13:39:18 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:30:04 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_execute(char *str, t_nod *env)
 	stock[0] = dup(STDIN);
 	stock[1] = dup(STDOUT);
 	head = ft_minishell_parsing(ft_strdup(str), env);
-	//ft_show_lst_parsed(head);
+	ft_show_lst_parsed(head);////////////////////////////////////////////
 	lst = head;
 	i = ft_here_doc(lst);
 	if (i != 0)

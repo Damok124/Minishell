@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/13 13:44:28 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:42:56 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -655,6 +655,7 @@ char	*ft_get_var_env_val(char *src, t_nod *env)//done
 	copy = NULL;
 	if (src)
 	{
+		printf("MAXISRC :%s\n", src);//////////////////////////////////
 		while (src[i] && ft_isalnum(src[i]))
 			i++;
 		copy = ft_substr(src, 0, i);
