@@ -6,7 +6,7 @@
 #    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/09 16:41:35 by tlarraze         ###   ########.fr        #
+#    Updated: 2023/01/13 13:42:27 by tlarraze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ IFLAG = -I$(HEADERDIR) -Ift_printf/includes/ -Ilibft/includes/ -Ipipex/includes/
 all : libft.a libft_printf.a libpipex.a libminishell.a $(BINARY)
 
 $(BINARY):
-	@$(CC) $(FLAGS) $(IFLAG) -L. -lminishell -L./pipex -lpipex \
+	@$(CC) $(FLAGS) main.c $(IFLAG) -L. -lminishell -L./pipex -lpipex \
 		-L./libft -lft -L./ft_printf -lft_printf -o $(BINARY) $(LFLAGS)
 	@echo "${BLUE}***Compilation_Complete***"
 

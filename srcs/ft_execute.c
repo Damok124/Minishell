@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 17:15:30 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:39:18 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_execute(char *str, t_nod *env)
 	i = ft_here_doc(lst);
 	if (i != 0)
 	{
+		printf("\n%d\n", i);
 		if (i == -1)
 			return (0);
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/12 23:42:43 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/13 13:44:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1336,109 +1336,3 @@ t_parsed	*ft_minishell_parsing(char *str1, t_nod *env)
 	ft_free_twins(lst);
 	return (final);
 }
-
-int	g_child_id;
-
-void	handler(int num)
-{
-	if (g_child_id != 0 && g_child_id != -1 && g_child_id != 33280)
-	{
-		g_child_id = -2;
-		return ;
-	}
-	if (g_child_id == 0)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		g_child_id = -1;
-		exit(130);
-		return ;
-	}
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	(void)num;
-}
-
-void	handler_sig_ign(int num)
-{
-	write(1, "exit\n", 6);
-	if (g_child_id != 0 && g_child_id != -1)
-	{
-		write(STDOUT_FILENO, "Minishell: warning: here-document at", 37);
-		write(STDOUT_FILENO, " line 22 delimited by end-of-file\n", 35);
-		g_child_id = -1;
-		return ;
-	}
-	if (g_child_id == 0)
-	{
-		g_child_id = -1;
-		exit(130);
-		return ;
-	}
-	write(1, "exit\n", 6);
-	exit(0);
-	(void)num;
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	char		*str;
-	t_nod		*env_nod;
-
-	str = NULL;
-	g_child_id = -1;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler_sig_ign);
-	env_nod = ft_init_lst(env);
-	while (1)
-	{
-		str = readline("Minishell:~");
-		add_history(str);
-		if (str != NULL)
-			ft_execute(str, env_nod);
-		if (str == NULL)
-		{
-			printf("exit");
-			break ;
-		}
-		free(str);
-	}
-	(void)argc;
-	(void)argv;
-	return (0);
-}
-
-//test multi cmdline
-// int	main(void)
-// {
-// 	t_parsed	*lst;
-// 	char		*name;
-// 	char		*cmdline;
-// 	char		*tmp;
-// 	int			fd;
-// 	int			i;
-// 	int			n;
-
-// 	tmp = NULL;
-// 	name = ft_strdup("cmdline0");
-// 	i = -1;
-// 	while (++i < 2)
-// 	{
-// 		tmp = (char *)malloc(sizeof(char) * (200 + 1));
-// 		name[7] = i + 48;
-// 		fd = open(name, O_RDONLY);
-// 		n = read(fd, tmp, 200);
-// 		close(fd);
-// 		tmp[n] = '\0';
-// 		cmdline = ft_strtrim(tmp, "\a\b\t\n\v\f\r ");
-// 		ft_true_free((void **)&tmp);
-// 		lst = ft_minishell_parsing(cmdline);
-// 		// ft_show_lst_parsed(lst);
-// 		ft_free_parsed(lst);
-// 		// printf("\n\n=====================================================\n\n");
-// 	}
-// 	ft_true_free((void **)&name);
-// 	ft_close_stdfds();
-// 	return (0);
-// }
