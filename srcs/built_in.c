@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 17:43:45 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:31:36 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	ft_unset(char **str, t_nod *env)
 				free(tmp->value);
 				free(tmp);
 				tmp = env;
-				printf("HEY\n");
 			}
 			tmp_2 = tmp;
 			tmp = tmp->next;
