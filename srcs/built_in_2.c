@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:21:32 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:26:54 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_nod	*ft_init_lst(char **env)
 	}
 	body = (t_nod *)malloc(sizeof(t_nod));
 	body->value = ft_strdup("0");
-	body->key = ft_strdup("?");
+	body->key = ft_strdup("LEC_RV");
 	tmp->next = body;
 	tmp = tmp->next;
 	body->next = NULL;
