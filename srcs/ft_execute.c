@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 14:27:29 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:15:52 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	ft_execute(char *str, t_nod *env)
 	int			p1[2];
 	int			id;
 	int			i;
-	int			stock[2];
+	int			tmp_stdin;
 
-	stock[0] = dup(STDIN);
-	stock[1] = dup(STDOUT);
 	head = ft_minishell_parsing(ft_strdup(str), env);
 	//ft_show_lst_parsed(head);
 	lst = head;
@@ -39,7 +37,10 @@ int	ft_execute(char *str, t_nod *env)
 	}
 	i = 0;
 	if (g_child_id == -2)
+	{
+		ft_free_parsed(head);
 		return (0);
+	}
 	while (lst)
 	{
 		while (lst && lst->redirections && ft_check_file(lst) == -1)
@@ -51,34 +52,46 @@ int	ft_execute(char *str, t_nod *env)
 				return (-1);
 			}
 		}
-		if (lst->cmds && lst->cmds[0] && ft_strncmp(lst->cmds[0], "exit", 5) == 0)
-		{
-			free(head);
-			free(str);
-			exit(0);
-		}
 		if (pipe(p1) == -1)
 			exit(-1);
-		ft_check_unset_export(lst, env, i);
+		if (ft_check_unset_export(lst, head, env, i) == 1)
+			lst = lst->next;
+		if (lst == NULL)
+		{
+			ft_free_parsed(head);
+			return (127);
+		}
 		id = fork();
 		if (id == -1)
 			exit(1);
+		if (id != 0)
+			tmp_stdin = dup(STDIN);
 		ft_init_pipe(lst, p1, id);
 		if (str != NULL && id == 0)
-			ft_pipex(lst, env, i);
+			ft_pipex(lst, env, head, i, p1);
 		if (id != 0)
 			waitpid(id, &id, 0);
 		lst = lst->next;
-		str = ft_strjoin(HEREDOC, ft_itoa(i));
-		unlink(str);
-		free(str);
+		ft_file_destroy(str, i);
 		i++;
 		if (lst == NULL)
-			dup2(stock[0], STDIN);
+			dup2(tmp_stdin, STDIN);
+		close(tmp_stdin);
 	}
 	ft_free_parsed(head);
 	//printf("Exit status is %d\n", id);
 	return (id);
+}
+
+void	ft_file_destroy(char *str, int i)
+{
+	char	*tmp;
+
+	tmp = ft_itoa(i);
+	str = ft_strjoin(HEREDOC, tmp);
+	unlink(str);
+	free(tmp);
+	free(str);
 }
 
 void	ft_init_pipe(t_parsed *lst, int p1[2], int id)

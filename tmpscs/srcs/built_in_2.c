@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/05 14:29:36 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:28:30 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_nod	*ft_init_nod(char *str)
 	return (nod);
 }
 
-void	ft_export(char **str, t_nod *env)
+void	ft_export(char **str, t_nod *env, int doo)
 {
 	int		i;
 	int		found;

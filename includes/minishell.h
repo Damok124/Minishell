@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/13 14:28:26 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:04:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,19 +107,22 @@ void	ft_echo_n(char **str);
 void	ft_cd(char **str, t_nod *env);
 void	ft_pwd(char **str);
 void	ft_unset(char **str, t_nod *env);
-void	ft_export(char **str, t_nod *env);
+void	ft_export(char **str, t_nod *env, int doo);
 void	ft_env(t_nod *env);
 t_nod	*ft_init_lst(char **env);
 t_nod	*ft_init_nod(char *str);
 char	**ft_env_to_tab(t_nod *nod);
-void	ft_check_unset_export(t_parsed *lst, t_nod *env, int i);
+int		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
+int		ft_check_unset_export(t_parsed *lst, t_parsed *head, t_nod *env, int i);
+void	ft_free_env(t_nod *env);
+void	ft_file_destroy(char *str, int i);
 
 /////////////////////////
 //	EXEC
 /////////////////////////
 
 int		ft_execute(char *str, t_nod *env);
-int		ft_pipex(t_parsed *lst, t_nod *env, int i);
+int		ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2]);
 char	*ft_access(char *str, char *value);
 void	ft_free_double(char **str, char *str2);
 char	*ft_check_access(char **env, char *path, char *str);
@@ -145,7 +148,7 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id);
 int		ft_do_need_pipe(t_parsed *lst, int j);
 void	ft_close(int a, int b, int c, int d);
 int		ft_search_built_in(t_parsed *lst);
-void	ft_call_built_in(t_parsed *lst, t_nod *env);
+void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
 int		ft_here_doc(t_parsed *lst);
 int		ft_check_here_doc(t_parsed *lst);
 int		ft_mini_check_here_doc(t_parsed *lst);

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 13:44:31 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:37:27 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,22 @@ int	main(int argc, char **argv, char **env)
 		}
 		free(str);
 	}
+	ft_free_env(env_nod);
 	(void)argc;
 	(void)argv;
 	return (0);
+}
+
+void	ft_free_env(t_nod *env)
+{
+	t_nod *tmp;
+
+	while (env != NULL)
+	{
+		tmp = env;
+		env = env->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
 }

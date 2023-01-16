@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/09 18:11:45 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:19:17 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,27 @@ int	ft_pipex(t_parsed *lst, t_nod *env, int i)
 	return (0);
 }
 
-void	ft_call_built_in(t_parsed *lst, t_nod *env)
-{
-	if (ft_search_built_in(lst) == 1)
-		ft_echo(lst->cmds);
-	if (ft_search_built_in(lst) == 2)
-		ft_cd(lst->cmds, env);
-	if (ft_search_built_in(lst) == 3)
-		ft_pwd(lst->cmds);
-	if (ft_search_built_in(lst) == 4)
-		ft_export(lst->cmds, env);
-	if (ft_search_built_in(lst) == 5)
-		ft_unset(lst->cmds, env);
-	if (ft_search_built_in(lst) == 6)
-		ft_env(env);
-	if (ft_search_built_in(lst) == 7)
-	{
-		printf("need to be done at the end cause i dont know how many thing need to be free\n");
-		exit(0);
-	}
-}
+// void	ft_call_built_in(t_parsed *lst, t_nod *env)
+// {
+// 	printf("EWQDWQDWQD\n");
+// 	if (ft_search_built_in(lst) == 1)
+// 		ft_echo(lst->cmds);
+// 	if (ft_search_built_in(lst) == 2)
+// 		ft_cd(lst->cmds, env);
+// 	if (ft_search_built_in(lst) == 3)
+// 		ft_pwd(lst->cmds);
+// 	if (ft_search_built_in(lst) == 4)
+// 		ft_export(lst->cmds, env);
+// 	if (ft_search_built_in(lst) == 5)
+// 		ft_unset(lst->cmds, env);
+// 	if (ft_search_built_in(lst) == 6)
+// 		ft_env(env);
+// 	if (ft_search_built_in(lst) == 7)
+// 	{
+// 		printf("need to be done at the end cause i dont know how many thing need to be free\n");
+// 		exit(0);
+// 	}
+// }
 
 char	*ft_access(char *str, char *value)
 {

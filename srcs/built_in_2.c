@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 14:10:57 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:38:45 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ char	*ft_get_env(char *str, t_nod *env)
 	tmp = env;
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(str, tmp->key, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, tmp->key, ft_strlen(str) + 1) == 0)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
-	return (NULL);
+	return ("");
 }
 
 t_nod	*ft_init_lst(char **env)
@@ -56,7 +56,7 @@ t_nod	*ft_init_lst(char **env)
 	}
 	body = (t_nod *)malloc(sizeof(t_nod));
 	body->value = ft_strdup("0");
-	body->key = ft_strdup("$?");
+	body->key = ft_strdup("?");
 	tmp->next = body;
 	tmp = tmp->next;
 	body->next = NULL;
@@ -80,7 +80,7 @@ t_nod	*ft_init_nod(char *str)
 	return (nod);
 }
 
-void	ft_export(char **str, t_nod *env)
+void	ft_export(char **str, t_nod *env, int doo)
 {
 	int		i;
 	int		found;
@@ -90,13 +90,18 @@ void	ft_export(char **str, t_nod *env)
 	i = 1;
 	found = 0;
 	body = env;
-	while (str[i] != NULL)
+	if (str[1] != NULL && doo == 0)
+		return ;
+	while (str[i] != NULL ||body->next != NULL)
 	{
 		while (body->next != NULL)
 		{
+			printf("declare -x %s=\"%s\"\n", body->key,body->value);
 			body = body->next;
 		}
-		if (found == 0)
+		if (str[1] == NULL)
+			return ;
+		if (found == 0 && str[1] != NULL)
 		{
 			tmp = ft_init_nod(str[i]);
 			tmp->next = NULL;

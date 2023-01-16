@@ -6,13 +6,13 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 16:50:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:04:09 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pipex(t_parsed *lst, t_nod *env, int i)
+int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 {
 	char    *path;
 	char	**tab;
@@ -30,13 +30,17 @@ int	ft_pipex(t_parsed *lst, t_nod *env, int i)
 	if (path != NULL && ft_search_built_in(lst) == 0)
 		execve(path, lst->cmds, tab);
 	else if (ft_search_built_in(lst) != 0)
-		ft_call_built_in(lst, env);
+		ft_call_built_in(lst, head, env);
 	ft_free_double(tab, path);
+	ft_free_env(env);
+	ft_free_parsed(head);
+	close(p1[0]);
+	close(p1[1]);
 	exit(1);
 	return (0);
 }
 
-void	ft_call_built_in(t_parsed *lst, t_nod *env)
+void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 {
 	if (lst && lst->cmds && ft_search_built_in(lst) == 1)
 		ft_echo(lst->cmds);
@@ -45,16 +49,13 @@ void	ft_call_built_in(t_parsed *lst, t_nod *env)
 	if (lst && lst->cmds && ft_search_built_in(lst) == 3)
 		ft_pwd(lst->cmds);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 4)
-		ft_export(lst->cmds, env);
+		ft_export(lst->cmds, env, 1);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 5)
 		ft_unset(lst->cmds, env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
 		ft_env(env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-	{
-		printf("need to be done at the end cause i dont know how many thing need to be free\n");
-		exit(0);
-	}
+		ft_exit(lst, head,  env);
 }
 
 char	*ft_access(char *str, char *value)
@@ -106,5 +107,6 @@ char	*ft_check_access(char **env, char *path, char *str)
 		ft_free_double(env, str);
 		return (path);
 	}
+	free(path);
 	return (NULL);
 }
