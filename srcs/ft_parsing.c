@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/13 16:18:30 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:21:34 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,12 @@ void	ft_true_split_set(char const *s, char **strs, char *set, ssize_t len)
 char	**ft_split_set(const char *s, char *set)
 {
 	char	**strs;
-	ssize_t		len;
+	ssize_t	len;
 
 	strs = NULL;
 	if (s)
 	{
 		len = ft_count_strs_set(s, set);
-		// printf("%ld\n", len);
 		strs = (char **)malloc(sizeof(char *) * (len + 1));
 		if (!strs)
 			return (NULL);
@@ -284,29 +283,29 @@ int	ft_is_duo(char *str)//done
 	return (0);
 }
 
-// void	ft_show_duo_strs(char **strs1, char **strs2)//optionnal
-// {
-// 	int	i;
+void	ft_show_duo_strs(char **strs1, char **strs2)//optionnal
+{
+	int	i;
 
-// 	i = 0;
-// 	// printf(">src   :");
-// 	while (strs1 && strs1[i])
-// 	{
-// 		// printf("%s", strs1[i]);
-// 		// printf("%%");
-// 		i++;
-// 	}
-// 	i = 0;
-// 	// printf("\n");
-// 	// printf(">trans :");
-// 	while (strs2 && strs2[i])
-// 	{
-// 		// printf("%s", strs2[i]);
-// 		// printf("%%");
-// 		i++;
-// 	}
-// 	// printf("\n");
-// }
+	i = 0;
+	printf(">src   :");
+	while (strs1 && strs1[i])
+	{
+		printf("%s", strs1[i]);
+		printf("%%");
+		i++;
+	}
+	i = 0;
+	printf("\n");
+	printf(">trans :");
+	while (strs2 && strs2[i])
+	{
+		printf("%s", strs2[i]);
+		printf("%%");
+		i++;
+	}
+	printf("\n");
+}
 
 void	ft_quotes_focus(char **src, char **trans, int i, int *quotes)//done
 {
@@ -655,9 +654,14 @@ char	*ft_get_var_env_val(char *src, t_nod *env)//done
 	copy = NULL;
 	if (src)
 	{
-		while (src[i] && ft_isalnum(src[i]))
-			i++;
-		copy = ft_substr(src, 0, i);
+		if (src[i] && src[i] == '?')
+			copy = ft_strdup("LEC_RV");
+		else
+		{
+			while (src[i] && ft_isalnum(src[i]))
+				i++;
+			copy = ft_substr(src, 0, i);
+		}
 		ret = ft_get_env(copy, env);
 		ft_true_free((void **)&copy);
 		if (ret)
@@ -688,6 +692,8 @@ void	ft_replace_with_val(char **src, char **trans, char *var, int i)//done
 	{
 		while (src[0][i] && src[0][i + j] && ft_isalnum(src[0][i + j]))
 			j++;
+		if (j == 1 && src[0][i] && src[0][i + j] == '?')
+			j = 2;
 		ft_compile_with_val(src, var, i, j);
 		tmp = ft_strdup(var);
 		while (tmp[++k])
@@ -767,10 +773,10 @@ void	ft_translation(char **src, char **trans, t_nod *env)
 	// ft_show_duo_strs(src, trans);
 	ft_disable_var_env(src, trans);
 	// printf("after disable var env\n");
-	// ft_show_duo_strs(src, trans);
+	ft_show_duo_strs(src, trans);
 	ft_include_var_env(src, trans, env);
-	// printf("after include var env\n");
-	// ft_show_duo_strs(src, trans);
+	printf("after include var env\n");
+	ft_show_duo_strs(src, trans);
 }
 
 int	ft_check_syntax(char **src, char **trans)////////////////////////////////

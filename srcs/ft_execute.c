@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:15:52 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:21:33 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_execute(char *str, t_nod *env)
 	int			tmp_stdin;
 
 	head = ft_minishell_parsing(ft_strdup(str), env);
-	//ft_show_lst_parsed(head);
+	ft_show_lst_parsed(head);////////////////////////////////////////////
 	lst = head;
 	i = ft_here_doc(lst);
 	if (i != 0)
