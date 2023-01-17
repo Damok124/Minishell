@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:26:54 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:40:01 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ void	ft_export(char **str, t_nod *env, int doo)
 	body = env;
 	if (str[1] != NULL && doo == 0)
 		return ;
-	while (str[i] != NULL ||body->next != NULL)
+	while (str[i] != NULL || body->next != NULL)
 	{
 		while (body->next != NULL)
 		{
-			printf("declare -x %s=\"%s\"\n", body->key,body->value);
+			printf("declare -x %s=\"%s\"\n", body->key, body->value);
 			body = body->next;
 		}
 		if (str[1] == NULL)

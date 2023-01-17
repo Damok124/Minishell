@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 17:48:39 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:41:23 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ int	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 		while (lst && lst->cmds && lst->cmds[1][i])
 		{
 			if (ft_isdigit(lst->cmds[1][i]) == 0)
-				{
-					printf("exit\n");
-					printf("Minishell: exit: %s: numeric argument required\n", lst->cmds[1]);
-					i = ft_atoi_safe(lst->cmds[1], &check);
-					ft_free_parsed(head);
-					ft_free_env(env);
-					exit(i);
-				}
+			{
+				printf("exit\n");
+				printf("Minishell: exit: %s: numeric argument required\n", lst->cmds[1]);
+				i = ft_atoi_safe(lst->cmds[1], &check);
+				ft_free_parsed(head);
+				ft_free_env(env);
+				exit(i);
+			}
 			i++;
 		}
 	}
@@ -97,7 +97,7 @@ int	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 	return (0);
 }
 
-char **ft_env_to_tab(t_nod *nod)
+char	**ft_env_to_tab(t_nod *nod)
 {
 	char	**strs;
 	char	*tmp;
@@ -129,11 +129,11 @@ char **ft_env_to_tab(t_nod *nod)
 	return (strs);
 }
 
-void    ft_show_nod(t_nod *nod)
+void	ft_show_nod(t_nod *nod)
 {
-    while (nod)
-    {
-        printf("%s=%s\n", nod->key, nod->value);
-        nod = nod->next;
-    }
+	while (nod)
+	{
+		printf("%s=%s\n", nod->key, nod->value);
+		nod = nod->next;
+	}
 }

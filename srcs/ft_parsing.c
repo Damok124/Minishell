@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/16 18:21:34 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:34:02 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	ft_strslen(char **strs)//done go to libft
 
 char	**ft_alloc_strs(int size)//done go to libft
 {
-	char **strs;
+	char	**strs;
 
 	strs = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!strs)
@@ -647,7 +647,7 @@ char	*ft_get_var_env_val(char *src, t_nod *env)//done
 {
 	char	*copy;
 	char	*ret;
-	int	i;
+	int		i;
 
 	i = 0;
 	ret = NULL;
@@ -683,7 +683,7 @@ void	ft_replace_with_val(char **src, char **trans, char *var, int i)//done
 {
 	char	*tmp;
 	int		j;
-	int 	k;
+	int		k;
 
 	j = 1;
 	k = -1;
@@ -773,10 +773,10 @@ void	ft_translation(char **src, char **trans, t_nod *env)
 	// ft_show_duo_strs(src, trans);
 	ft_disable_var_env(src, trans);
 	// printf("after disable var env\n");
-	ft_show_duo_strs(src, trans);
+	// ft_show_duo_strs(src, trans);
 	ft_include_var_env(src, trans, env);
-	printf("after include var env\n");
-	ft_show_duo_strs(src, trans);
+	// printf("after include var env\n");
+	// ft_show_duo_strs(src, trans);
 }
 
 int	ft_check_syntax(char **src, char **trans)////////////////////////////////
@@ -790,7 +790,7 @@ int	ft_check_syntax(char **src, char **trans)////////////////////////////////
 
 char	*ft_twin_str(char *str1)//done
 {
-	char *str2;
+	char	*str2;
 
 	str2 = ft_strdup(str1);
 	if (str2)
@@ -918,9 +918,8 @@ char	**ft_mirror_split(char *src, char **trans)//done
 
 void	ft_split_on_pipes(t_twins *origin)//done
 {
-
-	char *src;
-	char *trans;
+	char	*src;
+	char	*trans;
 
 	src = ft_strdup(origin->src[0]);
 	trans = ft_strdup(origin->trans[0]);
@@ -1089,7 +1088,7 @@ void	ft_lst_clean_redirections(t_twins *lst)
 
 void	ft_free_parsed(t_parsed *lst)//done
 {
-	t_parsed *tmp;
+	t_parsed	*tmp;
 
 	while (lst)
 	{

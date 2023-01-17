@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 16:37:27 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:36:32 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 
 void	ft_free_env(t_nod *env)
 {
-	t_nod *tmp;
+	t_nod	*tmp;
 
 	while (env != NULL)
 	{

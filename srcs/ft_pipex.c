@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:04:09 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:36:11 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 {
-	char    *path;
+	char	*path;
 	char	**tab;
 
 	path = NULL;
@@ -55,14 +55,14 @@ void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
 		ft_env(env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-		ft_exit(lst, head,  env);
+		ft_exit(lst, head, env);
 }
 
 char	*ft_access(char *str, char *value)
 {
 	char	*path;
 	int		i;
-	char    **env;
+	char	**env;
 
 	i = 0;
 	if (str == NULL)

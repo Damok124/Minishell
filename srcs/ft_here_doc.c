@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 16:22:07 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:48:57 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_here_doc(t_parsed *lst)
 				waitpid(g_child_id, &g_child_id, 0);
 			if (g_child_id != 0)
 				return (g_child_id);
-			if (g_child_id == 33280) ////////////////////////////////////////////
+			if (g_child_id == 33280) //////////////////////////////////////////
 				return (-1);
 		}
 		lst = lst->next;
@@ -110,7 +110,7 @@ int	ft_real_here_doc(t_parsed *lst, int i, int c)
 				lst->redirections[i] + 1, ft_strlen(lst->redirections[i] + 1) + 1) == 0)
 		{
 			free(str);
-			break;
+			break ;
 		}
 		if (str != NULL)
 		{
@@ -125,21 +125,21 @@ int	ft_real_here_doc(t_parsed *lst, int i, int c)
 	// str = ft_strjoin(HEREDOC, ft_itoa(c));
 	// fd = open(str, O_CREAT | O_RDONLY, 0644);
 	// free(str);
-	return (fd);	
+	return (fd);
 }
 
 void	ft_fake_here_doc(t_parsed *lst, int i)
 {
-	char *str;
+	char	*str;
 
 	while (1)
 	{
 		str = readline("< ");
-		if (ft_strncmp(str, lst->redirections[i] + 1,
+		if (ft_strncmp(str, lst->redirections[i] + 1, \
 			ft_strlen(lst->redirections[i] + 1)) == 0)
 		{
 			free(str);
-			break;
+			break ;
 		}
 		free(str);
 	}

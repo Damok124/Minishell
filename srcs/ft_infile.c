@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*                                            :+:      :+:    :+:   */
+/*   ft_infile.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/04 15:55:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 01:30:00 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_infile_basic(t_parsed *lst)
 			c++;
 		if (c == ft_check_infile(lst))
 		{
-			fd = open(lst->redirections[i] + 1, O_CREAT | O_RDWR , 0777);
+			fd = open(lst->redirections[i] + 1, O_CREAT | O_RDWR, 0777);
 			if (fd < 0)
 				exit(-1);
 			dup2(fd, STDIN);

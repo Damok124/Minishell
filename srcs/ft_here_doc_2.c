@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:37:34 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/12 15:46:55 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:47:23 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	ft_check_here_doc(t_parsed *lst)
 		i += ft_mini_check_here_doc(lst);
 		lst = lst->next;
 	}
-	
 	return (i);
 }
