@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 18:54:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:07:47 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_file_destroy(char *str, int i)
 
 void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	j = ft_do_need_pipe(lst, j);
@@ -123,7 +123,7 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
 	}
 	else if (id != 0)
 	{
-			ft_clean_connect(STDIN, p1[0], p1[1]);
+		ft_clean_connect(STDIN, p1[0], p1[1]);
 		//ft_clean_connect(STDOUT, p1[1], p1[0]);
 	}
 }

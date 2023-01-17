@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 18:20:04 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:07:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 	return (0);
 }
 
-char **ft_env_to_tab(t_nod *nod)
+char	**ft_env_to_tab(t_nod *nod)
 {
 	char	**strs;
 	char	*tmp;
@@ -133,11 +133,11 @@ char **ft_env_to_tab(t_nod *nod)
 	return (strs);
 }
 
-void    ft_show_nod(t_nod *nod)
+void	ft_show_nod(t_nod *nod)
 {
-    while (nod)
-    {
-        printf("%s=%s\n", nod->key, nod->value);
-        nod = nod->next;
-    }
+	while (nod)
+	{
+		printf("%s=%s\n", nod->key, nod->value);
+		nod = nod->next;
+	}
 }
