@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:26:58 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:54:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,28 @@ int	ft_execute(char *str, t_nod *env)
 	head = ft_minishell_parsing(ft_strdup(str), env);
 	//ft_show_lst_parsed(head);
 	lst = head;
+	tmp_stdin = dup(STDIN);
 	i = ft_here_doc(lst);
 	if (i != 0)
 	{
 		ft_free_parsed(head);
 		if (i == -1)
+		{
+			ft_return_value(0, env);
 			return (0);
+		}
 		else
+		{
+			ft_return_value(130, env);
 			return (130);
+		}
 	}
 	i = 0;
-	if (g_child_id == -2)
-	{
-		ft_free_parsed(head);
-		return (0);
-	}
+	// if (g_child_id == -2)
+	// {
+	// 	ft_free_parsed(head);
+	// 	return (0);
+	// }
 	while (lst)
 	{
 		while (lst && lst->redirections && ft_check_file(lst) == -1)
@@ -49,35 +56,39 @@ int	ft_execute(char *str, t_nod *env)
 			if (!lst)
 			{
 				ft_free_parsed(head);
-				return (-1);
+				ft_return_value(1, env);
+				return (1);
 			}
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
-		if (ft_check_unset_export(lst, head, env, i) == 1)
+		if (ft_check_unset_export(lst, head, env, i) == 1 && i == 0)
 			lst = lst->next;
 		if (lst == NULL)
 		{
+			ft_return_value(127, env);
 			ft_free_parsed(head);
 			return (127);
 		}
 		id = fork();
 		if (id == -1)
 			exit(1);
-		if (id != 0)
-			tmp_stdin = dup(STDIN);
+		if (id == 0)
+			close(tmp_stdin);
 		ft_init_pipe(lst, p1, id);
 		if (str != NULL && id == 0)
 			ft_pipex(lst, env, head, i, p1);
 		if (id != 0)
 			waitpid(id, &id, 0);
+		id = WEXITSTATUS(id);
+		ft_return_value(id, env);
 		lst = lst->next;
 		ft_file_destroy(str, i);
 		i++;
 		if (lst == NULL)
 			dup2(tmp_stdin, STDIN);
-		close(tmp_stdin);
 	}
+	close(tmp_stdin);
 	ft_free_parsed(head);
 	//printf("Exit status is %d\n", id);
 	return (id);

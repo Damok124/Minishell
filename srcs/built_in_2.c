@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:26:54 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:53:43 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_env(t_nod *env)
 {
 	while (env != NULL)
 	{
-		//if (ft_strncmp(env->key, "$?", 3) != 0)
+		if (ft_strncmp(env->key, "LEC_RV", 7) != 0)
 			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
@@ -90,13 +90,16 @@ void	ft_export(char **str, t_nod *env, int doo)
 	i = 1;
 	found = 0;
 	body = env;
-	if (str[1] != NULL && doo == 0)
+	if (str[1] != NULL && doo == 1)
 		return ;
-	while (str[i] != NULL ||body->next != NULL)
+	while (str[i] != NULL && body->next != NULL)
 	{
+		if (ft_strchr(str[i], '=') == NULL)
+			return ;
 		while (body->next != NULL)
 		{
-			printf("declare -x %s=\"%s\"\n", body->key,body->value);
+			if (!str[1])
+				printf("declare -x %s=\"%s\"\n", body->key,body->value);
 			body = body->next;
 		}
 		if (str[1] == NULL)

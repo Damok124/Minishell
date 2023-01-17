@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 17:48:39 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:20:04 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_check_unset_export(t_parsed *lst, t_parsed *head, t_nod *env, int i)
 		ft_export(lst->cmds, env, 0);
 	if (lst && lst->cmds && strncmp(lst->cmds[0], "exit", 5) == 0)
 		i = ft_exit(lst, head, env);
+	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "cd", 3) == 0)
+		ft_cd(lst->cmds, env, 1);
 	if (i == 1)
 		return (1);
 	return (0);
@@ -57,22 +59,24 @@ int	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 		i = ft_atoi_safe(lst->cmds[1], &check);
 		if (check == 0)
 		{
+			printf("HOOOOOOOOOOOOOOOOOOOOO\n");
 			printf("exit\n");
 			printf("Minishell: exit: %s: numeric argument required\n", lst->cmds[1]);
 			ft_free_parsed(head);
 			ft_free_env(env);
 			exit(2);
 		}
+		i = 0;
 		while (lst && lst->cmds && lst->cmds[1][i])
 		{
-			if (ft_isdigit(lst->cmds[1][i]) == 0)
+			if (!ft_strisdigit(lst->cmds[1]))
 				{
 					printf("exit\n");
 					printf("Minishell: exit: %s: numeric argument required\n", lst->cmds[1]);
 					i = ft_atoi_safe(lst->cmds[1], &check);
 					ft_free_parsed(head);
 					ft_free_env(env);
-					exit(i);
+					exit(2);
 				}
 			i++;
 		}

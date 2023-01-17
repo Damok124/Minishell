@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 18:04:09 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:22:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@ int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 {
 	char    *path;
 	char	**tab;
+	int		ret_value;
 
 	path = NULL;
+	ret_value = 0;
 	tab = ft_env_to_tab(env);
 	if (lst && lst->cmds && lst->cmds[0])
 		path = ft_access(lst->cmds[0], ft_get_env("PATH", env));
 	if (path == NULL && lst->cmds && lst->cmds[0] && ft_search_built_in(lst) == 0)
+	{
 		printf("%s:  command not found\n", lst->cmds[0]);
+		ret_value = 127;
+	}
 	if (ft_check_infile(lst) != 0)
 		ft_choose_here_doc_or_infile(lst, i);
 	if (ft_check_outfile(lst) != 0)
@@ -30,22 +35,25 @@ int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 	if (path != NULL && ft_search_built_in(lst) == 0)
 		execve(path, lst->cmds, tab);
 	else if (ft_search_built_in(lst) != 0)
-		ft_call_built_in(lst, head, env);
+		ret_value = ft_call_built_in(lst, head, env);
 	ft_free_double(tab, path);
 	ft_free_env(env);
 	ft_free_parsed(head);
 	close(p1[0]);
 	close(p1[1]);
-	exit(1);
+	exit(ret_value);
 	return (0);
 }
 
-void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
+int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 {
+	int	ret;
+
+	ret = 0;
 	if (lst && lst->cmds && ft_search_built_in(lst) == 1)
 		ft_echo(lst->cmds);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 2)
-		ft_cd(lst->cmds, env);
+		ret = ft_cd(lst->cmds, env, 0);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 3)
 		ft_pwd(lst->cmds);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 4)
@@ -56,6 +64,7 @@ void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 		ft_env(env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
 		ft_exit(lst, head,  env);
+	return (ret);
 }
 
 char	*ft_access(char *str, char *value)

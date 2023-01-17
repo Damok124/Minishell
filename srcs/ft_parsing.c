@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/16 18:21:34 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:42:41 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -773,10 +773,10 @@ void	ft_translation(char **src, char **trans, t_nod *env)
 	// ft_show_duo_strs(src, trans);
 	ft_disable_var_env(src, trans);
 	// printf("after disable var env\n");
-	ft_show_duo_strs(src, trans);
+	// ft_show_duo_strs(src, trans);
 	ft_include_var_env(src, trans, env);
-	printf("after include var env\n");
-	ft_show_duo_strs(src, trans);
+	// printf("after include var env\n");
+	// ft_show_duo_strs(src, trans);
 }
 
 int	ft_check_syntax(char **src, char **trans)////////////////////////////////

@@ -6,64 +6,32 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/13 14:31:36 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:43:00 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//reproduce echo
-void	ft_echo(char **str)
+int	ft_cd(char **str, t_nod *env, int i)
 {
-	int	i;
-
-	i = 1;
+	if (str[2])
+	{
+		if (i == 0)
+			printf("Minishell: cd: too many arguments\n");
+		return (1);
+	}
 	if (!str[1])
 	{
-		printf("\n");
-		return ;
-	}
-	if (ft_strncmp(str[0], "echo", 5) == 0 && ft_strncmp(str[1], "-n", 3) == 0)
-		ft_echo_n(str);
-	else
-	{
-		while (str[i] != NULL)
-		{
-			if (str[i + 1] != NULL)
-				printf("%s ", str[i]);
-			if (str[i + 1] == NULL)
-				printf("%s\n", str[i]);
-			i++;
-		}
-	}
-}
-
-void	ft_echo_n(char **str)
-{
-	int	i;
-
-	i = 2;
-	while (str[i] != NULL)
-	{
-		if (str[i + 1] != NULL)
-			printf("%s ", str[i]);
-		if (str[i + 1] == NULL)
-			printf("%s", str[i]);
-		i++;
-	}
-}
-
-void	ft_cd(char **str, t_nod *env)
-{
-	if (ft_strncmp(str[1], "", ft_strlen(str[1])) == 0 || ft_strncmp(str[1], """", ft_strlen(str[1])) == 34
-			|| ft_strncmp(str[1], ".", ft_strlen(".")) == 0)
-	{
 		chdir(ft_get_env("HOME", env));
-		return ;
+		return (0);
 	}
 	if (chdir(str[1]) == -1)
-		perror("chdir");
-	(void)env;
+	{
+		if (i == 0)
+			printf("Minishell: cd: %s: No such file or directory\n", str[1]);
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_pwd(char **str)
@@ -94,7 +62,7 @@ void	ft_unset(char **str, t_nod *env)
 	{
 		while (tmp != NULL)
 		{
-			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i])) == 0)
+			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i]) + 1) == 0)
 			{
 				tmp_2->next = tmp->next;
 				free(tmp->key);

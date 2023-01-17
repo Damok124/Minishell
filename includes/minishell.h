@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/16 18:04:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:46:49 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 # include "ft_printf.h"
 # include "pipex.h"///////////////////////////////////////
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <wait.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -102,9 +104,12 @@ char	*ft_get_username(t_nod *env);
 /////////////////////////
 
 */
+//		ft_echo
 void	ft_echo(char **str);
 void	ft_echo_n(char **str);
-void	ft_cd(char **str, t_nod *env);
+int		ft_check_echo_n(char *str);
+////////////////////////////////////////////////////////////////
+int		ft_cd(char **str, t_nod *env, int i);
 void	ft_pwd(char **str);
 void	ft_unset(char **str, t_nod *env);
 void	ft_export(char **str, t_nod *env, int doo);
@@ -116,6 +121,7 @@ int		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
 int		ft_check_unset_export(t_parsed *lst, t_parsed *head, t_nod *env, int i);
 void	ft_free_env(t_nod *env);
 void	ft_file_destroy(char *str, int i);
+void	ft_return_value(int value, t_nod *env);
 
 /////////////////////////
 //	EXEC
@@ -148,7 +154,7 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id);
 int		ft_do_need_pipe(t_parsed *lst, int j);
 void	ft_close(int a, int b, int c, int d);
 int		ft_search_built_in(t_parsed *lst);
-void	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
+int		ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
 int		ft_here_doc(t_parsed *lst);
 int		ft_check_here_doc(t_parsed *lst);
 int		ft_mini_check_here_doc(t_parsed *lst);
