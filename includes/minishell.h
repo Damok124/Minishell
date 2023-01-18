@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/18 17:04:24 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:07:38 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	ft_return_value(int value, t_nod *env);
 //	EXEC
 /////////////////////////
 
+void	ft_while(t_nod *env_nod);
 int		ft_execute(char *str, t_nod *env);
 int		ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2]);
 char	*ft_access(char *str, char *value);

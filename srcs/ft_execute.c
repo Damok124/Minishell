@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 16:28:24 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:21:18 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int	ft_execute(char *str, t_nod *env)
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
-		if (lst && lst->cmds)
-				ft_close(tmp_stdin, p1[0], p1[1], -1);
+		if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "exit", 5) == 0
+			&& lst->cmds[1] == NULL)
+			ft_close(tmp_stdin, p1[0], p1[1], -1);
 		if (ft_check_unset_export(lst, head, env, i) == 1 && i == 0)
 			lst = lst->next;
 		if (lst == NULL)

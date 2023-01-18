@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 18:03:21 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:21:22 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,24 @@ void	handler(int num)
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*str;
 	t_nod		*env_nod;
 
-	str = NULL;
 	g_child_id = -1;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	env_nod = ft_init_lst(env);
+	ft_while(env_nod);
+	ft_free_env(env_nod);
+	(void)argc;
+	(void)argv;
+	return (0);
+}
+
+void	ft_while(t_nod *env_nod)
+{
+	char	*str;
+
+	str = NULL;
 	while (1)
 	{
 		str = readline("Minishell:~");
@@ -69,10 +79,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		free(str);
 	}
-	ft_free_env(env_nod);
-	(void)argc;
-	(void)argv;
-	return (0);
 }
 
 void	ft_return_value(int value, t_nod *env)
