@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:42:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 17:49:35 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:40:12 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ void	ft_echo_n(char **str)
 	}
 }
 
-int ft_check_echo_n(char *str)
+int	ft_check_echo_n(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (str[i] != '-')
-        return (1);
-    i++;
-    while (str[i] != '\0')
-    {
-        if (str[i] != 'n' && str[i] != '\0')
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	if (str[i] != '-')
+		return (1);
+	i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] != 'n' && str[i] != '\0')
+			return (1);
+		i++;
+	}
+	return (0);
 }

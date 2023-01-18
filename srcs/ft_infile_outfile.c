@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:43:52 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 15:25:35 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:46:40 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_check_file(t_parsed *lst)
 {
 	int	i;
 	int	fd;
-	int	ok;
 
 	i = 0;
 	while (lst && lst->redirections && lst->redirections[i] != NULL)
@@ -31,17 +30,27 @@ int	ft_check_file(t_parsed *lst)
 			}
 			fd = close(fd);
 		}
-		ok = ft_check_in(lst, i);
-		if (ok == -1)
-			return (-1);
-		ok = ft_check_out(lst, i);
-		if (ok == -1)
-			return (-1);
-		ok = ft_check_append(lst, i);
-		if (ok == -1)
+		if (ft_check_file_error(lst, i) == -1)
 			return (-1);
 		i++;
 	}
+	return (0);
+}
+
+int	ft_check_file_error(t_parsed *lst, int i)
+{
+	int	ok;
+
+	ok = 0;
+	ok = ft_check_in(lst, i);
+	if (ok == -1)
+		return (-1);
+	ok = ft_check_out(lst, i);
+	if (ok == -1)
+		return (-1);
+	ok = ft_check_append(lst, i);
+	if (ok == -1)
+		return (-1);
 	return (0);
 }
 

@@ -6,15 +6,15 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 16:28:16 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:35:12 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int g_child_id;
+extern int	g_child_id;
 
-int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
+void	ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2])
 {
 	char	*path;
 	char	**tab;
@@ -23,28 +23,32 @@ int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 	path = NULL;
 	ret_value = 0;
 	tab = ft_env_to_tab(env);
-	if (lst && lst->cmds && lst->cmds[0])
-		path = ft_access(lst->cmds[0], ft_get_env("PATH", env));
-	if (path == NULL && lst->cmds && lst->cmds[0] && ft_search_built_in(lst) == 0)
+	if (lst[1] && lst[1]->cmds && lst[1]->cmds[0])
+		path = ft_access(lst[1]->cmds[0], ft_get_env("PATH", env));
+	if (path == NULL && lst[1]->cmds && lst[1]->cmds[0]
+		&& ft_search_built_in(lst[1]) == 0)
 	{
-		printf("%s:  command not found\n", lst->cmds[0]);
+		printf("%s:  command not found\n", lst[1]->cmds[0]);
 		ret_value = 127;
 	}
-	if (ft_check_infile(lst) != 0)
-		ft_choose_here_doc_or_infile(lst, i);
-	if (ft_check_outfile(lst) != 0)
-		ft_choose_outfile(lst);
-	if (path != NULL && ft_search_built_in(lst) == 0)
-		execve(path, lst->cmds, tab);
-	else if (ft_search_built_in(lst) != 0)
-		ret_value = ft_call_built_in(lst, head, env);
+	if (ft_check_infile(lst[1]) != 0)
+		ft_choose_here_doc_or_infile(lst[1], i);
+	if (ft_check_outfile(lst[1]) != 0)
+		ft_choose_outfile(lst[1]);
+	if (path != NULL && ft_search_built_in(lst[1]) == 0)
+		execve(path, lst[1]->cmds, tab);
+	else if (ft_search_built_in(lst[1]) != 0)
+		ret_value = ft_call_built_in(lst[1], lst[0], env);
+	ft_clean_pipex(lst[0], env, tab, path);
+	ft_close(p1[0], p1[1], -1, -1);
+	exit(ret_value);
+}
+
+void	ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path)
+{
 	ft_free_double(tab, path);
 	ft_free_env(env);
-	ft_free_parsed(head);
-	close(p1[0]);
-	close(p1[1]);
-	exit(ret_value);
-	return (0);
+	ft_free_parsed(lst);
 }
 
 int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
@@ -65,7 +69,7 @@ int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
 		ft_env(env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-		ft_exit(lst, head,  env);
+		ft_exit(lst, head, env);
 	return (ret);
 }
 

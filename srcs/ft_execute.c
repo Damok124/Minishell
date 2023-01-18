@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 18:21:18 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:37:24 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ extern int	g_child_id;
 
 int	ft_execute(char *str, t_nod *env)
 {
-	t_parsed	*lst;
-	t_parsed	*head;
+	t_parsed	*lst[2];
 	int			p1[2];
 	int			id;
 	int			i;
 	int			tmp_stdin;
 
-	head = ft_minishell_parsing(ft_strdup(str), env);
-	//ft_show_lst_parsed(head);
-	lst = head;
+	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
+	//ft_show_lst_parsed(lst[0]);
+	
+	lst[1] = lst[0];
 	tmp_stdin = dup(STDIN);
-	i = ft_here_doc(lst);
+	i = ft_here_doc(lst[1]);
 	if (i != 0)
 	{
-		ft_free_parsed(head);
+		ft_free_parsed(lst[0]);
 		if (i == -1)
 		{
 			ft_return_value(0, env);
@@ -45,17 +45,17 @@ int	ft_execute(char *str, t_nod *env)
 	i = 0;
 	// if (g_child_id == -2)
 	// {
-	// 	ft_free_parsed(head);
+	// 	ft_free_parsed(lst[0]);
 	// 	return (0);
 	// }
-	while (lst)
+	while (lst[1])
 	{
-		while (lst && lst->redirections && ft_check_file(lst) == -1)
+		while (lst[1] && lst[1]->redirections && ft_check_file(lst[1]) == -1)
 		{
-			lst = lst->next;
-			if (!lst)
+			lst[1] = lst[1]->next;
+			if (!lst[1])
 			{
-				ft_free_parsed(head);
+				ft_free_parsed(lst[0]);
 				ft_return_value(1, env);
 				ft_close(tmp_stdin, p1[0], p1[1], -1);
 				return (1);
@@ -63,16 +63,16 @@ int	ft_execute(char *str, t_nod *env)
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
-		if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "exit", 5) == 0
-			&& lst->cmds[1] == NULL)
+		if (lst[1] && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "exit", 5) == 0
+			&& lst[1]->cmds[1] == NULL)
 			ft_close(tmp_stdin, p1[0], p1[1], -1);
-		if (ft_check_unset_export(lst, head, env, i) == 1 && i == 0)
-			lst = lst->next;
-		if (lst == NULL)
+		if (ft_check_unset_export(lst[1], lst[0], env, i) == 1 && i == 0)
+			lst[1] = lst[1]->next;
+		if (lst[1] == NULL)
 		{
 			ft_return_value(127, env);
 			ft_close(tmp_stdin, p1[0], p1[1], -1);
-			ft_free_parsed(head);
+			ft_free_parsed(lst[0]);
 			return (127);
 		}
 		id = fork();
@@ -80,21 +80,21 @@ int	ft_execute(char *str, t_nod *env)
 			exit(1);
 		if (id == 0)
 			close(tmp_stdin);
-		ft_init_pipe(lst, p1, id);
+		ft_init_pipe(lst[1], p1, id);
 		if (str != NULL && id == 0)
-			ft_pipex(lst, env, head, i, p1);
+			ft_pipex(lst, env, i, p1);
 		if (id != 0)
 			waitpid(id, &id, 0);
 		id = WEXITSTATUS(id);
 		ft_return_value(id, env);
-		lst = lst->next;
+		lst[1] = lst[1]->next;
 		ft_file_destroy(str, i);
 		i++;
-		if (lst == NULL)
+		if (lst[1] == NULL)
 			dup2(tmp_stdin, STDIN);
 	}
 	ft_close(tmp_stdin, p1[0], p1[1], -1);
-	ft_free_parsed(head);
+	ft_free_parsed(lst[0]);
 	//printf("Exit status is %d\n", id);
 	return (id);
 }

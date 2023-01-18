@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/18 18:07:38 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 20:00:34 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,9 @@ typedef struct s_twins
 	char			**trans;
 	struct s_twins	*next;
 }			t_twins;
-
-int		ft_test(void);
-char	*ft_get_env(char *str, t_nod *env);
-
-
 /////////////////////////
 //	DEFINES
 /////////////////////////
-
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
@@ -96,7 +90,9 @@ void	ft_print_cmderr(char **validpaths, char **argv);
 /////////////////////////
 
 */
-char	*ft_get_username(t_nod *env);
+char		*ft_get_username(t_nod *env);
+int			ft_test(void);
+char		*ft_get_env(char *str, t_nod *env);
 /*
 
 /////////////////////////
@@ -105,71 +101,72 @@ char	*ft_get_username(t_nod *env);
 
 */
 //		ft_echo
-void	ft_echo(char **str);
-void	ft_echo_n(char **str);
-int		ft_check_echo_n(char *str);
+void		ft_echo(char **str);
+void		ft_echo_n(char **str);
+int			ft_check_echo_n(char *str);
 ////////////////////////////////////////////////////////////////
 //		ft_export
-void	ft_export(char **str, t_nod *env, int doo);
-int		ft_fuse_export(t_nod *nod, char *str);
-void	ft_show_declare(t_nod *env);
+void		ft_export(char **str, t_nod *env, int doo);
+int			ft_fuse_export(t_nod *nod, char *str);
+void		ft_show_declare(t_nod *env);
+int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
+int			ft_make_nod(t_nod *big_nod[3] ,char **str, int i, int found);
 ////////////////////////////////////////////////////////////////
-int		ft_cd(char **str, t_nod *env, int i);
-void	ft_pwd(char **str);
-void	ft_unset(char **str, t_nod *env);
-void	ft_env(t_nod *env);
-t_nod	*ft_init_lst(char **env);
-t_nod	*ft_init_nod(char *str);
-char	**ft_env_to_tab(t_nod *nod);
-int		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
-int		ft_check_unset_export(t_parsed *lst, t_parsed *head, t_nod *env, int i);
-void	ft_free_env(t_nod *env);
-void	ft_file_destroy(char *str, int i);
-void	ft_return_value(int value, t_nod *env);
+int			ft_cd(char **str, t_nod *env, int i);
+void		ft_pwd(char **str);
+void		ft_unset(char **str, t_nod *env);
+void		ft_env(t_nod *env);
+t_nod		*ft_init_lst(char **env);
+t_nod		*ft_init_nod(char *str);
+char		**ft_env_to_tab(t_nod *nod);
+int			ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
+int			ft_check_unset_export(t_parsed *lst, t_parsed *head,
+				t_nod *env, int i);
+void		ft_free_env(t_nod *env);
+void		ft_file_destroy(char *str, int i);
+void		ft_return_value(int value, t_nod *env);
+int			ft_check_file_error(t_parsed *lst, int i);
 
 /////////////////////////
 //	EXEC
 /////////////////////////
-
-void	ft_while(t_nod *env_nod);
-int		ft_execute(char *str, t_nod *env);
-int		ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2]);
-char	*ft_access(char *str, char *value);
-void	ft_free_double(char **str, char *str2);
-char	*ft_check_access(char **env, char *path, char *str);
-int		ft_redirection(t_parsed *lst);
-int		ft_check_file(t_parsed *lst);
-int		ft_infile(t_parsed *lst);
-int		ft_check_in(t_parsed *lst, int i);
-int		ft_check_append(t_parsed *lst, int i);
-int		ft_check_out(t_parsed *lst, int i);
-int		ft_check_file(t_parsed *lst);
-int		ft_check_here_doc_or_infile(t_parsed *lst);
-void	ft_choose_here_doc_or_infile(t_parsed *lst, int i);
-void	ft_fake_here_doc(t_parsed *lst, int i);
-int		ft_real_here_doc(t_parsed *lst, int i, int c);
-int		ft_create_here_doc(t_parsed *lst, int c);
-int		ft_check_outfile(t_parsed *lst);
-void	ft_choose_outfile(t_parsed *lst);
-void	ft_outfile_basic(t_parsed *lst);
-void	ft_outfile_append(t_parsed *lst);
-int		ft_infile_basic(t_parsed *lst);
-int		ft_check_infile(t_parsed *lst);
-void	ft_init_pipe(t_parsed *lst, int p1[2], int id);
-int		ft_do_need_pipe(t_parsed *lst, int j);
-void	ft_close(int a, int b, int c, int d);
-int		ft_search_built_in(t_parsed *lst);
-int		ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
-int		ft_here_doc(t_parsed *lst);
-int		ft_check_here_doc(t_parsed *lst);
-int		ft_mini_check_here_doc(t_parsed *lst);
-
-
-
-void	ft_show_strs(char **strs);
-
-
-
+void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
+void		ft_while(t_nod *env_nod);
+int			ft_execute(char *str, t_nod *env);
+void		ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2]);
+char		*ft_access(char *str, char *value);
+void		ft_free_double(char **str, char *str2);
+char		*ft_check_access(char **env, char *path, char *str);
+int			ft_redirection(t_parsed *lst);
+int			ft_check_file(t_parsed *lst);
+int			ft_infile(t_parsed *lst);
+int			ft_check_in(t_parsed *lst, int i);
+int			ft_check_append(t_parsed *lst, int i);
+int			ft_check_out(t_parsed *lst, int i);
+int			ft_check_file(t_parsed *lst);
+int			ft_check_here_doc_or_infile(t_parsed *lst);
+void		ft_choose_here_doc_or_infile(t_parsed *lst, int i);
+void		ft_fake_here_doc(t_parsed *lst, int i);
+int			ft_real_here_doc(t_parsed *lst, int i, int c);
+int			ft_create_here_doc(t_parsed *lst, int c);
+int			ft_check_outfile(t_parsed *lst);
+void		ft_choose_outfile(t_parsed *lst);
+void		ft_outfile_basic(t_parsed *lst);
+void		ft_outfile_append(t_parsed *lst);
+int			ft_infile_basic(t_parsed *lst);
+int			ft_check_infile(t_parsed *lst);
+void		ft_init_pipe(t_parsed *lst, int p1[2], int id);
+int			ft_do_need_pipe(t_parsed *lst, int j);
+void		ft_close(int a, int b, int c, int d);
+int			ft_search_built_in(t_parsed *lst);
+int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
+int			ft_here_doc(t_parsed *lst);
+int			ft_check_here_doc(t_parsed *lst);
+int			ft_mini_check_here_doc(t_parsed *lst);
+////////////////////////////////////////
+//////////////Parsing//////////////////
+//////////////////////////////////////
+void		ft_show_strs(char **strs);
 void		ft_close_stdfds(void);
 void		ft_true_free(void **ptr);
 void		ft_full_free(void **tobefreed);
@@ -191,7 +188,8 @@ void		ft_true_split(char const *s, char **strs, char c, ssize_t len);
 char		**ft_split(char const *s, char c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 ssize_t		ft_count_strs_set(const char *s, char *set);
-void		ft_true_split_set(char const *s, char **strs, char *set, ssize_t len);
+void		ft_true_split_set(char const *s, char **strs, char *set,
+				ssize_t len);
 char		**ft_split_set(const char *s, char *set);
 char		*ft_strtrim(char const *s1, char const *set);
 int			ft_strslen(char **strs);
