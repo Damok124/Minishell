@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:06:50 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:49:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ t_nod	*ft_init_nod(char *str)
 	while (str[i] != '=')
 		i++;
 	str[i] = '\0';
+	if (str[i - 1] == '+')
+		str[i - 1] = '\0';
 	i++;
 	nod->value = ft_strdup(str + i);
 	nod->key = ft_strdup(str);
@@ -80,37 +82,3 @@ t_nod	*ft_init_nod(char *str)
 	return (nod);
 }
 
-void	ft_export(char **str, t_nod *env, int doo)
-{
-	int		i;
-	int		found;
-	t_nod	*body;
-	t_nod	*tmp;
-
-	i = 1;
-	found = 0;
-	body = env;
-	if (str[1] != NULL && doo == 1)
-		return ;
-	while (str[i] != NULL && body->next != NULL)
-	{
-		if (ft_strchr(str[i], '=') == NULL)
-			return ;
-		while (body->next != NULL)
-		{
-			if (!str[1])
-				printf("declare -x %s=\"%s\"\n", body->key,body->value);
-			body = body->next;
-		}
-		if (str[1] == NULL)
-			return ;
-		if (found == 0 && str[1] != NULL)
-		{
-			tmp = ft_init_nod(str[i]);
-			tmp->next = NULL;
-			body->next = tmp;
-		}
-		body = env;
-		i++;
-	}
-}

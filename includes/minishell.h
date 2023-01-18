@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/17 17:46:49 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:04:24 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,14 @@ void	ft_echo(char **str);
 void	ft_echo_n(char **str);
 int		ft_check_echo_n(char *str);
 ////////////////////////////////////////////////////////////////
+//		ft_export
+void	ft_export(char **str, t_nod *env, int doo);
+int		ft_fuse_export(t_nod *nod, char *str);
+void	ft_show_declare(t_nod *env);
+////////////////////////////////////////////////////////////////
 int		ft_cd(char **str, t_nod *env, int i);
 void	ft_pwd(char **str);
 void	ft_unset(char **str, t_nod *env);
-void	ft_export(char **str, t_nod *env, int doo);
 void	ft_env(t_nod *env);
 t_nod	*ft_init_lst(char **env);
 t_nod	*ft_init_nod(char *str);

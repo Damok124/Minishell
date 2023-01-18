@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/16 09:48:57 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/18 15:26:42 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int	ft_real_here_doc(t_parsed *lst, int i, int c)
 		str = readline("< ");
 		if (str == NULL)
 		{
-			//ft_putchar_fd('\n', fd);
 			printf("Minishell: warning: here-document delimited by ");
 			printf("end-of-file (wanted `%s')\n", lst->redirections[i] + 1);
+			close(fd);
 			return (-1);
 		}
 		if (str && lst && lst->redirections && ft_strncmp(str,

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:08:29 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:03:21 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ int	g_child_id;
 
 void	handler(int num)
 {
-	if (g_child_id != 0 && g_child_id != -1 && g_child_id != 33280 && g_child_id != 130)
+	if (g_child_id != 0 && g_child_id != -1 && g_child_id
+		!= 33280 && g_child_id != 130)
 	{
+		if (g_child_id == 1)
+			write(1, "\n", 1);
 		g_child_id = -1;
 		return ;
 	}
@@ -55,8 +58,10 @@ int	main(int argc, char **argv, char **env)
 			ft_return_value(130, env_nod);
 		}
 		add_history(str);
+		g_child_id = 1;
 		if (str != NULL)
 			ft_execute(str, env_nod);
+		g_child_id = -1;
 		if (str == NULL)
 		{
 			printf("exit");

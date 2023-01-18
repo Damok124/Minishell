@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:07:47 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:28:24 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,20 @@ int	ft_execute(char *str, t_nod *env)
 			{
 				ft_free_parsed(head);
 				ft_return_value(1, env);
+				ft_close(tmp_stdin, p1[0], p1[1], -1);
 				return (1);
 			}
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
+		if (lst && lst->cmds)
+				ft_close(tmp_stdin, p1[0], p1[1], -1);
 		if (ft_check_unset_export(lst, head, env, i) == 1 && i == 0)
 			lst = lst->next;
 		if (lst == NULL)
 		{
 			ft_return_value(127, env);
+			ft_close(tmp_stdin, p1[0], p1[1], -1);
 			ft_free_parsed(head);
 			return (127);
 		}
@@ -88,7 +92,7 @@ int	ft_execute(char *str, t_nod *env)
 		if (lst == NULL)
 			dup2(tmp_stdin, STDIN);
 	}
-	close(tmp_stdin);
+	ft_close(tmp_stdin, p1[0], p1[1], -1);
 	ft_free_parsed(head);
 	//printf("Exit status is %d\n", id);
 	return (id);
@@ -116,16 +120,14 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
 	if (id == 0)
 	{
 		if (lst != NULL && lst->next != NULL)
-		{
 			ft_clean_connect(STDOUT, p1[1], p1[0]);
-		}
-		//ft_clean_connect(STDIN, p1[0], p1[1]);
+		else
+			close(p1[1]);
 	}
-	else if (id != 0)
-	{
+	if (id != 0)
 		ft_clean_connect(STDIN, p1[0], p1[1]);
-		//ft_clean_connect(STDOUT, p1[1], p1[0]);
-	}
+	else
+		close(p1[0]);
 }
 
 int	ft_do_need_pipe(t_parsed *lst, int j)

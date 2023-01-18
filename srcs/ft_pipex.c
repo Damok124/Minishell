@@ -6,11 +6,13 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:08:21 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:28:16 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int g_child_id;
 
 int	ft_pipex(t_parsed *lst, t_nod *env, t_parsed *head, int i, int p1[2])
 {

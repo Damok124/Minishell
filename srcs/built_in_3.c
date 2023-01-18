@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:07:28 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/18 16:32:12 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 		i = ft_atoi_safe(lst->cmds[1], &check);
 		if (check == 0)
 		{
-			printf("HOOOOOOOOOOOOOOOOOOOOO\n");
 			printf("exit\n");
 			printf("Minishell: exit: %s: numeric argument required\n", lst->cmds[1]);
 			ft_free_parsed(head);
