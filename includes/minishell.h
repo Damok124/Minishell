@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 18:33:03 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 23:12:20 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "ft_printf.h"
-# include "pipex.h"///////////////////////////////////////
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -54,13 +53,14 @@ typedef struct s_twins
 /////////////////////////
 //	DEFINES
 /////////////////////////
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+# define SRC 0
+# define TRANS 1
+# define SIMPLE 0
+# define DOUBLE 1
 # define READ_END 0
 # define WRITE_END 1
 # define HEREDOC ".tmp_here_doc_tmpfile_touch_it_and_you_will_die_!"
-# define HRM "Minishell: warning: delimited by end-of-file (wanted `%s')\n"
+# define HRM "Minishell: warning: delimited by end-of-file (wanted '%s')\n"
 /*
 /////////////////////////
 //	STRUCTURES
@@ -164,6 +164,7 @@ int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);
 int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
+void		ft_clean_connect(int std, int toconnect, int toclose);
 /////////////////////////
 //	HERE_DOC
 /////////////////////////

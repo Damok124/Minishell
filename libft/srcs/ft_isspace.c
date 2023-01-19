@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean_connect.c                                 :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 23:59:39 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/06 14:53:03 by tlarraze         ###   ########.fr       */
+/*   Created: 2023/01/19 23:07:42 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/19 23:15:40 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	ft_clean_connect(int std, int toconnect, int toclose)
+int	ft_isspace(int c)
 {
-	dup2(toconnect, std);
-	close(toconnect);
-	close(toclose);
+	if ((c > 8 && c < 17) || c == 32)
+		return (1);
+	else
+		return (0);
 }

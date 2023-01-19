@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_not_found.c                                 :+:      :+:    :+:   */
+/*   ft_strslen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 23:59:46 by zharzi            #+#    #+#             */
-/*   Updated: 2022/11/09 18:47:53 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/19 23:07:49 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/19 23:15:24 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-void	ft_cmd_not_found(char *str)
+int	ft_strslen(char **strs)
 {
-	write(2, "Command '", ft_strlen("Command '"));
-	write(2, str, ft_strlen(str));
-	write(2, "' not found.\n", ft_strlen("' not found.\n"));
+	int	i;
+
+	i = 0;
+	while (strs && strs[i])
+		i++;
+	return (i);
 }

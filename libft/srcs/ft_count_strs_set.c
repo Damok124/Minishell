@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_cmd.c                                     :+:      :+:    :+:   */
+/*   ft_count_strs_set.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 00:00:13 by zharzi            #+#    #+#             */
-/*   Updated: 2022/11/09 18:48:19 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/19 23:08:08 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/19 23:08:14 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**ft_parse_cmd(char *arg)
+ssize_t	ft_count_strs_set(const char *s, char *set)
 {
-	char	**cmd;
+	ssize_t	n;
+	ssize_t	i;
 
-	cmd = ft_split(arg, ' ');
-	return (cmd);
+	n = 0;
+	i = 0;
+	while (s && s[i])
+	{
+		while (s[i] && ft_strchr(set, s[i]))
+			i++;
+		if (s[i] && !ft_strchr(set, s[i]))
+			n++;
+		while (s[i] && !ft_strchr(set, s[i]))
+			i++;
+	}
+	return (n);
 }

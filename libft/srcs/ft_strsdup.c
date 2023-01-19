@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_paths.c                                     :+:      :+:    :+:   */
+/*   ft_strsdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 23:59:53 by zharzi            #+#    #+#             */
-/*   Updated: 2022/11/09 18:48:01 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/19 23:07:33 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/19 23:07:35 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**ft_get_paths(char **env)
+char	**ft_strsdup(char **src)
 {
+	char	**dest;
 	int		i;
-	int		len;
-	char	**tmp;
-	char	**paths;
 
 	i = 0;
-	while (env && env[i] && ft_strncmp(env[i], "PATH=", 5))
+	while (src && src[i])
 		i++;
-	tmp = ft_split(env[i] + 5, ':');
-	len = ft_count_strs(env[i], ':');
-	paths = (char **)malloc(sizeof(char *) * (len + 1));
-	paths[len] = NULL;
-	i = 0;
-	while (tmp[i])
-	{
-		paths[i] = ft_strjoin(tmp[i], "/");
-		i++;
-	}
-	ft_full_free((void **)tmp);
-	tmp = NULL;
-	return (paths);
+	dest = ft_alloc_strs(i);
+	while (--i >= 0)
+		dest[i] = ft_strdup(src[i]);
+	return (dest);
 }

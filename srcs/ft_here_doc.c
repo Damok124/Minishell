@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 18:16:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 21:59:19 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	ft_fake_here_doc(t_parsed *lst, t_nod *env, int i)
 		if (str == NULL)
 		{
 			printf("Minishell: warning: here-document delimited by ");
-			printf("end-of-file (wanted `%s')\n", lst->redirections[i] + 1);
+			printf("end-of-file (wanted '%s')\n", lst->redirections[i] + 1);
 			free(str);
 			return (-1);
 		}

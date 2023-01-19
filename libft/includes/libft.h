@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:33:23 by zharzi            #+#    #+#             */
-/*   Updated: 2022/11/14 13:32:16 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 23:14:41 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 typedef struct s_list
 {
 	void			*content;
@@ -48,6 +52,7 @@ typedef struct s_tools2 {
 	int		count;
 }			t_tools2;
 
+
 /////////////////////////
 //	PRINT
 /////////////////////////
@@ -59,12 +64,14 @@ void					ft_putnbr_base_fd(int nbr, char *base, int fd);
 void					ft_putstr_fd(char *s, int fd);
 void					ft_show_tab_fd(int len, int *tab, int fd);
 void					ft_show_strs_fd(char **strs, int fd);
+void 					ft_show_strs(char **strs);
 /////////////////////////
 //	FREE
 /////////////////////////
 void					ft_full_free_nb(void **tobefreed, int nb);
 void					ft_full_free(void **tobefree);
 void					ft_true_free(void **ptr);
+void					ft_close_stdfds(void);
 /////////////////////////
 //	CHECK
 /////////////////////////
@@ -73,6 +80,7 @@ int						ft_isalpha(int c);
 int						ft_isascii(int c);
 int						ft_isdigit(int c);
 int						ft_isprint(int c);
+int						ft_isspace(int c);
 int						ft_strisalnum(char *str);
 int						ft_strisalpha(char *str);
 int						ft_strisdigit(char *str);
@@ -85,6 +93,7 @@ int						ft_check_extension(char *filename, char *extension);
 /////////////////////////
 //	INITIALIZATION
 /////////////////////////
+char					**ft_alloc_strs(int size);
 void					*ft_calloc(size_t nmemb, size_t size);
 void					*ft_memset(void *s, int c, size_t n);
 void					ft_bzero(void *s, size_t n);
@@ -117,13 +126,18 @@ int						ft_tolower(int c);
 int						ft_toupper(int c);
 int						*ft_strs_to_tab(int len, char **strs);
 int						ft_cap_color(int color);
+char					**ft_split_set(const char *s, char *set);
+char					**ft_split_at_index(char *str, int i);
 /////////////////////////
 //	MATHEMATIC
 /////////////////////////
 int						ft_abs(int x);
 int						ft_sqrt(int nb);
 size_t					ft_strlen(const char *str);
+int						ft_strslen(char **strs);
 ssize_t					ft_count_strs(const char *s, char c);
+ssize_t					ft_count_strs_set(const char *s, char *set);
+int						ft_sum_strlen(char **strs);
 /////////////////////////
 //	RESEARCH
 /////////////////////////
@@ -139,6 +153,7 @@ int						ft_strindex(const char *s, int c);
 void					*ft_memcpy(void *dest, const void *src, size_t n);
 void					*ft_memmove(void *dest, const void *src, size_t n);
 char					*ft_strdup(const char *s);
+char					**ft_strsdup(char **src);
 size_t					ft_strlcpy(char *dst, const char *src, size_t size);
 char					*ft_substr(char const *s, unsigned int start, \
 	size_t len);

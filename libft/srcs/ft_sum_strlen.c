@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_outfile_permission.c                            :+:      :+:    :+:   */
+/*   ft_sum_strlen.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 00:00:08 by zharzi            #+#    #+#             */
-/*   Updated: 2022/11/09 18:48:14 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/19 23:13:59 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/19 23:15:14 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	ft_outfile_permission(char *filename)
+int	ft_sum_strlen(char **strs)
 {
-	char	*msg;
+	int	i;
+	int	j;
+	int	sum;
 
-	if (!access(filename, F_OK) && access(filename, W_OK))
+	i = 0;
+	j = 0;
+	sum = 0;
+	while (strs && strs[i])
 	{
-		msg = ft_strjoin("pipex: ", filename);
-		perror(msg);
-		ft_true_free((void **)&msg);
-		return (0);
+		while (strs[i][j])
+			j++;
+		sum += j;
+		j = 0;
+		i++;
 	}
-	return (1);
+	return (sum);
 }
