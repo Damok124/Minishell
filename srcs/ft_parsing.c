@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 08:01:28 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 23:23:55 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 00:04:07 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_isheredoc(char *str)
 {
 	if (str && str[0])
 	{
-		if(str[0] == 'H')
+		if (str[0] == 'H')
 			return (1);
 	}
 	return (0);
@@ -45,9 +45,9 @@ int	ft_isoutfile(char *str)
 {
 	if (str && str[0])
 	{
-		if(str[0] == '>')
+		if (str[0] == '>')
 			return (1);
-		if(str[0] == 'A')
+		if (str[0] == 'A')
 			return (2);
 	}
 	return (0);
@@ -57,7 +57,7 @@ int	ft_isambiguous(char *str)
 {
 	if (str && str[0])
 	{
-		if(str[0] == '?')
+		if (str[0] == '?')
 			return (1);
 	}
 	return (0);
@@ -67,9 +67,9 @@ int	ft_isinfile(char *str)
 {
 	if (str && str[0])
 	{
-		if(str[0] == '<')
+		if (str[0] == '<')
 			return (1);
-		if(str[0] == 'H')
+		if (str[0] == 'H')
 			return (2);
 	}
 	return (0);
@@ -448,7 +448,7 @@ void	ft_disable_var_env(char **src, char **trans)
 		{
 			tmp = NULL;
 			heredocs -= 1;
-			if (ft_strnstr(trans[0] + i + 2, "$", len  - (i + 2)))
+			if (ft_strnstr(trans[0] + i + 2, "$", len - (i + 2)))
 				ft_remove_symbol_var_env(src, trans, i + 2);
 			i++;
 		}
@@ -543,9 +543,9 @@ void	ft_reveal_ambi_redirect(char **src, char **trans)
 	int	j;
 	int	i;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (src && trans && src[0] && trans[0] && src[0][i] && trans[0][i])
+	while (src && trans && src[0] && trans[0] && src[0][i] && trans[0][++i])
 	{
 		if (ft_strchr("<>", trans[0][i]))
 			j = 1;
@@ -564,7 +564,6 @@ void	ft_reveal_ambi_redirect(char **src, char **trans)
 			}
 			j = 0;
 		}
-		i++;
 	}
 }
 
