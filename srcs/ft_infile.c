@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_infile.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 01:30:00 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:53:57 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,37 @@ void	ft_choose_here_doc_or_infile(t_parsed *lst, int c)
 	int		infile;
 	int		fd;
 	int		i;
-	char	*str;
 
-	i = 0;
+	i = -1;
 	here_doc = -1;
 	infile = -1;
-	while (lst && lst->redirections && lst->redirections[i])
+	while (lst && lst->redirections && lst->redirections[++i])
 	{
 		if (lst->redirections[i][0] == '<')
 			infile = i;
 		if (lst->redirections[i][0] == 'H')
 			here_doc = i;
-		i++;
 	}
 	if (infile > here_doc)
 		fd = ft_infile_basic(lst);
 	if (here_doc > infile)
-	{
-		str = ft_strjoin(HEREDOC, ft_itoa(c));
-		fd = open(str, O_CREAT | O_RDONLY, 0644);
-		free(str);
-	}
+		fd = ft_here_doc_basic(c);
 	dup2(fd, 0);
 	close(fd);
+}
+
+int	ft_here_doc_basic(int c)
+{
+	char	*str;
+	char	*tmp;
+	int		fd;
+
+	tmp = ft_itoa(c);
+	str = ft_strjoin(HEREDOC, tmp);
+	fd = open(str, O_CREAT | O_RDONLY, 0644);
+	free(str);
+	free(tmp);
+	return (fd);
 }
 
 int	ft_infile_basic(t_parsed *lst)

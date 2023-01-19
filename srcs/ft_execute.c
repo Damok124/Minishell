@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 18:37:24 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:24:54 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	ft_execute(char *str, t_nod *env)
 
 	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
 	//ft_show_lst_parsed(lst[0]);
-	
 	lst[1] = lst[0];
 	tmp_stdin = dup(STDIN);
-	i = ft_here_doc(lst[1]);
+	p1[0] = -1;
+	p1[1] = -1;
+	i = ft_here_doc(lst[1], env);
 	if (i != 0)
 	{
 		ft_free_parsed(lst[0]);
@@ -43,11 +44,6 @@ int	ft_execute(char *str, t_nod *env)
 		}
 	}
 	i = 0;
-	// if (g_child_id == -2)
-	// {
-	// 	ft_free_parsed(lst[0]);
-	// 	return (0);
-	// }
 	while (lst[1])
 	{
 		while (lst[1] && lst[1]->redirections && ft_check_file(lst[1]) == -1)
@@ -55,26 +51,19 @@ int	ft_execute(char *str, t_nod *env)
 			lst[1] = lst[1]->next;
 			if (!lst[1])
 			{
-				ft_free_parsed(lst[0]);
 				ft_return_value(1, env);
-				ft_close(tmp_stdin, p1[0], p1[1], -1);
-				return (1);
+				return (ft_clean_end(lst[0], tmp_stdin, p1));
 			}
 		}
 		if (pipe(p1) == -1)
 			exit(-1);
-		if (lst[1] && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "exit", 5) == 0
+		if (lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "exit", 5) == 0
 			&& lst[1]->cmds[1] == NULL)
 			ft_close(tmp_stdin, p1[0], p1[1], -1);
 		if (ft_check_unset_export(lst[1], lst[0], env, i) == 1 && i == 0)
 			lst[1] = lst[1]->next;
 		if (lst[1] == NULL)
-		{
-			ft_return_value(127, env);
-			ft_close(tmp_stdin, p1[0], p1[1], -1);
-			ft_free_parsed(lst[0]);
-			return (127);
-		}
+			return (ft_clean_end(lst[0], tmp_stdin, p1));
 		id = fork();
 		if (id == -1)
 			exit(1);
@@ -93,10 +82,15 @@ int	ft_execute(char *str, t_nod *env)
 		if (lst[1] == NULL)
 			dup2(tmp_stdin, STDIN);
 	}
-	ft_close(tmp_stdin, p1[0], p1[1], -1);
-	ft_free_parsed(lst[0]);
-	//printf("Exit status is %d\n", id);
+	ft_clean_end(lst[0], tmp_stdin, p1);
 	return (id);
+}
+
+int	ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2])
+{
+	ft_close(tmp_stdin, p1[0], p1[1], -1);
+	ft_free_parsed(lst);
+	return (0);
 }
 
 void	ft_file_destroy(char *str, int i)
@@ -142,7 +136,6 @@ int	ft_do_need_pipe(t_parsed *lst, int j)
 		else
 			j = 2;
 	}
-	// printf("%d\n", j);
 	return (j);
 }
 

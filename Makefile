@@ -6,7 +6,7 @@
 #    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/18 16:24:38 by tlarraze         ###   ########.fr        #
+#    Updated: 2023/01/19 18:33:58 by tlarraze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ ${SRCSDIR}built_in_3.c \
 ${SRCSDIR}ft_parsing.c \
 ${SRCSDIR}ft_pipex.c \
 ${SRCSDIR}ft_echo.c \
+${SRCSDIR}ft_exit.c \
 ${SRCSDIR}ft_export.c \
 ${SRCSDIR}ft_execute.c \
 ${SRCSDIR}ft_infile_outfile.c \

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 19:35:12 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:07:43 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ void	ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2])
 	tab = ft_env_to_tab(env);
 	if (lst[1] && lst[1]->cmds && lst[1]->cmds[0])
 		path = ft_access(lst[1]->cmds[0], ft_get_env("PATH", env));
-	if (path == NULL && lst[1]->cmds && lst[1]->cmds[0]
-		&& ft_search_built_in(lst[1]) == 0)
-	{
-		printf("%s:  command not found\n", lst[1]->cmds[0]);
-		ret_value = 127;
-	}
+	if (path == NULL && lst[1]->cmds && ft_search_built_in(lst[1]) == 0)
+		ret_value = ft_cmd_not_found_print(lst[1]);
 	if (ft_check_infile(lst[1]) != 0)
 		ft_choose_here_doc_or_infile(lst[1], i);
 	if (ft_check_outfile(lst[1]) != 0)
@@ -42,6 +38,16 @@ void	ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2])
 	ft_clean_pipex(lst[0], env, tab, path);
 	ft_close(p1[0], p1[1], -1, -1);
 	exit(ret_value);
+}
+
+int	ft_cmd_not_found_print(t_parsed *lst)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(lst->cmds[0], ":  command not found\n");
+	ft_putstr_fd(tmp, 2);
+	free(tmp);
+	return (127);
 }
 
 void	ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path)

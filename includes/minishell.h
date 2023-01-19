@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/18 20:00:34 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:33:03 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_twins
 # define READ_END 0
 # define WRITE_END 1
 # define HEREDOC ".tmp_here_doc_tmpfile_touch_it_and_you_will_die_!"
+# define HRM "Minishell: warning: delimited by end-of-file (wanted `%s')\n"
 /*
 /////////////////////////
 //	STRUCTURES
@@ -110,7 +111,7 @@ void		ft_export(char **str, t_nod *env, int doo);
 int			ft_fuse_export(t_nod *nod, char *str);
 void		ft_show_declare(t_nod *env);
 int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
-int			ft_make_nod(t_nod *big_nod[3] ,char **str, int i, int found);
+int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
 void		ft_pwd(char **str);
@@ -119,9 +120,15 @@ void		ft_env(t_nod *env);
 t_nod		*ft_init_lst(char **env);
 t_nod		*ft_init_nod(char *str);
 char		**ft_env_to_tab(t_nod *nod);
-int			ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
+////////////////////////////////////////////////////////////////
+//		ft_export
+void		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
+int			ft_exit_2(t_parsed *lst, t_parsed *head, t_nod *env);
+void		ft_check_exit_arg(t_parsed *lst, t_parsed *head, t_nod *env);
+////////////////////////////////////////////////////////////////
 int			ft_check_unset_export(t_parsed *lst, t_parsed *head,
 				t_nod *env, int i);
+void		ft_fuse_end_env(t_nod *first, char **strs);
 void		ft_free_env(t_nod *env);
 void		ft_file_destroy(char *str, int i);
 void		ft_return_value(int value, t_nod *env);
@@ -130,6 +137,8 @@ int			ft_check_file_error(t_parsed *lst, int i);
 /////////////////////////
 //	EXEC
 /////////////////////////
+int			ft_cmd_not_found_print(t_parsed *lst);
+int			ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
 void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
 void		ft_while(t_nod *env_nod);
 int			ft_execute(char *str, t_nod *env);
@@ -144,11 +153,6 @@ int			ft_check_in(t_parsed *lst, int i);
 int			ft_check_append(t_parsed *lst, int i);
 int			ft_check_out(t_parsed *lst, int i);
 int			ft_check_file(t_parsed *lst);
-int			ft_check_here_doc_or_infile(t_parsed *lst);
-void		ft_choose_here_doc_or_infile(t_parsed *lst, int i);
-void		ft_fake_here_doc(t_parsed *lst, int i);
-int			ft_real_here_doc(t_parsed *lst, int i, int c);
-int			ft_create_here_doc(t_parsed *lst, int c);
 int			ft_check_outfile(t_parsed *lst);
 void		ft_choose_outfile(t_parsed *lst);
 void		ft_outfile_basic(t_parsed *lst);
@@ -160,9 +164,22 @@ int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);
 int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
-int			ft_here_doc(t_parsed *lst);
-int			ft_check_here_doc(t_parsed *lst);
+/////////////////////////
+//	HERE_DOC
+/////////////////////////
+int			ft_here_doc(t_parsed *lst, t_nod *env);
+int			ft_here_doc_basic(int c);
+int			ft_check_here_doc_or_infile(t_parsed *lst);
+void		ft_choose_here_doc_or_infile(t_parsed *lst, int i);
+int			ft_fake_here_doc(t_parsed *lst, t_nod *env, int i);
+int			ft_check_str_here_doc(t_parsed *lst, char *str, int i, int fd);
+int			ft_real_here_doc(t_parsed *lst, t_nod *env, int i, int c);
+int			ft_create_here_doc(t_parsed *lst, t_nod *env, int c);
 int			ft_mini_check_here_doc(t_parsed *lst);
+int			ft_check_here_doc(t_parsed *lst);
+void		ft_exit_here_doc_status(t_parsed *lst, int i, t_nod *env);
+int			ft_init_fd(int c);
+void		ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd);
 ////////////////////////////////////////
 //////////////Parsing//////////////////
 //////////////////////////////////////

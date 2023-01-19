@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 18:21:22 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:00:13 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	handler(int num)
 	if (g_child_id == 0)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		g_child_id = -1;
-		exit(130);
+		g_child_id = 666;
+		close(0);
 		return ;
 	}
 	write(STDOUT_FILENO, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:16:21 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/05 10:44:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:34:43 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	ft_outfile_basic(t_parsed *lst)
 			c++;
 		if (c == ft_check_outfile(lst))
 		{
-			fd = open(lst->redirections[i] + 1, O_CREAT | O_RDWR | O_TRUNC, 0777);
+			fd = open(lst->redirections[i] + 1,
+					O_CREAT | O_RDWR | O_TRUNC, 0777);
 			if (fd < 0)
 				exit(-1);
 			dup2(fd, STDOUT);
@@ -91,7 +92,8 @@ void	ft_outfile_append(t_parsed *lst)
 			c++;
 		if (c == ft_check_outfile(lst))
 		{
-			fd = open(lst->redirections[i] + 1, O_CREAT | O_RDWR | O_APPEND, 0777);
+			fd = open(lst->redirections[i] + 1,
+					O_CREAT | O_RDWR | O_APPEND, 0777);
 			if (fd < 0)
 				exit(-1);
 			dup2(fd, STDOUT);
