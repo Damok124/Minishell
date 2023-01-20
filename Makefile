@@ -6,7 +6,7 @@
 #    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/19 22:47:57 by zharzi           ###   ########.fr        #
+#    Updated: 2023/01/20 13:32:59 by zharzi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ ${SRCSDIR}env.c \
 ${SRCSDIR}built_in.c \
 ${SRCSDIR}built_in_2.c \
 ${SRCSDIR}built_in_3.c \
-${SRCSDIR}ft_parsing.c \
 ${SRCSDIR}ft_pipex.c \
 ${SRCSDIR}ft_echo.c \
 ${SRCSDIR}ft_exit.c \
@@ -39,6 +38,67 @@ ${SRCSDIR}ft_here_doc.c \
 ${SRCSDIR}ft_here_doc_2.c \
 ${SRCSDIR}ft_outfile.c \
 ${SRCSDIR}ft_infile.c \
+${SRCSDIR}/parsing/ft_iscmd.c \
+${SRCSDIR}/parsing/ft_isquotes.c \
+${SRCSDIR}/parsing/ft_isheredoc.c \
+${SRCSDIR}/parsing/ft_isoutfile.c \
+${SRCSDIR}/parsing/ft_isambiguous.c \
+${SRCSDIR}/parsing/ft_isinfile.c \
+${SRCSDIR}/parsing/ft_isredirection.c \
+${SRCSDIR}/parsing/ft_is_solo.c \
+${SRCSDIR}/parsing/ft_is_duo.c \
+${SRCSDIR}/parsing/ft_show_duo_strs.c \
+${SRCSDIR}/parsing/ft_quotes_focus.c \
+${SRCSDIR}/parsing/ft_check_format_quotes.c \
+${SRCSDIR}/parsing/ft_angled_brackets_focus.c \
+${SRCSDIR}/parsing/ft_get_wrong_angl_brackets.c \
+${SRCSDIR}/parsing/ft_check_arg_angl_brackets.c \
+${SRCSDIR}/parsing/ft_check_format_angl_brackets.c \
+${SRCSDIR}/parsing/ft_pipes_focus.c \
+${SRCSDIR}/parsing/ft_check_format_pipes.c \
+${SRCSDIR}/parsing/ft_replace_spaces.c \
+${SRCSDIR}/parsing/ft_rename_ambiguous_tag.c \
+${SRCSDIR}/parsing/ft_rename_angl_brackets.c \
+${SRCSDIR}/parsing/ft_spaces_focus.c \
+${SRCSDIR}/parsing/ft_var_env_focus.c \
+${SRCSDIR}/parsing/ft_add_spaces.c \
+${SRCSDIR}/parsing/ft_occurences_counter.c \
+${SRCSDIR}/parsing/ft_remove_symbol_var_env.c \
+${SRCSDIR}/parsing/ft_disable_var_env.c \
+${SRCSDIR}/parsing/ft_get_var_env_val.c \
+${SRCSDIR}/parsing/ft_compile_with_val.c \
+${SRCSDIR}/parsing/ft_replace_with_val.c \
+${SRCSDIR}/parsing/ft_include_var_env.c \
+${SRCSDIR}/parsing/ft_reveal_ambi_redirect.c \
+${SRCSDIR}/parsing/ft_translation.c \
+${SRCSDIR}/parsing/ft_check_syntax.c \
+${SRCSDIR}/parsing/ft_twin_str.c \
+${SRCSDIR}/parsing/ft_init_origin.c \
+${SRCSDIR}/parsing/ft_free_twins.c \
+${SRCSDIR}/parsing/ft_show_twins.c \
+${SRCSDIR}/parsing/ft_parallel_split.c \
+${SRCSDIR}/parsing/ft_mirror_split.c \
+${SRCSDIR}/parsing/ft_split_on_pipes.c \
+${SRCSDIR}/parsing/ft_init_lst_twins.c \
+${SRCSDIR}/parsing/ft_copy_without_spaces.c \
+${SRCSDIR}/parsing/ft_split_on_spaces.c \
+${SRCSDIR}/parsing/ft_show_lst_twins.c \
+${SRCSDIR}/parsing/ft_lst_remove_quotes.c \
+${SRCSDIR}/parsing/ft_lst_clean_quotes.c \
+${SRCSDIR}/parsing/ft_trim_trans.c \
+${SRCSDIR}/parsing/ft_lst_clean_redirections.c \
+${SRCSDIR}/parsing/ft_free_parsed.c \
+${SRCSDIR}/parsing/ft_init_lst_parsed.c \
+${SRCSDIR}/parsing/ft_count_cmds.c \
+${SRCSDIR}/parsing/ft_count_redirections.c \
+${SRCSDIR}/parsing/ft_count_heredocs.c \
+${SRCSDIR}/parsing/ft_final_get_cmds.c \
+${SRCSDIR}/parsing/ft_final_get_redir.c \
+${SRCSDIR}/parsing/ft_check_if_empty.c \
+${SRCSDIR}/parsing/ft_lst_to_final.c \
+${SRCSDIR}/parsing/ft_show_lst_parsed.c \
+${SRCSDIR}/parsing/ft_label_src_into_trans.c \
+${SRCSDIR}/parsing/ft_minishell_parsing.c
 
 HEADERDIR = includes/
 

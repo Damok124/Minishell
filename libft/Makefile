@@ -6,7 +6,7 @@
 #    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/19 23:14:57 by zharzi           ###   ########.fr        #
+#    Updated: 2023/01/20 13:31:08 by zharzi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ $(SRCSDIR)ft_show_strs.c \
 $(SRCSDIR)ft_strs_to_tab.c \
 $(SRCSDIR)ft_tab_to_lst.c \
 $(SRCSDIR)ft_memset_lst.c \
+$(SRCSDIR)ft_only_strs_free.c \
 $(SRCSDIR)ft_full_free_lst.c \
 $(SRCSDIR)ft_index_intlst.c \
 $(SRCSDIR)ft_lst_find_one.c \

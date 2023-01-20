@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 17:33:23 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 23:14:41 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:32:35 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_tools2 {
 	int		count;
 }			t_tools2;
 
-
 /////////////////////////
 //	PRINT
 /////////////////////////
@@ -64,12 +63,13 @@ void					ft_putnbr_base_fd(int nbr, char *base, int fd);
 void					ft_putstr_fd(char *s, int fd);
 void					ft_show_tab_fd(int len, int *tab, int fd);
 void					ft_show_strs_fd(char **strs, int fd);
-void 					ft_show_strs(char **strs);
+void					ft_show_strs(char **strs);
 /////////////////////////
 //	FREE
 /////////////////////////
 void					ft_full_free_nb(void **tobefreed, int nb);
 void					ft_full_free(void **tobefree);
+void					ft_only_strs_free(char **tobefreed);
 void					ft_true_free(void **ptr);
 void					ft_close_stdfds(void);
 /////////////////////////

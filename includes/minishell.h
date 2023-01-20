@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 23:12:20 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:32:50 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,37 +184,12 @@ void		ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd);
 ////////////////////////////////////////
 //////////////Parsing//////////////////
 //////////////////////////////////////
-void		ft_show_strs(char **strs);
-void		ft_close_stdfds(void);
-void		ft_true_free(void **ptr);
-void		ft_full_free(void **tobefreed);
-void		*ft_memset(void *s, int c, size_t n);
-void		ft_bzero(void *s, size_t n);
-void		*ft_calloc(size_t nmemb, size_t size);
-int			ft_isalnum(int c);
-int			ft_isprint(int c);
-size_t		ft_strlen(const char *str);
-char		*ft_strnstr(const char *big, const char *little, size_t len);
-char		*ft_strchr(const char *s, int c);
-char		*ft_strrchr(const char *s, int c);
-char		*ft_strdup(const char *s);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-size_t		ft_strlcpy(char *dst, const char *src, size_t size);
-char		*ft_strjoin(char const *s1, char const *s2);
-ssize_t		ft_count_strs(const char *s, char c);
-void		ft_true_split(char const *s, char **strs, char c, ssize_t len);
-char		**ft_split(char const *s, char c);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-ssize_t		ft_count_strs_set(const char *s, char *set);
-void		ft_true_split_set(char const *s, char **strs, char *set,
-				ssize_t len);
-char		**ft_split_set(const char *s, char *set);
-char		*ft_strtrim(char const *s1, char const *set);
-int			ft_strslen(char **strs);
-char		**ft_alloc_strs(int size);
-int			ft_isspace(int c);
-char		**ft_strsdup(char **src);
+
+/////////////////////////
+//	CHECKERS
+/////////////////////////
 int			ft_iscmd(char *str);
+int			ft_isquotes(char c);
 int			ft_isheredoc(char *str);
 int			ft_isoutfile(char *str);
 int			ft_isambiguous(char *str);
@@ -222,57 +197,103 @@ int			ft_isinfile(char *str);
 int			ft_isredirection(char *str);
 int			ft_is_solo(char *str);
 int			ft_is_duo(char *str);
+int			ft_check_syntax(char **src, char **trans);
+int			ft_check_if_empty(t_parsed *final);
+
+/////////////////////////
+//	PRINTERS
+/////////////////////////
+void		ft_show_duo_strs(char **strs1, char **strs2);
+void		ft_show_twins(t_twins *twins);
+void		ft_show_lst_twins(t_twins *lst);
+void		ft_show_lst_parsed(t_parsed *lst);
+
+/////////////////////////
+//	COUNTERS
+/////////////////////////
+int			ft_count_cmds(char **trans);
+int			ft_count_redirections(char **trans);
+int			ft_count_heredocs(char **trans);
+int			ft_occurences_counter(char *big, char *little);
+
+/////////////////////////
+//	QUOTES MANAGERS
+/////////////////////////
 void		ft_quotes_focus(char **src, char **trans, int i, int *quotes);
 int			ft_check_format_quotes(char *trans, int size);
+void		ft_lst_remove_quotes(char **src, char **trans, int i);
+void		ft_lst_clean_quotes(t_twins *lst);
+
+/////////////////////////
+//	ANGLED BRACKETS MANAGERS
+/////////////////////////
 void		ft_angled_brackets_focus(char **src, char **trans, int i);
 char		**ft_get_wrong_angl_brackets(void);
 int			ft_check_arg_angl_brackets(char *trans);
 int			ft_check_format_angl_brackets(char *src, char *trans);
+void		ft_rename_angl_brackets(char **trans);
+
+/////////////////////////
+//	PIPES MANAGERS
+/////////////////////////
 void		ft_pipes_focus(char **src, char **trans, int i, int *quotes);
 int			ft_check_format_pipes(char *trans);
+
+/////////////////////////
+//	SPACES MANAGERS
+/////////////////////////
 void		ft_replace_spaces(char **trans);
-void		ft_rename_ambiguous_tag(char **trans);
-void		ft_rename_angl_brackets(char **trans);
 void		ft_spaces_focus(char **src, char **trans, int i, int *quotes);
-void		ft_var_env_focus(char **src, char **trans, int i, int s_quotes);
-void		ft_only_strs_free(char **tobefreed);
 void		ft_add_spaces(char **src, char **trans);
-int			ft_occurences_counter(char *big, char *little);
-void		ft_remove_symbol_var_env(char **src, char **trans, int i);
-char		*ft_get_var_env_val(char *src, t_nod *env);
-void		ft_disable_var_env(char **src, char **trans);
-void		ft_compile_with_val(char **strs, char *var, int i, int j);
-void		ft_replace_with_val(char **src, char **trans, char *var, int i);
-void		ft_include_var_env(char **src, char **trans, t_nod *env);
-void		ft_reveal_ambi_redirect(char **src, char **trans);
-void		ft_translation(char **src, char **trans, t_nod *env);
-int			ft_check_syntax(char **src, char **trans);
-char		*ft_twin_str(char *str1);
-t_twins		*ft_init_origin(t_twins *origin, char *str1);
-void		ft_free_twins(t_twins *lst);
-char		**ft_parallel_split(char **model, char *to_split);
-int			ft_sum_strlen(char **strs);
-char		**ft_mirror_split(char *src, char **trans);
-void		ft_split_on_pipes(t_twins *origin);
-t_twins		*ft_init_lst_twins(int size);
 void		ft_copy_without_spaces(char **src, char *base, char *alt);
 void		ft_split_on_spaces(t_twins *lst, char **src, char **trans);
-void		ft_lst_remove_quotes(char **src, char **trans, int i);
-void		ft_lst_clean_quotes(t_twins *lst);
+
+/////////////////////////
+//	VAR ENV MANAGERS
+/////////////////////////
+void		ft_rename_ambiguous_tag(char **trans);
+void		ft_var_env_focus(char **src, char **trans, int i, int s_quotes);
+void		ft_remove_symbol_var_env(char **src, char **trans, int i);
+void		ft_disable_var_env(char **src, char **trans);
+char		*ft_get_var_env_val(char *src, t_nod *env);
+void		ft_include_var_env(char **src, char **trans, t_nod *env);
+void		ft_compile_with_val(char **strs, char *var, int i, int j);
+void		ft_replace_with_val(char **src, char **trans, char *var, int i);
+void		ft_reveal_ambi_redirect(char **src, char **trans);
+
+/////////////////////////
+//	INITIALIZERS
+/////////////////////////
+t_twins		*ft_init_origin(t_twins *origin, char *str1);
+t_twins		*ft_init_lst_twins(int size);
+t_parsed	*ft_init_lst_parsed(int size);
+
+/////////////////////////
+//	MEMORY MANAGERS
+/////////////////////////
+void		ft_free_twins(t_twins *lst);
+void		ft_free_parsed(t_parsed *lst);
+
+/////////////////////////
+//	TRANSFORMERS
+/////////////////////////
+void		ft_split_on_pipes(t_twins *origin);
+char		*ft_twin_str(char *str1);
+char		**ft_parallel_split(char **model, char *to_split);
+void		ft_translation(char **src, char **trans, t_nod *env);
+char		**ft_mirror_split(char *src, char **trans);
 void		ft_trim_trans(char **src, char **trans);
 void		ft_lst_clean_redirections(t_twins *lst);
-void		ft_free_parsed(t_parsed *lst);
-t_parsed	*ft_init_lst_parsed(int size);
-int			ft_count_cmds(char **trans);
-int			ft_count_redirections(char **trans);
-int			ft_count_heredocs(char **trans);
+
+/////////////////////////
+//	CORE
+/////////////////////////
 void		ft_final_get_cmds(char **cmds, char **src, char **trans);
 void		ft_final_get_redir(char **redir, char **src, char **trans);
-int			ft_check_if_empty(t_parsed *final);
 void		ft_lst_to_final(t_twins *lst, t_parsed *final);
-void		ft_show_lst_parsed(t_parsed *lst);
 void		ft_label_src_into_trans(char **src, char **trans);
 t_parsed	*ft_minishell_parsing(char *str1, t_nod *env);
+
 
 /*
 
