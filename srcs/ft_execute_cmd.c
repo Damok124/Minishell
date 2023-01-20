@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex.c                                         :+:      :+:    :+:   */
+/*   ft_execute_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 14:07:43 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:06:52 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_child_id;
 
-void	ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2])
+void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int i, int p1[2])
 {
 	char	*path;
 	char	**tab;
@@ -57,28 +57,6 @@ void	ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path)
 	ft_free_parsed(lst);
 }
 
-int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
-{
-	int	ret;
-
-	ret = 0;
-	if (lst && lst->cmds && ft_search_built_in(lst) == 1)
-		ft_echo(lst->cmds);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 2)
-		ret = ft_cd(lst->cmds, env, 0);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 3)
-		ft_pwd(lst->cmds);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 4)
-		ft_export(lst->cmds, env, 1);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 5)
-		ft_unset(lst->cmds, env);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
-		ft_env(env);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-		ft_exit(lst, head, env);
-	return (ret);
-}
-
 char	*ft_access(char *str, char *value)
 {
 	char	*path;
@@ -104,21 +82,6 @@ char	*ft_access(char *str, char *value)
 	}
 	ft_free_double(env, str);
 	return (NULL);
-}
-
-void	ft_free_double(char **str, char *str2)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str[i]);
-	free(str);
-	free(str2);
 }
 
 char	*ft_check_access(char **env, char *path, char *str)

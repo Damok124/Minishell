@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_reveal_ambi_redirect.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 12:56:57 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 17:46:03 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_reveal_ambi_redirect(char **src, char **trans)
 
 	i = -1;
 	j = 0;
-	while (src && trans && src[0] && trans[0] && src[0][i] && trans[0][++i])
+	while (src && trans && src[0] && trans[0] && src[0][++i] && trans[0][i])
 	{
 		if (ft_strchr("<>", trans[0][i]))
 			j = 1;

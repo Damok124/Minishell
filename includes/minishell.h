@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:39:47 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:03:46 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,18 @@ int			ft_check_file_error(t_parsed *lst, int i);
 /////////////////////////
 //	EXEC
 /////////////////////////
+int			ft_init_fork(int id, int tmp_stdin);
+void		ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str);
+void		ft_execute_end(t_parsed *lst[2], t_nod *env, int id, int tmp_stdin);
+int			ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin,
+				int p1[2]);
+int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);
-int			ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
+void		ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
 void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
 void		ft_while(t_nod *env_nod);
-int			ft_execute(char *str, t_nod *env);
-void		ft_pipex(t_parsed *lst[2], t_nod *env, int i, int p1[2]);
+void		ft_execute(char *str, t_nod *env);
+void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int i, int p1[2]);
 char		*ft_access(char *str, char *value);
 void		ft_free_double(char **str, char *str2);
 char		*ft_check_access(char **env, char *path, char *str);
@@ -180,6 +186,7 @@ int			ft_mini_check_here_doc(t_parsed *lst);
 int			ft_check_here_doc(t_parsed *lst);
 void		ft_exit_here_doc_status(t_parsed *lst, int i, t_nod *env);
 int			ft_init_fd(int c);
+int			ft_error_heredoc(t_parsed *lst, t_nod *env, int *i);
 void		ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd);
 ////////////////////////////////////////
 //////////////Parsing//////////////////

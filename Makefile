@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
+#    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/20 13:32:59 by zharzi           ###   ########.fr        #
+#    Updated: 2023/01/20 18:03:38 by tlarraze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,12 @@ ${SRCSDIR}env.c \
 ${SRCSDIR}built_in.c \
 ${SRCSDIR}built_in_2.c \
 ${SRCSDIR}built_in_3.c \
-${SRCSDIR}ft_pipex.c \
+${SRCSDIR}ft_execute_cmd.c \
+${SRCSDIR}ft_init_fork.c \
 ${SRCSDIR}ft_echo.c \
+${SRCSDIR}ft_check_execute_and_utils.c \
 ${SRCSDIR}ft_exit.c \
+${SRCSDIR}ft_here_doc_utils.c \
 ${SRCSDIR}ft_export.c \
 ${SRCSDIR}ft_execute.c \
 ${SRCSDIR}ft_clean_connect.c \

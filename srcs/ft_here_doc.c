@@ -3,34 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 21:59:19 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 18:02:30 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_child_id;
-
-int	ft_check_here_doc_or_infile(t_parsed *lst)
-{
-	int	i;
-	int	c;
-
-	c = 0;
-	i = 0;
-	while (lst && lst->redirections && lst->redirections[i])
-	{
-		if (lst->redirections[i][0] == 'H')
-			c++;
-		if (lst->redirections[i][0] == '<')
-			c++;
-		i++;
-	}
-	return (c);
-}
 
 int	ft_create_here_doc(t_parsed *lst, t_nod *env, int c)
 {
@@ -79,18 +61,6 @@ int	ft_here_doc(t_parsed *lst, t_nod *env)
 	return (0);
 }
 
-void	ft_exit_here_doc_status(t_parsed *lst, int i, t_nod *env)
-{
-	int	res;
-
-	res = ft_create_here_doc(lst, env, i);
-	ft_free_parsed(lst);
-	ft_free_env(env);
-	if (res == -1)
-		exit (-1);
-	exit(0);
-}
-
 int	ft_real_here_doc(t_parsed *lst, t_nod *env, int i, int c)
 {
 	int		fd;
@@ -120,20 +90,6 @@ int	ft_real_here_doc(t_parsed *lst, t_nod *env, int i, int c)
 	return (fd);
 }
 
-int	ft_init_fd(int c)
-{
-	int		fd;
-	char	*str;
-	char	*tmp;
-
-	tmp = ft_itoa(c);
-	str = ft_strjoin(HEREDOC, tmp);
-	fd = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	free(str);
-	free(tmp);
-	return (fd);
-}
-
 int	ft_check_str_here_doc(t_parsed *lst, char *str, int i, int fd)
 {
 	char	*tmp;
@@ -153,16 +109,6 @@ int	ft_check_str_here_doc(t_parsed *lst, char *str, int i, int fd)
 	if (str != NULL)
 		free(str);
 	return (0);
-}
-
-void	ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd)
-{
-	if (fd != -1)
-		close(fd);
-	free(str);
-	ft_free_parsed(lst);
-	ft_free_env(env);
-	exit(130);
 }
 
 int	ft_fake_here_doc(t_parsed *lst, t_nod *env, int i)

@@ -6,102 +6,59 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/20 13:45:31 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:08:08 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//ft_show_lst_parsed(lst[0]);
 #include "minishell.h"
 
 extern int	g_child_id;
 
-int	ft_execute(char *str, t_nod *env)
+void	ft_execute(char *str, t_nod *env)
 {
 	t_parsed	*lst[2];
 	int			p1[2];
-	int			id;
 	int			i;
-	int			tmp_stdin;
 
 	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
-	//ft_show_lst_parsed(lst[0]);
 	lst[1] = lst[0];
-	tmp_stdin = dup(STDIN);
 	p1[0] = -1;
 	p1[1] = -1;
 	i = ft_here_doc(lst[1], env);
-	if (i != 0)
-	{
-		ft_free_parsed(lst[0]);
-		if (i == -1)
-		{
-			ft_return_value(0, env);
-			return (0);
-		}
-		else
-		{
-			ft_return_value(130, env);
-			return (130);
-		}
-	}
+	if (ft_error_heredoc(lst[1], env, &i) != 0)
+		return ;
 	i = 0;
+	ft_execute_core(lst, env, p1, str);
+}
+
+void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
+{
+	int	i;
+	int	id;
+	int	tmp_stdin;
+
+	i = 0;
+	tmp_stdin = dup(STDIN);
 	while (lst[1])
 	{
-		while (lst[1] && lst[1]->redirections && ft_check_file(lst[1]) == -1)
-		{
-			lst[1] = lst[1]->next;
-			if (!lst[1])
-			{
-				ft_return_value(1, env);
-				return (ft_clean_end(lst[0], tmp_stdin, p1));
-			}
-		}
+		if (ft_check_redir(lst, env, tmp_stdin, p1) == 1)
+			return ;
 		if (pipe(p1) == -1)
 			exit(-1);
-		if (lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "exit", 5) == 0
-			&& lst[1]->cmds[1] == NULL)
-			ft_close(tmp_stdin, p1[0], p1[1], -1);
+		if (ft_check_exit_null_cmd(lst, tmp_stdin, p1) == 1)
+			return ;
 		if (ft_check_unset_export(lst[1], lst[0], env, i) == 1 && i == 0)
 			lst[1] = lst[1]->next;
-		if (lst[1] == NULL)
-			return (ft_clean_end(lst[0], tmp_stdin, p1));
-		id = fork();
-		if (id == -1)
-			exit(1);
-		if (id == 0)
-			close(tmp_stdin);
+		id = ft_init_fork(id, tmp_stdin);
 		ft_init_pipe(lst[1], p1, id);
 		if (str != NULL && id == 0)
-			ft_pipex(lst, env, i, p1);
-		if (id != 0)
-			waitpid(id, &id, 0);
-		id = WEXITSTATUS(id);
-		ft_return_value(id, env);
-		lst[1] = lst[1]->next;
+			ft_execute_cmd(lst, env, i, p1);
+		ft_execute_end(lst, env, id, tmp_stdin);
 		ft_file_destroy(str, i);
 		i++;
-		if (lst[1] == NULL)
-			dup2(tmp_stdin, STDIN);
 	}
 	ft_clean_end(lst[0], tmp_stdin, p1);
-	return (id);
-}
-
-int	ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2])
-{
-	ft_close(tmp_stdin, p1[0], p1[1], -1);
-	ft_free_parsed(lst);
-	return (0);
-}
-
-void	ft_file_destroy(char *str, int i)
-{
-	char	*tmp;
-
-	tmp = ft_itoa(i);
-	str = ft_strjoin(HEREDOC, tmp);
-	unlink(str);
-	free(tmp);
-	free(str);
 }
 
 void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
