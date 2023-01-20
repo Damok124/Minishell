@@ -6,11 +6,11 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 18:36:39 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:44:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 void	ft_exit(t_parsed *lst, t_parsed *head, t_nod *env)
 {

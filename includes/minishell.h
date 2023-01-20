@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:32:50 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:39:47 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,9 +294,7 @@ void		ft_lst_to_final(t_twins *lst, t_parsed *final);
 void		ft_label_src_into_trans(char **src, char **trans);
 t_parsed	*ft_minishell_parsing(char *str1, t_nod *env);
 
-
 /*
-
 /////////////////////////
 //	TESTS
 /////////////////////////

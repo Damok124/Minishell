@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_show_strs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:10:47 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 22:49:32 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:37:36 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_show_strs(char **strs)
+void	ft_show_strs(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs && strs[i])

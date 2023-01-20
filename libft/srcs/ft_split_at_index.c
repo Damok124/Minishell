@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_at_index.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 23:07:18 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 23:07:28 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:38:16 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char **ft_split_at_index(char *str, int i)
+char	**ft_split_at_index(char *str, int i)
 {
 	char	**final;
 	char	*first;
