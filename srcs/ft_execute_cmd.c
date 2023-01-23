@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 17:54:10 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:25:39 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 	if (path != NULL && ft_search_built_in(lst[1]) == 0)
 		execve(path, lst[1]->cmds, tab);
 	else if (ft_search_built_in(lst[1]) != 0)
-		ret_value = ft_call_built_in(lst[1], lst[0], env, id_tab);
+		ret_value = ft_call_built_in(lst, env, id_tab);
 	ft_clean_pipex(lst[0], env, tab, path);
 	ft_close(p1[0], p1[1], -1, -1);
 	free(id_tab);

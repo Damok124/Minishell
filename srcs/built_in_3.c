@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 17:46:17 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:34:32 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 		ft_export(lst[1]->cmds, env, 0);
 	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
 	{
-		ft_exit(lst[1], lst[0], env, tab);
+		ft_exit(lst, 0, env, tab);
 		i = 1;
 	}
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "cd", 3) == 0)

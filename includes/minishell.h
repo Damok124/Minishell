@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/23 17:39:18 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:48:02 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,16 @@ t_nod		*ft_init_nod(char *str);
 char		**ft_env_to_tab(t_nod *nod, t_parsed *lst[2]);
 ////////////////////////////////////////////////////////////////
 //		ft_exit
-void		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env, int *tab);
-int			ft_exit_2(t_parsed *lst, t_parsed *head, t_nod *env, int *tab);
-void		ft_check_exit_arg(t_parsed *lst, t_parsed *head, t_nod *env,
+void		ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
+int			ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
+void		ft_check_exit_arg(t_parsed *lst[2], int print_check, t_nod *env,
 				int *tab);
 ////////////////////////////////////////////////////////////////
 int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
 				int i);
 void		ft_fuse_end_env(t_nod *first, char **strs);
 void		ft_free_env(t_nod *env);
-void		ft_file_destroy(char *str, int i);
+void		ft_file_destroy(int i);
 void		ft_return_value(int value, t_nod *env);
 int			ft_check_file_error(t_parsed *lst, int i);
 /////////////////////////
@@ -180,8 +180,7 @@ void		ft_init_pipe(t_parsed *lst, int p1[2], int id, int i);
 int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);
-int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env,
-				int *tab);
+int			ft_call_built_in(t_parsed *lst[2], t_nod *env, int *tab);
 void		ft_clean_connect(int std, int toconnect, int toclose);
 /////////////////////////
 //	HERE_DOC

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:12:39 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:44:15 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2])
 		return (1);
 	if (ft_check_exit_null_cmd(lst, tmp_stdin, p1) == 1)
 		return (1);
-	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
-		close(tmp_stdin);
+//	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
+//			close(tmp_stdin);
 	ft_pipe(p1, lst);
 	return (0);
 }
@@ -38,9 +38,14 @@ int	ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2])
 void	ft_pipe(int p1[2], t_parsed *lst[2])
 {
 	if (ft_search_built_in(lst[1]) == 7)
+	{
+		p1[0] = -1;
+		p1[1] = -1;
 		return ;
+	}
 	if (pipe(p1) == -1)
 		exit(-1);
+	(void)lst;
 }
 
 void	ft_free_double(char **str, char *str2)

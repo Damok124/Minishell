@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 15:29:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:37:02 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@ void	ft_env(t_nod *env)
 	}
 }
 
-int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env, int *id_tab)
+int	ft_call_built_in(t_parsed *lst[2], t_nod *env, int *id_tab)
 {
 	int	ret;
 
 	ret = 0;
-	if (lst && lst->cmds && ft_search_built_in(lst) == 1)
-		ft_echo(lst->cmds);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 2)
-		ret = ft_cd(lst->cmds, env, 0);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 3)
-		ft_pwd(lst->cmds);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 4)
-		ft_export(lst->cmds, env, 1);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 5)
-		ft_unset(lst->cmds, env);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 1)
+		ft_echo(lst[1]->cmds);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 2)
+		ret = ft_cd(lst[1]->cmds, env, 0);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 3)
+		ft_pwd(lst[1]->cmds);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 4)
+		ft_export(lst[1]->cmds, env, 1);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 5)
+		ft_unset(lst[1]->cmds, env);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 6)
 		ft_env(env);
-	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-		ft_exit(lst, head, env, id_tab);
+	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 7)
+		ft_exit(lst, 1, env, id_tab);
 	return (ret);
 }
 

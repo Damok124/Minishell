@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:12:53 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:47:41 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 		if (str != NULL && id == 0)
 			ft_execute_cmd(lst, env, id_tab, p1);
 		ft_execute_end(lst, tmp_stdin);
-		ft_file_destroy(str, i);
+		ft_file_destroy(i);
 		i++;
 	}
 	ft_wait_id(env, id_tab);
@@ -73,16 +73,15 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
 		if (lst != NULL && lst->next != NULL)
 			ft_clean_connect(STDOUT, p1[1], p1[0]);
 		else
-			close(p1[1]);
+			ft_close(p1[1], -1, -1, -1);
 	}
 	if (id != 0)
 		ft_clean_connect(STDIN, p1[0], p1[1]);
 	else
-		close(p1[0]);
+		ft_close(p1[0], -1, -1, -1);
 	if (j == 3)
 	{
-		close(p1[1]);
-		close(p1[0]);
+		ft_close(p1[1], p1[0], -1, -1);
 		return ;
 	}
 }

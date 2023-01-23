@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:29:33 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:13:45 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:30:05 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	*ft_make_id_tab(t_parsed *lst)
 	i = 0;
 	while (tab[i] != '\0')
 	{
-		tab[i] = -1;
+		tab[i] = -666;
 		i++;
 	}
 	return (tab);
@@ -40,7 +40,7 @@ void	ft_wait_id(t_nod *env, int *tab)
 	int	status;
 
 	i = 0;
-	while (tab[i] != '\0' && tab[i] != -1)
+	while (tab[i] != '\0' && tab[i] != -666)
 	{
 		waitpid(tab[i], &status, 0);
 		status = WEXITSTATUS(status);
