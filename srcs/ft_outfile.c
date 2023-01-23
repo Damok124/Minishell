@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:16:21 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 15:34:43 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:44:09 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_outfile_basic(t_parsed *lst)
 			if (fd < 0)
 				exit(-1);
 			dup2(fd, STDOUT);
+			close(fd);
 			return ;
 		}
 		i++;
@@ -97,6 +98,7 @@ void	ft_outfile_append(t_parsed *lst)
 			if (fd < 0)
 				exit(-1);
 			dup2(fd, STDOUT);
+			close(fd);
 			return ;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/20 18:08:08 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:06:21 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ extern int	g_child_id;
 void	ft_execute(char *str, t_nod *env)
 {
 	t_parsed	*lst[2];
-	int			p1[2];
+	int			p1[3];
 	int			i;
 
 	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
@@ -35,40 +35,39 @@ void	ft_execute(char *str, t_nod *env)
 void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 {
 	int	i;
-	int	id;
 	int	tmp_stdin;
+	int	*id_tab;
+	int	id;
 
 	i = 0;
 	tmp_stdin = dup(STDIN);
+	id_tab = ft_make_id_tab(lst[1]);
 	while (lst[1])
 	{
-		if (ft_check_redir(lst, env, tmp_stdin, p1) == 1)
+		if (ft_check(lst, env, tmp_stdin, p1) == 1)
 			return ;
-		if (pipe(p1) == -1)
-			exit(-1);
-		if (ft_check_exit_null_cmd(lst, tmp_stdin, p1) == 1)
+		if (ft_check_unset_export(lst, id_tab, env, i) == 1 && i == 0)
 			return ;
-		if (ft_check_unset_export(lst[1], lst[0], env, i) == 1 && i == 0)
-			lst[1] = lst[1]->next;
-		id = ft_init_fork(id, tmp_stdin);
-		ft_init_pipe(lst[1], p1, id);
+		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin);
+		id = id_tab[i];
+		ft_init_pipe(lst[1], p1, id_tab[i], i);
 		if (str != NULL && id == 0)
-			ft_execute_cmd(lst, env, i, p1);
-		ft_execute_end(lst, env, id, tmp_stdin);
+			ft_execute_cmd(lst, env, id_tab, p1);
+		ft_execute_end(lst, tmp_stdin);
 		ft_file_destroy(str, i);
 		i++;
 	}
+	ft_wait_id(env, id_tab);
 	ft_clean_end(lst[0], tmp_stdin, p1);
 }
 
-void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
+void	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
 {
 	int	j;
 
 	j = 0;
 	j = ft_do_need_pipe(lst, j);
-	if (j == 3)
-		return ;
+	lst->empty = i;
 	if (id == 0)
 	{
 		if (lst != NULL && lst->next != NULL)
@@ -80,6 +79,12 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id)
 		ft_clean_connect(STDIN, p1[0], p1[1]);
 	else
 		close(p1[0]);
+	if (j == 3)
+	{
+		close(p1[1]);
+		close(p1[0]);
+		return ;
+	}
 }
 
 int	ft_do_need_pipe(t_parsed *lst, int j)

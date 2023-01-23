@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 18:03:46 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:39:18 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,36 +119,47 @@ void		ft_unset(char **str, t_nod *env);
 void		ft_env(t_nod *env);
 t_nod		*ft_init_lst(char **env);
 t_nod		*ft_init_nod(char *str);
-char		**ft_env_to_tab(t_nod *nod);
+char		**ft_env_to_tab(t_nod *nod, t_parsed *lst[2]);
 ////////////////////////////////////////////////////////////////
-//		ft_export
-void		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env);
-int			ft_exit_2(t_parsed *lst, t_parsed *head, t_nod *env);
-void		ft_check_exit_arg(t_parsed *lst, t_parsed *head, t_nod *env);
+//		ft_exit
+void		ft_exit(t_parsed *lst, t_parsed *head, t_nod *env, int *tab);
+int			ft_exit_2(t_parsed *lst, t_parsed *head, t_nod *env, int *tab);
+void		ft_check_exit_arg(t_parsed *lst, t_parsed *head, t_nod *env,
+				int *tab);
 ////////////////////////////////////////////////////////////////
-int			ft_check_unset_export(t_parsed *lst, t_parsed *head,
-				t_nod *env, int i);
+int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
+				int i);
 void		ft_fuse_end_env(t_nod *first, char **strs);
 void		ft_free_env(t_nod *env);
 void		ft_file_destroy(char *str, int i);
 void		ft_return_value(int value, t_nod *env);
 int			ft_check_file_error(t_parsed *lst, int i);
+/////////////////////////
+//	ID_TAB
+/////////////////////////
+
+int			*ft_make_id_tab(t_parsed *lst);
+void		ft_wait_id(t_nod *env, int *tab);
+int			ft_get_id_tab_index(int *tab);
 
 /////////////////////////
 //	EXEC
 /////////////////////////
 int			ft_init_fork(int id, int tmp_stdin);
+void		ft_pipe(int p1[2], t_parsed *lst[2]);
 void		ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str);
-void		ft_execute_end(t_parsed *lst[2], t_nod *env, int id, int tmp_stdin);
+void		ft_execute_end(t_parsed *lst[2], int tmp_stdin);
 int			ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin,
 				int p1[2]);
+int			ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2]);
 int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);
 void		ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
 void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
 void		ft_while(t_nod *env_nod);
 void		ft_execute(char *str, t_nod *env);
-void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int i, int p1[2]);
+void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab,
+				int p1[2]);
 char		*ft_access(char *str, char *value);
 void		ft_free_double(char **str, char *str2);
 char		*ft_check_access(char **env, char *path, char *str);
@@ -165,11 +176,12 @@ void		ft_outfile_basic(t_parsed *lst);
 void		ft_outfile_append(t_parsed *lst);
 int			ft_infile_basic(t_parsed *lst);
 int			ft_check_infile(t_parsed *lst);
-void		ft_init_pipe(t_parsed *lst, int p1[2], int id);
+void		ft_init_pipe(t_parsed *lst, int p1[2], int id, int i);
 int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);
-int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env);
+int			ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env,
+				int *tab);
 void		ft_clean_connect(int std, int toconnect, int toclose);
 /////////////////////////
 //	HERE_DOC

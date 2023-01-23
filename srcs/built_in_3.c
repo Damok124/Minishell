@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/19 18:34:01 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:46:17 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,33 @@ int	ft_search_built_in(t_parsed *lst)
 	return (0);
 }
 
-int	ft_check_unset_export(t_parsed *lst, t_parsed *head, t_nod *env, int i)
+int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 {
 	if (i != 0)
 		return (0);
-	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "unset", 6) == 0)
-		ft_unset(lst->cmds, env);
-	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "export", 6) == 0)
-		ft_export(lst->cmds, env, 0);
-	if (lst && lst->cmds && strncmp(lst->cmds[0], "exit", 5) == 0)
+	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "unset", 6) == 0)
+		ft_unset(lst[1]->cmds, env);
+	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "export", 6) == 0)
+		ft_export(lst[1]->cmds, env, 0);
+	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
 	{
-		ft_exit(lst, head, env);
+		ft_exit(lst[1], lst[0], env, tab);
 		i = 1;
 	}
-	if (lst && lst->cmds && ft_strncmp(lst->cmds[0], "cd", 3) == 0)
-		ft_cd(lst->cmds, env, 1);
+	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "cd", 3) == 0)
+		ft_cd(lst[1]->cmds, env, 1);
 	if (i == 1)
+		lst[1] = lst[1]->next;
+	if (lst[1] == NULL)
+	{
+		ft_free_parsed(lst[0]);
+		free(tab);
 		return (1);
+	}
 	return (0);
 }
 
-char	**ft_env_to_tab(t_nod *nod)
+char	**ft_env_to_tab(t_nod *nod, t_parsed *lst[2])
 {
 	char	**strs;
 	char	*tmp;
@@ -61,6 +67,8 @@ char	**ft_env_to_tab(t_nod *nod)
 	i = 0;
 	first = nod;
 	tmp = NULL;
+	if (ft_search_built_in(lst[1]) == 7)
+		return (NULL);
 	while (nod)
 	{
 		i++;

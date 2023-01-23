@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/20 18:06:35 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:29:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env(t_nod *env)
 	}
 }
 
-int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
+int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env, int *id_tab)
 {
 	int	ret;
 
@@ -40,7 +40,7 @@ int	ft_call_built_in(t_parsed *lst, t_parsed *head, t_nod *env)
 	if (lst && lst->cmds && ft_search_built_in(lst) == 6)
 		ft_env(env);
 	if (lst && lst->cmds && ft_search_built_in(lst) == 7)
-		ft_exit(lst, head, env);
+		ft_exit(lst, head, env, id_tab);
 	return (ret);
 }
 
