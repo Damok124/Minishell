@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:29:33 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:04:13 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:13:45 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_wait_id(t_nod *env, int *tab)
 	int	status;
 
 	i = 0;
-	ft_close_stdfds();
 	while (tab[i] != '\0' && tab[i] != -1)
 	{
 		waitpid(tab[i], &status, 0);
