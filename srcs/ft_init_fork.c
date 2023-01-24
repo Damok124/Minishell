@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 19:44:15 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:38:50 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_init_fork(int id, int tmp_stdin)
 	if (id < 0)
 		exit(1);
 	if (id == 0)
-		close(tmp_stdin);
+		ft_close(tmp_stdin, -1, -1, -1);
 	return (id);
 }
 
@@ -29,8 +29,6 @@ int	ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2])
 		return (1);
 	if (ft_check_exit_null_cmd(lst, tmp_stdin, p1) == 1)
 		return (1);
-//	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
-//			close(tmp_stdin);
 	ft_pipe(p1, lst);
 	return (0);
 }

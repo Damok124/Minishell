@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/20 14:24:22 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:52:20 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_choose_here_doc_or_infile(t_parsed *lst, int c)
 	if (here_doc > infile)
 		fd = ft_here_doc_basic(c);
 	dup2(fd, 0);
-	close(fd);
+	ft_close(fd, -1, -1, -1);
 }
 
 int	ft_here_doc_basic(int c)

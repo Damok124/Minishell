@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_connect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 23:59:39 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/19 21:51:46 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/24 16:26:31 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_clean_connect(int std, int toconnect, int toclose)
 {
 	dup2(toconnect, std);
-	close(toconnect);
-	close(toclose);
+	if (toconnect != -1)
+		close(toconnect);
+	if (toclose != -1)
+		close(toclose);
 }

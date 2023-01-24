@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:35:12 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:28:10 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ int	ft_real_here_doc(t_parsed *lst, t_nod *env, int i, int c)
 		if (str == NULL)
 		{
 			printf(HRM, lst->redirections[i] + 1);
-			close(fd);
+			ft_close(fd, -1, -1, -1);
 			return (fd);
 		}
 		if (ft_check_str_here_doc(lst, str, i, fd) == 1)
 			break ;
 		j++;
 	}
-	close(fd);
+	ft_close(fd, -1, -1, -1);
 	return (fd);
 }
 
