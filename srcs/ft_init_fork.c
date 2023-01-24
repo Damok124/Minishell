@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 16:38:50 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:22:01 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,7 @@ void	ft_free_double(char **str, char *str2)
 	int	i;
 
 	i = 0;
-	while (str != NULL && str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	if (str != NULL)
-	{
-		free(str[i]);
-		free(str);
-	}
-	if (str2 != NULL)
-		free(str2);
+	ft_full_free((void **)str);
+	ft_true_free((void **)&str2);
+	(void)str2;
 }

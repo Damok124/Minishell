@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/18 20:02:46 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:50 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	ft_fuse_export(t_nod *nod, char *str)
 	{
 		tmp = nod->value;
 		nod->value = ft_strjoin(nod->value, str + i + 1);
-		free(tmp);
+		ft_true_free((void **)&tmp);
 		return (1);
 	}
 	else if ((strncmp(nod->key, str, ft_strlen(nod->key)) == 0))
 	{
-		free(nod->value);
+		ft_true_free((void **)&nod->value);
 		nod->value = ft_strdup(str + i + 1);
 		return (1);
 	}

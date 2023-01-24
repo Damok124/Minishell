@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:37:34 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 13:51:37 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:50 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	ft_init_fd(int c)
 	tmp = ft_itoa(c);
 	str = ft_strjoin(HEREDOC, tmp);
 	fd = open(str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	free(str);
-	free(tmp);
+	ft_true_free((void **)&str);
+	ft_true_free((void **)&tmp);
 	return (fd);
 }
 
@@ -71,7 +71,7 @@ void	ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd)
 {
 	if (fd != -1)
 		close(fd);
-	free(str);
+	ft_true_free((void **)&str);
 	ft_free_parsed(lst);
 	ft_free_env(env);
 	exit(130);

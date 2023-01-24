@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 13:44:38 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 13:28:10 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:52 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,17 @@ int	ft_check_str_here_doc(t_parsed *lst, char *str, int i, int fd)
 	if (str && lst->redirections && ft_strncmp(str, lst->redirections[i]
 			+ 1, ft_strlen(lst->redirections[i] + 1) + 1) == 0)
 	{
-		free(str);
+		ft_true_free((void **)&str);
 		return (1);
 	}
 	if (str != NULL)
 	{
 		tmp = ft_strjoin(str, "\n");
 		ft_putstr_fd(tmp, fd);
-		free(tmp);
+		ft_true_free((void **)&tmp);
 	}
 	if (str != NULL)
-		free(str);
+		ft_true_free((void **)&str);
 	return (0);
 }
 
@@ -123,17 +123,17 @@ int	ft_fake_here_doc(t_parsed *lst, t_nod *env, int i)
 		if (ft_strncmp(str, lst->redirections[i] + 1, \
 			ft_strlen(lst->redirections[i] + 1)) == 0)
 		{
-			free(str);
+			ft_true_free((void **)&str);
 			return (0);
 		}
 		if (str == NULL)
 		{
 			printf("Minishell: warning: here-document delimited by ");
 			printf("end-of-file (wanted '%s')\n", lst->redirections[i] + 1);
-			free(str);
+			ft_true_free((void **)&str);
 			return (-1);
 		}
-		free(str);
+		ft_true_free((void **)&str);
 	}
 	return (0);
 }

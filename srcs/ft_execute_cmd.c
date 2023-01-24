@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 19:25:39 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:22:04 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 		execve(path, lst[1]->cmds, tab);
 	else if (ft_search_built_in(lst[1]) != 0)
 		ret_value = ft_call_built_in(lst, env, id_tab);
-	ft_clean_pipex(lst[0], env, tab, path);
+	ft_clean_pipex_2(lst, env, tab, path);
 	ft_close(p1[0], p1[1], -1, -1);
 	free(id_tab);
 	exit(ret_value);
@@ -47,7 +47,7 @@ int	ft_cmd_not_found_print(t_parsed *lst)
 
 	tmp = ft_strjoin(lst->cmds[0], ":  command not found\n");
 	ft_putstr_fd(tmp, 2);
-	free(tmp);
+	ft_true_free((void **)&tmp);
 	return (127);
 }
 
@@ -56,6 +56,8 @@ void	ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path)
 	ft_free_double(tab, path);
 	ft_free_env(env);
 	ft_free_parsed(lst);
+	(void)path;
+	(void)tab;
 }
 
 char	*ft_access(char *str, char *value)
@@ -76,22 +78,26 @@ char	*ft_access(char *str, char *value)
 	{
 		path = ft_strjoin(env[i], str);
 		i++;
-		path = ft_check_access(env, path, str);
+		path = ft_check_access(env, &path, str);
 		if (path != NULL)
 			return (path);
-		free(path);
+		ft_true_free((void **)&path);
+		path = NULL;
 	}
 	ft_free_double(env, str);
 	return (NULL);
 }
 
-char	*ft_check_access(char **env, char *path, char *str)
+char	*ft_check_access(char **env, char **path, char *str)
 {
-	if (access(path, R_OK) == 0)
+	if (access((*path), R_OK) == 0)
 	{
 		ft_free_double(env, str);
-		return (path);
+		return (*path);
 	}
-	free(path);
+	ft_true_free((void **)&(*path));
+	(*path) = NULL;
 	return (NULL);
+	(void)str;
+	(void)env;
 }

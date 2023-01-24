@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 13:52:20 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:54 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	ft_here_doc_basic(int c)
 	tmp = ft_itoa(c);
 	str = ft_strjoin(HEREDOC, tmp);
 	fd = open(str, O_CREAT | O_RDONLY, 0644);
-	free(str);
-	free(tmp);
+	ft_true_free((void **)&str);
+	ft_true_free((void **)&tmp);
 	return (fd);
 }
 

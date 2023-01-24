@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 19:36:25 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:58 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_while(t_nod *env_nod)
 			printf("exit");
 			break ;
 		}
-		free(str);
+		ft_true_free((void **)&str);
 	}
 }
 
@@ -90,7 +90,7 @@ void	ft_return_value(int value, t_nod *env)
 	{
 		if (ft_strncmp(env->key, "LEC_RV", 7) == 0)
 		{
-			free(env->value);
+			ft_true_free((void **)&env->value);
 			env->value = tmp;
 			return ;
 		}
@@ -106,8 +106,8 @@ void	ft_free_env(t_nod *env)
 	{
 		tmp = env;
 		env = env->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
+		ft_true_free((void **)&tmp->key);
+		ft_true_free((void **)&tmp->value);
+		ft_true_free((void **)&tmp);
 	}
 }

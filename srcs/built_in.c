@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/17 19:07:36 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:31 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_unset(char **str, t_nod *env)
 			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i]) + 1) == 0)
 			{
 				tmp_2->next = tmp->next;
-				free(tmp->key);
-				free(tmp->value);
-				free(tmp);
+				ft_true_free((void **)&tmp->key);
+				ft_true_free((void **)&tmp->value);
+				ft_true_free((void **)&tmp);
 				tmp = env;
 			}
 			tmp_2 = tmp;

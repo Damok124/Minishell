@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 18:34:32 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:22:27 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 	if (lst[1] == NULL)
 	{
 		ft_free_parsed(lst[0]);
-		free(tab);
+		ft_true_free((void **)&tab);
 		return (1);
 	}
 	return (0);

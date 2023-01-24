@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_angled_brackets_focus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 12:07:41 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:20 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

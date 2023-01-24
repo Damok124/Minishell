@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/23 18:48:02 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:27:13 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,14 @@ int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);
 void		ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
 void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
+void		ft_clean_pipex_2(t_parsed *lst[2], t_nod *env, char **tab, char *path);
 void		ft_while(t_nod *env_nod);
 void		ft_execute(char *str, t_nod *env);
 void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab,
 				int p1[2]);
 char		*ft_access(char *str, char *value);
 void		ft_free_double(char **str, char *str2);
-char		*ft_check_access(char **env, char *path, char *str);
+char		*ft_check_access(char **env, char **path, char *str);
 int			ft_redirection(t_parsed *lst);
 int			ft_check_file(t_parsed *lst);
 int			ft_infile(t_parsed *lst);

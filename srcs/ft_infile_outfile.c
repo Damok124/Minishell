@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:43:52 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 13:56:26 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:11:53 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_check_file(t_parsed *lst)
 	i = 0;
 	while (lst && lst->redirections && lst->redirections[i] != NULL)
 	{
-		if (lst->redirections[i][0] == '<')
+		if (lst->redirections[i][0] != 'H' && lst->redirections[i][0] != '<')
 		{
 			fd = open(lst->redirections[i] + 1, O_CREAT, 0644);
 			if (fd < 0 && access(lst->redirections[i] + 1, F_OK) == 1)
@@ -66,7 +66,7 @@ int	ft_check_out(t_parsed *lst, int i)
 		{
 			tmp = ft_strjoin("Minishell: ", lst->redirections[i] + 1);
 			perror(tmp);
-			free(tmp);
+			ft_true_free((void **)&tmp);
 			return (i);
 		}
 	}
@@ -85,7 +85,7 @@ int	ft_check_append(t_parsed *lst, int i)
 		{
 			tmp = ft_strjoin("Minishell: ", lst->redirections[i] + 1);
 			perror(tmp);
-			free(tmp);
+			ft_true_free((void **)&tmp);
 			return (i);
 		}
 	}
@@ -104,7 +104,7 @@ int	ft_check_in(t_parsed *lst, int i)
 		{
 			tmp = ft_strjoin("Minishell: ", lst->redirections[i] + 1);
 			perror(tmp);
-			free(tmp);
+			ft_true_free((void **)&tmp);
 			return (ret);
 		}
 	}

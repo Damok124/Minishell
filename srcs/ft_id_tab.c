@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:29:33 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 19:30:05 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:53 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	ft_wait_id(t_nod *env, int *tab)
 		ft_return_value(status, env);
 		i++;
 	}
-	free(tab);
+	ft_true_free((void **)&tab);
 }

@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_final_get_redir.c                               :+:      :+:    :+:   */
+/*   ft_clean_pipex_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:07 by tlarraze         ###   ########.fr       */
+/*   Created: 2023/01/24 18:22:44 by tlarraze          #+#    #+#             */
+/*   Updated: 2023/01/24 18:40:30 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_final_get_redir(char **redir, char **src, char **trans)
+void	ft_clean_pipex_2(t_parsed *lst[2], t_nod *env, char **tab, char *path)
 {
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	tmp = NULL;
-	while (src && trans && src[i] && trans[i])
-	{
-		if (ft_isredirection(trans[i]))
-		{
-			tmp = ft_strtrim(src[i], "\a\b\t\n\v\f\r ");
-			redir[j] = ft_strjoin(trans[i], tmp);
-			j++;
-			if (tmp)
-				ft_true_free((void **)&tmp);
-		}
-		i++;
-	}
+	if (path && lst && lst[1] && lst[1]->cmds && lst[1]->cmds[0] && path != lst[1]->cmds[0] )
+		ft_free_double(tab, path);
+	else
+		ft_full_free((void **)tab);
+	ft_free_env(env);
+	ft_free_parsed(lst[0]);
+	(void)path;
+	(void)tab;
 }

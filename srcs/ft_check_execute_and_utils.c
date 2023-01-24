@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:19:26 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/23 19:49:02 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:05:44 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	ft_file_destroy(int i)
 	tmp = ft_itoa(i);
 	str = ft_strjoin(HEREDOC, tmp);
 	unlink(str);
-	free(tmp);
-	free(str);
+	ft_true_free((void **)&tmp);
+	ft_true_free((void **)&str);
 }
 
 void	ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2])
