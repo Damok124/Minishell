@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:36:12 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:24:15 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ void		ft_clean_redir(char **srcs, int target, char *set);
 void		ft_redir_to_clean(char **src, char **trans);
 char		*ft_begin_strtrim(char const *s1, char const *set);
 void		ft_replace_src_redir_symbols(char **src, char **trans, int i);
+void		ft_lst_nullbyte_chase(t_twins *lst);
 
 /////////////////////////
 //	CORE
