@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_final_get_redir.c                               :+:      :+:    :+:   */
+/*   ft_replace_src_redir_symbols.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:18:39 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/25 17:34:17 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/25 17:35:04 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_final_get_redir(char **redir, char **src, char **trans)
+void	ft_replace_src_redir_symbols(char **src, char **trans, int i)
 {
 	char	*tmp;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	tmp = NULL;
-	while (src && trans && src[i] && trans[i])
+	if (ft_is_duo(trans[i]))
 	{
-		if (ft_isredirection(trans[i]))
-		{
-			tmp = ft_strdup(src[i]);
-			redir[j] = ft_strjoin(trans[i], tmp);
-			j++;
-			if (tmp)
-				ft_true_free((void **)&tmp);
-		}
-		i++;
+		tmp = ft_strdup(src[i] + 2);
+		ft_true_free((void **)&src[i]);
+		src[i] = tmp;
+	}
+	else if (ft_is_solo(trans[i]))
+	{
+		tmp = ft_strdup(src[i] + 1);
+		ft_true_free((void **)&src[i]);
+		src[i] = tmp;
 	}
 }

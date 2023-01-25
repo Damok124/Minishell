@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
+#    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/24 18:28:16 by tlarraze         ###   ########.fr        #
+#    Updated: 2023/01/25 17:36:15 by zharzi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,10 @@ ${SRCSDIR}ft_here_doc.c \
 ${SRCSDIR}ft_here_doc_2.c \
 ${SRCSDIR}ft_outfile.c \
 ${SRCSDIR}ft_infile.c \
+${SRCSDIR}/parsing/ft_replace_src_redir_symbols.c \
+${SRCSDIR}/parsing/ft_begin_strtrim.c \
+${SRCSDIR}/parsing/ft_redir_to_clean.c \
+${SRCSDIR}/parsing/ft_clean_redir.c \
 ${SRCSDIR}/parsing/ft_iscmd.c \
 ${SRCSDIR}/parsing/ft_isquotes.c \
 ${SRCSDIR}/parsing/ft_isheredoc.c \
@@ -90,8 +94,8 @@ ${SRCSDIR}/parsing/ft_split_on_spaces.c \
 ${SRCSDIR}/parsing/ft_show_lst_twins.c \
 ${SRCSDIR}/parsing/ft_lst_remove_quotes.c \
 ${SRCSDIR}/parsing/ft_lst_clean_quotes.c \
-${SRCSDIR}/parsing/ft_trim_trans.c \
-${SRCSDIR}/parsing/ft_lst_clean_redirections.c \
+${SRCSDIR}/parsing/ft_trans_to_symbol.c \
+${SRCSDIR}/parsing/ft_lst_trans_symbol.c \
 ${SRCSDIR}/parsing/ft_free_parsed.c \
 ${SRCSDIR}/parsing/ft_init_lst_parsed.c \
 ${SRCSDIR}/parsing/ft_count_cmds.c \

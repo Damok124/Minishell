@@ -6,13 +6,13 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:01:00 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/25 17:31:56 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_trim_trans(char **src, char **trans)
+void	ft_trans_to_symbol(char **src, char **trans)
 {
 	int	i;
 	int	j;
@@ -21,10 +21,7 @@ void	ft_trim_trans(char **src, char **trans)
 	j = 0;
 	while (src && src[i] && trans && trans[i])
 	{
-		if (ft_is_duo(trans[i]) || ft_is_solo(trans[i]))
-			src[i][0] = ' ';
-		if (ft_is_duo(trans[i]))
-			src[i][1] = ' ';
+		ft_replace_src_redir_symbols(src, trans, i);
 		if (src[i][j] && trans[i][j] && trans[i][j] == '?')
 		{
 			while (src[i][j] && ft_strchr("<>", src[i][j]) && trans[i][j + 1])

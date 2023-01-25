@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_final_get_redir.c                               :+:      :+:    :+:   */
+/*   ft_begin_strtrim.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:18:39 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/25 17:19:54 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/25 17:20:18 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_final_get_redir(char **redir, char **src, char **trans)
+char	*ft_begin_strtrim(char const *s1, char const *set)
 {
-	char	*tmp;
-	int		i;
-	int		j;
+	char	*str;
+	ssize_t	i;
+	ssize_t	j;
 
 	i = 0;
-	j = 0;
-	tmp = NULL;
-	while (src && trans && src[i] && trans[i])
+	j = ft_strlen(s1);
+	if (s1)
 	{
-		if (ft_isredirection(trans[i]))
-		{
-			tmp = ft_strdup(src[i]);
-			redir[j] = ft_strjoin(trans[i], tmp);
-			j++;
-			if (tmp)
-				ft_true_free((void **)&tmp);
-		}
-		i++;
+		while (s1 && s1[i] && ft_strchr(set, s1[i]))
+			i++;
+		str = ft_strdup(s1 + i);
+		if (str)
+			return (str);
 	}
+	str = malloc(sizeof(char));
+	if (!str)
+		return (NULL);
+	str[0] = '\0';
+	return (str);
 }

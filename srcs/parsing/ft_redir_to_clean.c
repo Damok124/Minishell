@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_final_get_redir.c                               :+:      :+:    :+:   */
+/*   ft_redir_to_clean.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:18:39 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/25 17:13:45 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/25 17:14:10 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_final_get_redir(char **redir, char **src, char **trans)
+void	ft_redir_to_clean(char **src, char **trans)
 {
-	char	*tmp;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	tmp = NULL;
-	while (src && trans && src[i] && trans[i])
+	while (src && trans && src[0] && trans[0] && trans[0][i] && src[0][i])
 	{
-		if (ft_isredirection(trans[i]))
+		if (ft_strchr("<>", trans[0][i]) && trans[0][i + 1] == ' ')
 		{
-			tmp = ft_strdup(src[i]);
-			redir[j] = ft_strjoin(trans[i], tmp);
-			j++;
-			if (tmp)
-				ft_true_free((void **)&tmp);
+			ft_clean_redir(trans, i + 1, " ");
+			ft_clean_redir(src, i + 1, "\a\b\t\n\v\f\r ");
+		}
+		if (ft_strchr("AH", trans[0][i]) && trans[0][i + 2] == ' ')
+		{
+			ft_clean_redir(trans, i + 2, " ");
+			ft_clean_redir(src, i + 2, "\a\b\t\n\v\f\r ");
 		}
 		i++;
 	}

@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_clean_redirections.c                        :+:      :+:    :+:   */
+/*   ft_clean_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:01:12 by zharzi           ###   ########.fr       */
+/*   Created: 2023/01/25 17:12:43 by zharzi            #+#    #+#             */
+/*   Updated: 2023/01/25 17:13:38 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lst_clean_redirections(t_twins *lst)
+void	ft_clean_redir(char **srcs, int target, char *set)
 {
-	char	*tmp;
-	int		i;
+	char	**strs;
+	char	*str;
 
-	i = 0;
-	tmp = NULL;
-	while (lst)
-	{
-		ft_trim_trans(lst->src, lst->trans);
-		while (lst->trans && lst->trans[i])
-		{
-			tmp = lst->src[i];
-			lst->src[i] = ft_strtrim(tmp, "\a\b\t\n\v\f\r ");
-			ft_true_free((void **)&tmp);
-			i++;
-		}
-		i = 0;
-		lst = lst->next;
-	}
+	strs = ft_split_at_index(srcs[0], target);
+	str = ft_begin_strtrim(strs[1], set);
+	ft_true_free((void **)&srcs[0]);
+	srcs[0] = ft_strjoin(strs[0], str);
+	ft_full_free((void **)strs);
+	ft_true_free((void **)&str);
 }

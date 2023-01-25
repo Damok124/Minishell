@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/24 18:27:13 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:36:12 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,8 +301,12 @@ char		*ft_twin_str(char *str1);
 char		**ft_parallel_split(char **model, char *to_split);
 void		ft_translation(char **src, char **trans, t_nod *env);
 char		**ft_mirror_split(char *src, char **trans);
-void		ft_trim_trans(char **src, char **trans);
-void		ft_lst_clean_redirections(t_twins *lst);
+void		ft_trans_to_symbol(char **src, char **trans);
+void		ft_lst_trans_symbol(t_twins *lst);
+void		ft_clean_redir(char **srcs, int target, char *set);
+void		ft_redir_to_clean(char **src, char **trans);
+char		*ft_begin_strtrim(char const *s1, char const *set);
+void		ft_replace_src_redir_symbols(char **src, char **trans, int i);
 
 /////////////////////////
 //	CORE

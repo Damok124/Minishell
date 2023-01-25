@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:04:23 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/25 17:12:08 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_parsed	*ft_minishell_parsing(char *str1, t_nod *env)
 		&& ft_check_syntax(origin->src, origin->trans))
 	{
 		ft_translation(origin->src, origin->trans, env);
+		ft_redir_to_clean(origin->src, origin->trans);
 		ft_split_on_pipes(origin);
 		lst = ft_init_lst_twins((int)ft_strslen(origin->trans));
 		final = ft_init_lst_parsed((int)ft_strslen(origin->trans));
