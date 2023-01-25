@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell_parsing.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:12:08 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/25 17:40:44 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_parsed	*ft_minishell_parsing(char *str1, t_nod *env)
 		final = ft_init_lst_parsed((int)ft_strslen(origin->trans));
 		ft_split_on_spaces(lst, origin->src, origin->trans);
 		ft_lst_clean_quotes(lst);
-		ft_lst_clean_redirections(lst);
+		ft_lst_trans_symbol(lst);
 		ft_lst_to_final(lst, final);
 	}
 	ft_free_twins(origin);
