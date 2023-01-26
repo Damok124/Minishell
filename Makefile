@@ -6,7 +6,7 @@
 #    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/01/25 19:24:41 by zharzi           ###   ########.fr        #
+#    Updated: 2023/01/26 18:55:33 by zharzi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ ${SRCSDIR}ft_here_doc.c \
 ${SRCSDIR}ft_here_doc_2.c \
 ${SRCSDIR}ft_outfile.c \
 ${SRCSDIR}ft_infile.c \
+${SRCSDIR}/parsing/ft_disable_unnamed_var_env.c \
 ${SRCSDIR}/parsing/ft_replace_src_redir_symbols.c \
 ${SRCSDIR}/parsing/ft_lst_nullbyte_chase.c \
 ${SRCSDIR}/parsing/ft_begin_strtrim.c \

@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 12:55:24 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/26 18:53:41 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	ft_disable_var_env(char **src, char **trans)
 		}
 		i++;
 	}
+	ft_disable_unnamed_var_env(trans);
 }
