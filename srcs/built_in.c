@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 18:51:04 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:59:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_cd(char **str, t_nod *env, int i)
 {
+	char	*str_2;
+
 	if (str[2])
 	{
 		if (i == 0)
-			printf("Minishell: cd: too many arguments\n");
+			ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
 		return (1);
 	}
 	if (!str[1])
@@ -28,7 +30,12 @@ int	ft_cd(char **str, t_nod *env, int i)
 	if (chdir(str[1]) == -1)
 	{
 		if (i == 0)
-			printf("Minishell: cd: %s: No such file or directory\n", str[1]);
+		{
+			str_2 = ft_strjoin(str[1]," : No such file or directory\n");
+			ft_putstr_fd(str_2, 2);
+			free(str_2);
+
+		}
 		return (1);
 	}
 	return (0);
@@ -43,7 +50,6 @@ void	ft_pwd(char **str)
 		path = getcwd(NULL, 6666);
 		if (path != NULL)
 			printf("%s\n", path);
-		//ft_putstr_fd("pwd: too many arguments\n", 2);
 		return ;
 	}
 	path = getcwd(NULL, 6666);

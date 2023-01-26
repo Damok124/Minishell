@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/26 18:55:02 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/26 19:07:01 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void		ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
 int			ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
 void		ft_check_exit_arg(t_parsed *lst[2], int print_check, t_nod *env,
 				int *tab);
+int			ft_check_num(char *str);
 ////////////////////////////////////////////////////////////////
 int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
 				int i);

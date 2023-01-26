@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 18:33:57 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:11:04 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_check_exit_arg(t_parsed *lst[2], int print_check,
 	i = 0;
 	while (lst && lst[1]->cmds && lst[1]->cmds[1][i])
 	{
-		if (!ft_strisdigit(lst[1]->cmds[1]))
+		if (ft_check_num(lst[1]->cmds[1]) == 0)
 		{
 			if (print_check == 0)
 				printf("exit\n");
@@ -70,7 +70,7 @@ void	ft_check_exit_arg(t_parsed *lst[2], int print_check,
 			i = ft_atoi_safe(lst[1]->cmds[1], &check);
 			ft_clean_pipex(lst[0], env, NULL, NULL);
 			ft_true_free((void **)&tab);
-			exit(2);
+			exit(i);
 		}
 		i++;
 	}
@@ -97,6 +97,20 @@ int	ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab)
 		printf("exit\n");
 		ft_putstr_fd("Minishell: exit: too many arguments\n", 2);
 		return (1);
+	}
+	return (0);
+}
+
+int	ft_check_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= '0' && str[i] <= '9' && str[i] != '+' && str[i] != '-')
+			return (1);
+		i++;
 	}
 	return (0);
 }
