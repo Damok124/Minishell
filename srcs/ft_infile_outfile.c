@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:43:52 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 19:11:53 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:05:37 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check_file(t_parsed *lst)
 			if (fd < 0 && access(lst->redirections[i] + 1, F_OK) == 1)
 			{
 				perror("open");
-				exit(-1);
+				return (-1);
 			}
 			fd = close(fd);
 		}
@@ -67,7 +67,7 @@ int	ft_check_out(t_parsed *lst, int i)
 			tmp = ft_strjoin("Minishell: ", lst->redirections[i] + 1);
 			perror(tmp);
 			ft_true_free((void **)&tmp);
-			return (i);
+			return (ret);
 		}
 	}
 	return (0);
@@ -86,7 +86,7 @@ int	ft_check_append(t_parsed *lst, int i)
 			tmp = ft_strjoin("Minishell: ", lst->redirections[i] + 1);
 			perror(tmp);
 			ft_true_free((void **)&tmp);
-			return (i);
+			return (ret);
 		}
 	}
 	return (0);

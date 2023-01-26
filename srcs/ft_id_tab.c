@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:29:33 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/25 19:41:54 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:06:32 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_wait_id(t_nod *env, int *tab)
 		waitpid(tab[i], &status, 0);
 		status = WEXITSTATUS(status);
 		ft_return_value(status, env);
+		ft_file_destroy(i);
 		i++;
 	}
 	ft_true_free((void **)&tab);
