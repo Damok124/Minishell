@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:31 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:51:04 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	ft_pwd(char **str)
 
 	if (str[1])
 	{
-		printf("pwd: too many arguments\n");
+		path = getcwd(NULL, 6666);
+		if (path != NULL)
+			printf("%s\n", path);
+		//ft_putstr_fd("pwd: too many arguments\n", 2);
 		return ;
 	}
 	path = getcwd(NULL, 6666);

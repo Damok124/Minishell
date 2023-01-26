@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:50 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:46:06 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	ft_fuse_export(t_nod *nod, char *str)
 		i++;
 	if (str[i] == '\0')
 		return (0);
+	if (str[i - 1] == '-')
+		ft_putstr_fd("Minishell : export: '-': not a valid identifier", 1);
 	if (str[i - 1] == '+' && strncmp(nod->key, str, ft_strlen(nod->key)) == 0)
 	{
 		tmp = nod->value;

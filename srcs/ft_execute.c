@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 17:52:37 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:40:08 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 			ft_true_free((void **)&id_tab);
 			return ;
 		}
-		if (lst && lst[1]->cmds && !strncmp(lst[1]->cmds[0], "exit", 5) && !i)
-			ft_close(tmp_stdin, -1, -1, -1);
-		if (ft_check_unset_export(lst, id_tab, env, i) == 1 && i == 0)
-			return ;
+		// if (lst && lst[1]->cmds && !strncmp(lst[1]->cmds[0], "exit", 5) && !i)
+		// 	ft_close(tmp_stdin, -1, -1, -1);
+		// if (ft_check_unset_export(lst, id_tab, env, i) == 1 && i == 0)
+		// 	return ;
 		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin);
 		id = ft_init_pipe(lst[1], p1, id_tab[i], i);
 		if (str != NULL && id == 0)
