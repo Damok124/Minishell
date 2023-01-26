@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 16:14:53 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:23:20 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_cmd_not_found_print(t_parsed *lst)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(lst->cmds[0], ":  command not found\n");
+	tmp = ft_strjoin(lst->cmds[0], ": command not found\n");
 	ft_putstr_fd(tmp, 2);
 	ft_true_free((void **)&tmp);
 	return (127);
