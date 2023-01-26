@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 19:23:52 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:54:27 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_execute(char *str, t_nod *env)
 
 	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
 	lst[1] = lst[0];
-	// ft_show_lst_parsed(lst[0]);
 	p1[0] = -1;
 	p1[1] = -1;
 	i = ft_here_doc(lst[1], env);
@@ -40,29 +39,29 @@ void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 	int	*id_tab;
 	int	id;
 
-	i = 0;
-	tmp_stdin = dup(STDIN);
-	id_tab = ft_make_id_tab(lst[1]);
+	id_tab = ft_init_execute(lst[1], &i, &tmp_stdin);
 	while (lst[1])
 	{
 		if (ft_check(lst, env, tmp_stdin, p1) == 1)
+		{
+			ft_true_free((void **)&id_tab);
 			return ;
+		}
+		if (lst && lst[1]->cmds && !strncmp(lst[1]->cmds[0], "exit", 5) && !i)
+			ft_close(tmp_stdin, -1, -1, -1);
 		if (ft_check_unset_export(lst, id_tab, env, i) == 1 && i == 0)
 			return ;
 		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin);
-		id = id_tab[i];
-		ft_init_pipe(lst[1], p1, id_tab[i], i);
+		id = ft_init_pipe(lst[1], p1, id_tab[i], i);
 		if (str != NULL && id == 0)
 			ft_execute_cmd(lst, env, id_tab, p1);
-		ft_execute_end(lst, tmp_stdin);
-		ft_file_destroy(i);
-		i++;
+		i = ft_execute_end(lst, tmp_stdin, i);
 	}
 	ft_wait_id(env, id_tab);
 	ft_clean_end(lst[0], tmp_stdin, p1);
 }
 
-void	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
+int	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
 {
 	int	j;
 
@@ -83,8 +82,9 @@ void	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
 	if (j == 3)
 	{
 		ft_close(p1[1], p1[0], -1, -1);
-		return ;
+		return (id);
 	}
+	return (id);
 }
 
 int	ft_do_need_pipe(t_parsed *lst, int j)

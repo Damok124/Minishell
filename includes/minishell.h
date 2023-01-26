@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 19:24:15 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/26 15:45:48 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,11 @@ int			ft_get_id_tab_index(int *tab);
 /////////////////////////
 //	EXEC
 /////////////////////////
+int			*ft_init_execute(t_parsed *lst, int *i, int *fd);
 int			ft_init_fork(int id, int tmp_stdin);
 void		ft_pipe(int p1[2], t_parsed *lst[2]);
 void		ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str);
-void		ft_execute_end(t_parsed *lst[2], int tmp_stdin);
+int			ft_execute_end(t_parsed *lst[2], int tmp_stdin, int i);
 int			ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin,
 				int p1[2]);
 int			ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2]);
@@ -156,7 +157,8 @@ int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);
 void		ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
 void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
-void		ft_clean_pipex_2(t_parsed *lst[2], t_nod *env, char **tab, char *path);
+void		ft_clean_pipex_2(t_parsed *lst[2], t_nod *env, char **tab,
+				char *path);
 void		ft_while(t_nod *env_nod);
 void		ft_execute(char *str, t_nod *env);
 void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab,
@@ -177,7 +179,7 @@ void		ft_outfile_basic(t_parsed *lst);
 void		ft_outfile_append(t_parsed *lst);
 int			ft_infile_basic(t_parsed *lst);
 int			ft_check_infile(t_parsed *lst);
-void		ft_init_pipe(t_parsed *lst, int p1[2], int id, int i);
+int			ft_init_pipe(t_parsed *lst, int p1[2], int id, int i);
 int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/25 13:37:40 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:14:53 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 	path = NULL;
 	ret_value = 0;
 	tab = ft_env_to_tab(env, lst);
-	if (lst[1] && lst[1]->cmds && lst[1]->cmds[0])
+	if (lst[1] && lst[1]->cmds)
 		path = ft_access(lst[1]->cmds[0], ft_get_env("PATH", env));
 	if (path == NULL && lst[1]->cmds && ft_search_built_in(lst[1]) == 0)
 		ret_value = ft_cmd_not_found_print(lst[1]);
@@ -31,7 +31,7 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 		ft_choose_here_doc_or_infile(lst[1], lst[1]->empty);
 	if (ft_check_outfile(lst[1]) != 0)
 		ft_choose_outfile(lst[1]);
-	if (path != NULL && ft_search_built_in(lst[1]) == 0)
+	if (path != NULL && ft_search_built_in(lst[1]) == 0 && ret_value == 0)
 		execve(path, lst[1]->cmds, tab);
 	else if (ft_search_built_in(lst[1]) != 0)
 		ret_value = ft_call_built_in(lst, env, id_tab);
@@ -67,7 +67,7 @@ char	*ft_access(char *str, char *value)
 	char	**env;
 
 	i = 0;
-	if (str == NULL)
+	if (str == NULL || str[0] == '\0')
 		return (NULL);
 	if (access(str, R_OK) == 0 && access(str, X_OK) == 0)
 		return (str);

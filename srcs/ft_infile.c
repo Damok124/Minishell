@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:54 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:55:47 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_choose_here_doc_or_infile(t_parsed *lst, int c)
 	if (here_doc > infile)
 		fd = ft_here_doc_basic(c);
 	dup2(fd, 0);
+	printf("%s\n", get_next_line(0));
 	ft_close(fd, -1, -1, -1);
 }
 
@@ -45,7 +46,7 @@ int	ft_here_doc_basic(int c)
 
 	tmp = ft_itoa(c);
 	str = ft_strjoin(HEREDOC, tmp);
-	fd = open(str, O_CREAT | O_RDONLY, 0644);
+	fd = open(str, O_CREAT | O_RDWR, 0644);
 	ft_true_free((void **)&str);
 	ft_true_free((void **)&tmp);
 	return (fd);

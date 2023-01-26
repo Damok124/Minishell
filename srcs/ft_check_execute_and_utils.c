@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:19:26 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:44 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:03:34 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,17 @@ int	ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2])
 		ft_clean_end(lst[0], tmp_stdin, p1);
 		return (1);
 	}
-	(void)p1;
-	(void)tmp_stdin;
 	return (0);
 }
 
-void	ft_execute_end(t_parsed *lst[2], int tmp_stdin)
+int	ft_execute_end(t_parsed *lst[2], int tmp_stdin, int i)
 {
 	lst[1] = lst[1]->next;
 	if (lst[1] == NULL)
 		dup2(tmp_stdin, STDIN);
+	ft_file_destroy(i);
+	i++;
+	return (i);
 }
 
 void	ft_file_destroy(int i)

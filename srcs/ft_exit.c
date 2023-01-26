@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:49 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:38:40 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab)
 	if (ft_exit_2(lst, print_check, env, tab) == 1)
 		return ;
 	ft_clean_pipex(lst[0], env, NULL, NULL);
-			ft_true_free((void **)&tab);
+	ft_true_free((void **)&tab);
 	exit(0);
 }
 
@@ -85,7 +85,6 @@ int	ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab)
 	if (lst && lst[1]->cmds && lst[1]->cmds[1] && lst[1]->cmds[2])
 	{
 		printf("exit\nMinishell: exit: too many arguments\n");
-		lst[1] = lst[1]->next;
 		return (1);
 	}
 	return (0);
