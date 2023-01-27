@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:17:51 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:59:11 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_search_built_in(t_parsed *lst)
 
 int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 {
-	if (i != 0)
+	if (i != 0 || lst[0]->next != NULL)
 		return (0);
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "unset", 6) == 0)
 		ft_unset(lst[1]->cmds, env);

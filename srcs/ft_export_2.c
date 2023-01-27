@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:32:06 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:08:19 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:02:22 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_minus_before(char **str)
 			ft_putstr_fd("Minishell: export: not a valid identifier\n", 2);
 			return (1);
 		}
-		while(str[i][j] != '=' && str[i][j] != '\0')
+		while (str[i][j] != '=' && str[i][j] != '\0')
 			j++;
 		if (str[i][j] == '=' && (str[i][j - 1] == '-' || str[i][j - 1] == '\0'))
 		{

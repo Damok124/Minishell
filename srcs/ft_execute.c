@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:51:44 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:59:42 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 			ft_true_free((void **)&id_tab);
 			return ;
 		}
-		if (i == 0 && lst[1]->next == NULL && ft_check_unset_export(lst, id_tab, env, i) == 1)
+		if (ft_check_unset_export(lst, id_tab, env, i) == 1)
 			return ;
 		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin);
 		id = ft_init_pipe(lst[1], p1, id_tab[i], i);

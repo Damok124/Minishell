@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 09:52:38 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:00:27 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ int	ft_cd(char **str, t_nod *env, int i)
 	{
 		if (i == 0)
 		{
-			str_2 = ft_strjoin(str[1]," : No such file or directory\n");
+			str_2 = ft_strjoin(str[1], " : No such file or directory\n");
 			ft_putstr_fd(str_2, 2);
 			free(str_2);
-
 		}
 		return (1);
 	}
