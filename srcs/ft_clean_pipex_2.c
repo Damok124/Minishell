@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:22:44 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 15:42:02 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:49:57 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	*ft_init_execute(t_parsed *lst, int *i, int *fd)
 	int	*id_tab;
 
 	*i = 0;
-	*fd = dup(STDIN);
+	if (lst->next != NULL)
+		*fd = dup(STDIN);
+	else
+		*fd = -1;
 	id_tab = ft_make_id_tab(lst);
 	return (id_tab);
 }

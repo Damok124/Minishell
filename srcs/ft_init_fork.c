@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 19:22:01 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:48:16 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2])
 
 void	ft_pipe(int p1[2], t_parsed *lst[2])
 {
-	if (ft_search_built_in(lst[1]) == 7)
+	if (ft_search_built_in(lst[1]) == 7 || lst[0]->next == NULL)
 	{
 		p1[0] = -1;
 		p1[1] = -1;
