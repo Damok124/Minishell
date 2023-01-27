@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 16:14:42 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:38:23 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,18 @@ void	ft_check_exit_arg(t_parsed *lst[2], int print_check,
 int	ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab)
 {
 	long int	i;
+	int			check;
 
+	check = 1;
 	if (lst && lst[1]->cmds && lst[1]->cmds[1] && !lst[1]->cmds[2])
 	{
 		if (print_check == 0)
 			printf("exit\n");
-		i = ft_long_atoi(lst[1]->cmds[1]);
+		i = ft_atol_safe1 (lst[1]->cmds[1], &check);
 		ft_free_parsed(lst[0]);
 		ft_free_env(env);
 		ft_true_free((void **)&tab);
-		if (i > 9223372036854775807 || i < -9223372036854775807)
+		if (check == 0)
 		{
 			ft_putstr_fd("bash: exit: : numeric argument required", 2);
 			exit(2);

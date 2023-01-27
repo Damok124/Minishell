@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:30:42 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:50:51 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_export(char **str, t_nod *env, int do_it)
 		found = 0;
 		i++;
 	}
+	ft_add_declare(big_nod, str);
 	return (0);
 }
 
@@ -103,7 +104,12 @@ void	ft_show_declare(t_nod *env)
 {
 	while (env != NULL)
 	{
-		printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		if (env->declare == 0)
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		if (env->value != NULL)
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		else 
+			printf("declare -x %s\n", env->key);
 		env = env->next;
 	}
 }

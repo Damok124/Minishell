@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 10:08:19 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:21:13 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_env(t_nod *env)
 {
 	while (env != NULL)
 	{
-		if (ft_strncmp(env->key, "LEC_RV", 7) != 0)
+		if (env->declare == 0)
 			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
@@ -79,6 +79,7 @@ t_nod	*ft_init_lst(char **env)
 	body = (t_nod *)malloc(sizeof(t_nod));
 	body->value = ft_strdup("0");
 	body->key = ft_strdup("LEC_RV");
+	body->declare = 1;
 	tmp->next = body;
 	tmp = tmp->next;
 	body->next = NULL;
@@ -100,6 +101,7 @@ t_nod	*ft_init_nod(char *str)
 	i++;
 	nod->value = ft_strdup(str + i);
 	nod->key = ft_strdup(str);
+	nod->declare = 0;
 	i++;
 	return (nod);
 }

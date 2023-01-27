@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 16:00:27 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:20:04 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_cd(char **str, t_nod *env, int i)
 {
 	char	*str_2;
 
-	if (str[2])
+	if (str && str[1] != NULL && str[2])
 	{
 		if (i == 0)
 			ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
@@ -27,7 +27,7 @@ int	ft_cd(char **str, t_nod *env, int i)
 		chdir(ft_get_env("HOME", env));
 		return (0);
 	}
-	if (chdir(str[1]) == -1)
+	if (str && str[1] && chdir(str[1]) == -1)
 	{
 		if (i == 0)
 		{

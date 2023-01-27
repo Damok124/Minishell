@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/27 16:05:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:51:07 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_nod
 	char			*key;
 	char			*value;
 	struct s_nod	*next;
+	int				declare;
 }					t_nod;
 
 typedef struct s_parsed
@@ -114,6 +115,8 @@ int			ft_fuse_export(t_nod *nod, char *str);
 void		ft_show_declare(t_nod *env);
 int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
 int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
+int			ft_check_first_export(char **str, int i);
+void		ft_add_declare(t_nod *nod[3], char **str);
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
 void		ft_pwd(char **str);
