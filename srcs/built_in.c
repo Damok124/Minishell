@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 18:59:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 09:52:38 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,19 @@ void	ft_unset(char **str, t_nod *env)
 		tmp = env;
 		i++;
 	}
+}
+
+int	ft_make_nod(t_nod *big_nod[3], char **str, int i, int found)
+{
+	if (str[1] == NULL)
+		return (1);
+	if (found == 0)
+	{
+		big_nod[2] = ft_init_nod(str[i]);
+		big_nod[2]->next = NULL;
+		big_nod[1]->next = big_nod[2];
+	}
+	big_nod[1] = big_nod[0];
+	i++;
+	return (0);
 }

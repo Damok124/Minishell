@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:29 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:08:19 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_call_built_in(t_parsed *lst[2], t_nod *env, int *id_tab)
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 3)
 		ft_pwd(lst[1]->cmds);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 4)
-		ft_export(lst[1]->cmds, env, 1);
+		ret = ft_export(lst[1]->cmds, env, 1);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 5)
 		ft_unset(lst[1]->cmds, env);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 6)

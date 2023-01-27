@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_safe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 22:48:01 by zharzi            #+#    #+#             */
-/*   Updated: 2022/08/26 16:38:34 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/01/27 10:43:32 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_atoi_safe(const char *nptr, int *check)
 		{
 			i *= 10;
 			i += *nptr - '0';
-			if ((k * i) > INT_MAX || (k * i) < INT_MIN)
+			if ((k * i) > 4294967295 || (k * i) < 0)
 				*check = 0;
 			nptr++;
 		}

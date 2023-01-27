@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/26 19:07:01 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:40:53 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ void		ft_echo_n(char **str);
 int			ft_check_echo_n(char *str);
 ////////////////////////////////////////////////////////////////
 //		ft_export
-void		ft_export(char **str, t_nod *env, int doo);
+int			ft_export(char **str, t_nod *env, int doo);
+int			ft_minus_before(char **str);
+int			ft_check_export_identifier(char **str);
 int			ft_fuse_export(t_nod *nod, char *str);
 void		ft_show_declare(t_nod *env);
 int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
@@ -122,11 +124,12 @@ t_nod		*ft_init_nod(char *str);
 char		**ft_env_to_tab(t_nod *nod, t_parsed *lst[2]);
 ////////////////////////////////////////////////////////////////
 //		ft_exit
-void		ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
+int			ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
 int			ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
 void		ft_check_exit_arg(t_parsed *lst[2], int print_check, t_nod *env,
 				int *tab);
 int			ft_check_num(char *str);
+long int	ft_long_atoi(const char *nptr);
 ////////////////////////////////////////////////////////////////
 int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
 				int i);
