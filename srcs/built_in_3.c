@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:59:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:14:27 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	ft_search_built_in(t_parsed *lst)
 
 int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 {
-	if (i != 0 || lst[0]->next != NULL)
+	if (lst[0]->next != NULL)
 		return (0);
+	//printf("%d   %p\n", i, lst[0]->next);
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "unset", 6) == 0)
-		ft_unset(lst[1]->cmds, env);
-	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "export", 6) == 0)
 	{
-		ft_return_value(ft_export(lst[1]->cmds, env, 0), env);
+		ft_return_value(ft_unset(lst[1]->cmds, env, 0), env);
 		i = 1;
 	}
+	i = ft_call_export(lst, env, i);
 	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
 	{
 		ft_return_value(ft_exit(lst, 0, env, tab), env);
@@ -59,6 +59,8 @@ int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 	}
 	return (0);
 }
+
+
 
 char	**ft_env_to_tab(t_nod *nod, t_parsed *lst[2])
 {
@@ -99,14 +101,5 @@ void	ft_fuse_end_env(t_nod *first, char **strs)
 		ft_true_free((void **)&tmp);
 		first = first->next;
 		i++;
-	}
-}
-
-void	ft_show_nod(t_nod *nod)
-{
-	while (nod)
-	{
-		printf("%s=%s\n", nod->key, nod->value);
-		nod = nod->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 15:59:42 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:23:58 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_execute(char *str, t_nod *env)
 	lst[1] = lst[0];
 	p1[0] = -1;
 	p1[1] = -1;
+	//printf("\a"); //bell
 	i = ft_here_doc(lst[1], env);
 	if (ft_error_heredoc(lst[1], env, &i) != 0)
 		return ;

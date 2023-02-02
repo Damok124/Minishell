@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/27 18:51:07 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:49:00 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,26 @@ int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
 int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
 int			ft_check_first_export(char **str, int i);
 void		ft_add_declare(t_nod *nod[3], char **str);
+
+int			ft_check_identifier(char *str, int type, int do_it);
+int			ft_check_number_export(char c);
+void		ft_add_to_export_no_value(t_nod *nod, char *str);
+int			ft_search_delimiter(char *str);
+void		ft_add_to_env_no_value(t_nod *nod, char *str);
+void		ft_add_basic(t_nod *nod, char *str);
+void		ft_add_basic_and_plus(t_nod *nod, char *str);
+int			ft_check_middle_identifier(char *str, int type, int i, int no_value);
+
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
 void		ft_pwd(char **str);
-void		ft_unset(char **str, t_nod *env);
+int			ft_unset(char **str, t_nod *env, int do_it);
 void		ft_env(t_nod *env);
 t_nod		*ft_init_lst(char **env);
 t_nod		*ft_init_nod(char *str);
 char		**ft_env_to_tab(t_nod *nod, t_parsed *lst[2]);
+int			ft_call_export(t_parsed *lst[2], t_nod *env, int i);
+
 ////////////////////////////////////////////////////////////////
 //		ft_exit
 int			ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);

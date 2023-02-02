@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 17:20:04 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:00:03 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,19 @@ void	ft_pwd(char **str)
 		perror("getcwd");
 }
 
-void	ft_unset(char **str, t_nod *env)
+int	ft_unset(char **str, t_nod *env, int do_it)
 {
 	int		i;
+	int		check;
 	t_nod	*tmp;
 	t_nod	*tmp_2;
 
 	i = 1;
+	check = 0;
 	tmp = env;
-	while (str[i])
+	while (str[i] && do_it == 0)
 	{
+		check += ft_check_identifier(str[i], 1, 0);
 		while (tmp != NULL)
 		{
 			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i]) + 1) == 0)
@@ -84,6 +87,10 @@ void	ft_unset(char **str, t_nod *env)
 		tmp = env;
 		i++;
 	}
+	//printf("%d\n", check);
+	if (check != 0)
+		return (1);
+	return (0);
 }
 
 int	ft_make_nod(t_nod *big_nod[3], char **str, int i, int found)
@@ -97,6 +104,5 @@ int	ft_make_nod(t_nod *big_nod[3], char **str, int i, int found)
 		big_nod[1]->next = big_nod[2];
 	}
 	big_nod[1] = big_nod[0];
-	i++;
 	return (0);
 }

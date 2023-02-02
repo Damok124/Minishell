@@ -6,38 +6,42 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:32:06 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 18:53:16 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:16:35 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_minus_before(char **str)
+int	ft_search_delimiter(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if ((str[i][0] > '0' && str[i][0] < '9')
-				|| ft_check_first_export(str, i) == 1)
-		{
-			ft_putstr_fd("Minishell: export: not a valid identifier\n", 2);
-			return (1);
-		}
-		while (str[i][j] != '=' && str[i][j] != '\0')
-			j++;
-		if (str[i][j] == '=' && (str[i][j - 1] == '-' || str[i][j - 1] == '\0'))
-		{
-			ft_putstr_fd("Minishell: export: not a valid identifier\n", 2);
-			return (1);
-		}
+	while (str[i] != '=' && str[i] != '\0')
 		i++;
-		j = 0;
-	}
+	if (str[i] == '\0')
+		return (3);
+	if (str[i + 1] == '\0')
+		return (1);
+	if (str[i - 1] == '+')
+		return (2);
 	return (0);
+}
+
+void	ft_show_declare(t_nod *env)
+{
+	while (env != NULL)
+	{
+		if (env->declare == 0)
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		if (env->declare == 1)
+			printf("declare -x %s\"%s\"\n", env->key, env->value);
+		if (env->declare == 2)
+			printf("declare -x %s\n", env->key);
+		if (env->declare == 4)
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		env = env->next;
+	}
 }
 
 int	ft_check_first_export(char **str, int i)
@@ -49,21 +53,28 @@ int	ft_check_first_export(char **str, int i)
 
 void	ft_add_declare(t_nod *nod[3], char **str)
 {
-	int i;
+	int	i;
 
-	i = 0;
+	i = 1;
 	while (str[i])
 	{
+		while (nod[1]->next != NULL)
+			nod[1] = nod[1]->next;
 		if (ft_strchr(str[i], '=') != NULL)
 		{
-			// nod[2] = (t_nod *)malloc(sizeof(t_nod));
-			// nod[2]->key = ft_strdup(str[i]);
-			// nod[2]->value = NULL;
-			// nod[2]->declare = 1;
-			// nod[2]->next = NULL;
-			// nod[1]->next = nod[2];
+			ft_make_nod(nod, str, i, 0);
+			nod[2]->declare = 1;
 		}
 		nod[1] = nod[0];
 		i++;
 	}
+}
+
+int	ft_call_export(t_parsed *lst[2], t_nod *env, int i)
+{
+	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "export", 6) == 0)
+	{
+		ft_return_value(ft_export(lst[1]->cmds, env, 0), env);
+	}
+	return (i);
 }

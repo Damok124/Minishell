@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 18:50:51 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:48:38 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,101 +15,158 @@
 int	ft_export(char **str, t_nod *env, int do_it)
 {
 	int		i;
-	int		found;
+	int		check;
+	int		error;
 	t_nod	*big_nod[3];
 
+	i = 1;
+	check = 0;
+	error = 0;
 	big_nod[0] = env;
-	i = 1;
-	found = 0;
-	big_nod[1] = big_nod[0];
-	if (ft_check_export_identifier(str) == 1 || ft_minus_before(str) == 1)
-		return (1);
-	if (str[1] != NULL && do_it == 1)
-		return (0);
 	if (!str[1])
-		ft_show_declare(big_nod[0]);
-	while (str[i] != NULL && big_nod[1]->next != NULL)
-	{
-		if (ft_strrchr(str[i], '=') == NULL)
-			return (0);
-		found = ft_exporting(big_nod, str, found, i);
-		if (ft_make_nod(big_nod, str, i, found) == 1)
-			return (0);
-		found = 0;
-		i++;
-	}
-	ft_add_declare(big_nod, str);
-	return (0);
-}
-
-int	ft_check_export_identifier(char **str)
-{
-	int	i;
-
-	i = 1;
+		ft_show_declare(env);
 	while (str[i])
 	{
-		if (ft_strchr(str[i], '=') == NULL && ft_strchr(str[i], '-') != NULL)
+		if (ft_check_identifier(str[i], 0, do_it) == 1)
 		{
-			ft_putstr_fd("Minishell: export: not a valid identifier\n", 2);
-			return (1);
+			check = 1;
+			error = 1;
 		}
+		if (do_it == 0 && check == 0 && ft_strchr(str[i], '=') == NULL)
+			ft_add_to_export_no_value(big_nod[0], str[i]);
+		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 1)
+			ft_add_to_env_no_value(big_nod[0], str[i]);
+		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 0)
+			ft_add_basic(big_nod[0], str[i]);
+		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 2)
+			ft_add_basic_and_plus(big_nod[0], str[i]);
+		check = 0;
+		big_nod[0] = env;
 		i++;
 	}
-	i = 0;
-	return (0);
+	return (error);
 }
 
-int	ft_exporting(t_nod *big_nod[3], char **str, int found, int i)
+void	ft_add_basic(t_nod *nod, char *str)
 {
-	while (big_nod[1]->next != NULL)
-	{
-		if (ft_fuse_export(big_nod[1], str[i]) == 1)
-			found = 1;
-		big_nod[1] = big_nod[1]->next;
-		if (big_nod[1]->next == NULL)
-			if (ft_fuse_export(big_nod[1], str[i]) == 1)
-				found = 1;
-	}
-	if (found == 1)
-		return (1);
-	return (0);
-}
-
-int	ft_fuse_export(t_nod *nod, char *str)
-{
+	t_nod	*tmp;
+	char	*key_str;
 	int		i;
-	char	*tmp;
 
+	tmp = nod;
 	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
+	while (str[i] != '=')
 		i++;
-	if (str[i - 1] == '+' && strncmp(nod->key, str, ft_strlen(nod->key)) == 0)
+	key_str = ft_substr(str, 0, i);
+	while (nod)
 	{
-		tmp = nod->value;
-		nod->value = ft_strjoin(nod->value, str + i + 1);
-		ft_true_free((void **)&tmp);
-		return (1);
+		if (ft_strncmp(nod->key, key_str, ft_strlen(nod->key) + 1) == 0)
+		{
+			free(nod->value);
+			nod->value = ft_substr(str, i + 1, ft_strlen(str));
+			nod->declare = 0;
+			free(key_str);
+			return ;
+		}
+		nod = nod->next;
 	}
-	else if ((strncmp(nod->key, str, ft_strlen(nod->key)) == 0))
-	{
-		ft_true_free((void **)&nod->value);
-		nod->value = ft_strdup(str + i + 1);
-		return (1);
-	}
-	return (0);
+	nod = tmp;
+	while (nod && nod->next != NULL)
+		nod = nod->next;
+	tmp = (t_nod *)malloc(sizeof(t_nod));
+	tmp->next = NULL;
+	nod->next = tmp;
+	tmp->key = ft_substr(str, 0, i);
+	tmp->value = ft_substr(str, i + 1, ft_strlen(str));
+	tmp->declare = 0;
+	free(key_str);
 }
 
-void	ft_show_declare(t_nod *env)
+void	ft_add_basic_and_plus(t_nod *nod, char *str)
 {
-	while (env != NULL)
+	t_nod	*tmp;
+	char	*key_str;
+	char	*value_str;
+	int		i;
+
+	tmp = nod;
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	i--;
+	key_str = ft_substr(str, 0, i);
+	while (nod)
 	{
-		if (env->declare == 0)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
-		if (env->value != NULL)
-			printf("declare -x %s=\"%s\"\n", env->key, env->value);
-		else 
-			printf("declare -x %s\n", env->key);
-		env = env->next;
+		if (ft_strncmp(nod->key, key_str, ft_strlen(nod->key) + 1) == 0)
+		{
+			free(key_str);
+			key_str = ft_substr(str, i + 2, ft_strlen(str));
+			value_str = ft_strjoin(nod->value, key_str);
+			free(nod->value);
+			free(key_str);
+			nod->value = value_str;
+			nod->declare = 0;
+			return ;
+		}
+		nod = nod->next;
 	}
+	nod = tmp;
+	while (nod && nod->next != NULL)
+		nod = nod->next;
+	tmp = (t_nod *)malloc(sizeof(t_nod));
+	tmp->next = NULL;
+	nod->next = tmp;
+	tmp->key = ft_substr(str, 0, i);
+	tmp->value = ft_substr(str, i + 2, ft_strlen(str));
+	tmp->declare = 0;
+	free(key_str);
+}
+
+void	ft_add_to_env_no_value(t_nod *nod, char *str)
+{
+	t_nod	*tmp;
+
+	tmp = nod;
+	while (nod)
+	{
+		if (ft_strncmp(nod->key, str, ft_strlen(nod->key) + 1) == 0)
+		{
+			free(nod->value);
+			nod->value = ft_strdup("");
+			nod->declare = 1;
+			return ;
+		}
+		nod = nod->next;
+	}
+	nod = tmp;
+	while (nod && nod->next != NULL)
+		nod = nod->next;
+	tmp = (t_nod *)malloc(sizeof(t_nod));
+	tmp->next = NULL;
+	nod->next = tmp;
+	tmp->key = ft_strdup(str);
+	tmp->value = ft_strdup("");
+	tmp->declare = 1;
+}
+
+void	ft_add_to_export_no_value(t_nod *nod, char *str)
+{
+	t_nod	*tmp;
+
+	tmp = nod;
+	while (nod)
+	{
+		if (ft_strncmp(nod->key, str, ft_strlen(nod->key)) == 0)
+			return ;
+		nod = nod->next;
+	}
+	nod = tmp;
+	while (nod && nod->next != NULL)
+		nod = nod->next;
+	tmp = (t_nod *)malloc(sizeof(t_nod));
+	tmp->next = NULL;
+	nod->next = tmp;
+	tmp->key = ft_strdup(str);
+	tmp->value = NULL;
+	tmp->declare = 2;
 }

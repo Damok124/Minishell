@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 18:21:13 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:49:32 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_env(t_nod *env)
 	{
 		if (env->declare == 0)
 			printf("%s=%s\n", env->key, env->value);
+		if (env->declare == 1)
+			printf("%s%s\n", env->key, env->value);
 		env = env->next;
 	}
 }
@@ -36,7 +38,7 @@ int	ft_call_built_in(t_parsed *lst[2], t_nod *env, int *id_tab)
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 4)
 		ret = ft_export(lst[1]->cmds, env, 1);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 5)
-		ft_unset(lst[1]->cmds, env);
+		ft_unset(lst[1]->cmds, env, 1);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 6)
 		ft_env(env);
 	if (lst && lst[1]->cmds && ft_search_built_in(lst[1]) == 7)
@@ -79,7 +81,7 @@ t_nod	*ft_init_lst(char **env)
 	body = (t_nod *)malloc(sizeof(t_nod));
 	body->value = ft_strdup("0");
 	body->key = ft_strdup("LEC_RV");
-	body->declare = 1;
+	body->declare = 4;
 	tmp->next = body;
 	tmp = tmp->next;
 	body->next = NULL;
