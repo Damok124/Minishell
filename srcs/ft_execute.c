@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 18:36:07 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:12:21 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//ft_show_lst_parsed(lst[0]);
 #include "minishell.h"
 
 extern int	g_child_id;
@@ -21,7 +20,7 @@ void	ft_execute(char *str, t_nod *env)
 	int			p1[3];
 	int			i;
 
-	lst[0] = ft_minishell_parsing(ft_strdup(str), env);
+	lst[0] = ft_minishell_parsing(ft_strtrim(str, "\a\b\t\n\v\f\r "), env);
 	lst[1] = lst[0];
 	p1[0] = -1;
 	p1[1] = -1;
