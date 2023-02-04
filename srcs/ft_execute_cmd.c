@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 18:23:20 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:47:05 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,27 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 
 int	ft_cmd_not_found_print(t_parsed *lst)
 {
-	char	*tmp;
+	int		i;
 
-	tmp = ft_strjoin(lst->cmds[0], ": command not found\n");
-	ft_putstr_fd(tmp, 2);
-	ft_true_free((void **)&tmp);
+	i = 0;
+	i = access(lst->cmds[0], W_OK);
+	if (ft_strchr(lst->cmds[0], '/') != NULL)
+	{
+		if (ft_strlen(lst->cmds[0]) == 1)
+			ft_putstr_fd("/: Is a directory\n", 2);
+		else if (i == 0)
+		{
+			ft_print_error_double(lst->cmds[0], ": Is a directory\n");
+			return (126);
+		}
+		else if (ft_check_perm(lst->cmds[0]) == 0)
+			ft_print_error_double(
+				lst->cmds[0], ": No such file or directory\n");
+		else
+			return (126);
+	}
+	else
+		ft_print_error_double(lst->cmds[0], ": command not found\n");
 	return (127);
 }
 
@@ -69,8 +85,11 @@ char	*ft_access(char *str, char *value)
 	i = 0;
 	if (str == NULL || str[0] == '\0')
 		return (NULL);
-	if (access(str, R_OK) == 0 && access(str, X_OK) == 0)
+	if (access(str, R_OK) == 0 && access(str, X_OK) == 0 && access(str, W_OK) == -1
+		&& ft_strncmp(str, "/", 2) != 0)
 		return (str);
+	if (ft_strncmp(str, "/", 2) == 0)
+		return (NULL);
 	str = ft_strjoin("/", str);
 	env = ft_split(value, ':');
 	i = 0;

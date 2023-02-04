@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:16:21 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/24 18:05:56 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 17:44:58 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_outfile_basic(t_parsed *lst)
 	c = 0;
 	while (lst && lst->redirections && lst->redirections[i])
 	{
-		if (lst->redirections[i][0] == '>')
+		if (lst->redirections[i][0] == '>' || lst->redirections[i][0] == 'A')
 			c++;
 		if (c == ft_check_outfile(lst))
 		{
@@ -89,7 +89,7 @@ void	ft_outfile_append(t_parsed *lst)
 	c = 0;
 	while (lst && lst->redirections && lst->redirections[i])
 	{
-		if (lst->redirections[i][0] == 'A')
+		if (lst->redirections[i][0] == '>' || lst->redirections[i][0] == 'A')
 			c++;
 		if (c == ft_check_outfile(lst))
 		{

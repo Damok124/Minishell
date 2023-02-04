@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/02 18:23:58 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:36:07 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_execute(char *str, t_nod *env)
 	lst[1] = lst[0];
 	p1[0] = -1;
 	p1[1] = -1;
-	//printf("\a"); //bell
 	i = ft_here_doc(lst[1], env);
 	if (ft_error_heredoc(lst[1], env, &i) != 0)
 		return ;
@@ -39,22 +38,33 @@ void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
 	int	tmp_stdin;
 	int	*id_tab;
 	int	id;
+	int	check;
 
+	check = 0;
+	if (lst[0] && lst[0]->empty == 1)
+		return ;
 	id_tab = ft_init_execute(lst[1], &i, &tmp_stdin);
 	while (lst[1])
 	{
 		if (ft_check(lst, env, tmp_stdin, p1) == 1)
-		{
-			ft_true_free((void **)&id_tab);
-			return ;
-		}
-		if (ft_check_unset_export(lst, id_tab, env, i) == 1)
-			return ;
-		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin);
+			check = 1;
+		if (check == 0)
+			if (ft_check_unset_export(lst, id_tab, env, i) == 1)
+				return ;
+		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin, check);
 		id = ft_init_pipe(lst[1], p1, id_tab[i], i);
-		if (str != NULL && id == 0)
+		if (check == 0 && str != NULL && id == 0)
 			ft_execute_cmd(lst, env, id_tab, p1);
 		i = ft_execute_end(lst, tmp_stdin, i);
+		if (check == 1 && id == 0)
+		{
+			close(0);
+			ft_clean_end(lst[0], tmp_stdin, p1);
+			ft_true_free((void **)&id_tab);
+			ft_free_env(env);
+			exit(1);
+		}
+		check = 0;
 	}
 	ft_wait_id(env, id_tab);
 	ft_clean_end(lst[0], tmp_stdin, p1);
@@ -74,15 +84,10 @@ int	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)
 		else
 			ft_close(p1[1], -1, -1, -1);
 	}
-	if (id != 0)
+	if (id != 0 && lst->next != NULL)
 		ft_clean_connect(STDIN, p1[0], p1[1]);
 	else
 		ft_close(p1[0], -1, -1, -1);
-	if (j == 3)
-	{
-		ft_close(p1[1], p1[0], -1, -1);
-		return (id);
-	}
 	return (id);
 }
 

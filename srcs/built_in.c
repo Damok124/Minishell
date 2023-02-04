@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/02 19:00:03 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:53:16 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	ft_unset(char **str, t_nod *env, int do_it)
 		tmp = env;
 		i++;
 	}
-	//printf("%d\n", check);
 	if (check != 0)
 		return (1);
 	return (0);

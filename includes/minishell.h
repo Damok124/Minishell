@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/02 18:49:00 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:47:14 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			ft_search_delimiter(char *str);
 void		ft_add_to_env_no_value(t_nod *nod, char *str);
 void		ft_add_basic(t_nod *nod, char *str);
 void		ft_add_basic_and_plus(t_nod *nod, char *str);
-int			ft_check_middle_identifier(char *str, int type, int i, int no_value);
+int			ft_check_middle_identifier(char *str, int type, int i);
 
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
@@ -166,12 +166,14 @@ int			ft_get_id_tab_index(int *tab);
 //	EXEC
 /////////////////////////
 int			*ft_init_execute(t_parsed *lst, int *i, int *fd);
-int			ft_init_fork(int id, int tmp_stdin);
+int			ft_init_fork(int id, int tmp_stdin, int check);
 void		ft_pipe(int p1[2], t_parsed *lst[2]);
 void		ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str);
 int			ft_execute_end(t_parsed *lst[2], int tmp_stdin, int i);
 int			ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin,
 				int p1[2]);
+int			ft_check_perm(char *str);
+void		ft_print_error_double(char *str, char *str2);
 int			ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2]);
 int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);

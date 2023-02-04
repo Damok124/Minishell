@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:51:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/02 18:50:21 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:18:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	ft_check_identifier(char *str, int type, int do_it)
 {
 	int	i;
-	int	no_value;
 
 	i = 0;
-	no_value = 0;
 	if ((str[0] < 'A' || str[0] > 'z') && str[0] != '_')
 	{
 		if (do_it == 0)
@@ -34,16 +32,14 @@ int	ft_check_identifier(char *str, int type, int do_it)
 	}
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	if (str[i] == '\0')
-		no_value = 1;
-	if (ft_check_middle_identifier(str + i - 1, type, do_it, no_value) == 1)
+	if (ft_check_middle_identifier(str + i - 1, type, do_it) == 1)
 		return (1);
 	return (0);
 }
 
-int	ft_check_middle_identifier(char *str, int type, int i, int no_value)
+int	ft_check_middle_identifier(char *str, int type, int i)
 {
-	if (no_value == 0 && ft_check_number_export(str[0]) == 1)
+	if (ft_check_number_export(str[0]) == 1)
 	{
 		if (i == 0)
 		{

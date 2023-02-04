@@ -6,7 +6,7 @@
 #    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/02/02 16:52:13 by tlarraze         ###   ########.fr        #
+#    Updated: 2023/02/04 16:40:29 by tlarraze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ ${SRCSDIR}ft_echo.c \
 ${SRCSDIR}ft_check_execute_and_utils.c \
 ${SRCSDIR}ft_exit.c \
 ${SRCSDIR}ft_error_msg_exit.c \
+${SRCSDIR}ft_file_type_error.c \
 ${SRCSDIR}ft_id_tab.c \
 ${SRCSDIR}ft_here_doc_utils.c \
 ${SRCSDIR}ft_export.c \

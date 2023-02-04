@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:36:04 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 17:22:46 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/04 17:46:32 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_infile_basic(t_parsed *lst)
 	c = 0;
 	while (lst && lst->redirections && lst->redirections[i])
 	{
-		if (lst->redirections[i][0] == '<')
+		if (lst->redirections[i][0] == '<' || lst->redirections[i][0] == 'H')
 			c++;
 		if (c == ft_check_infile(lst))
 		{
