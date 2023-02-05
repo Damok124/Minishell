@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 12:55:42 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/05 21:59:54 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_get_var_env_val(char *src, t_nod *env)
 			copy = ft_strdup("LEC_RV");
 		else
 		{
-			while (src[i] && ft_isalnum(src[i]))
+			while (src[i] && (ft_isalnum(src[i]) || src[i] == '_'))
 				i++;
 			copy = ft_substr(src, 0, i);
 		}
