@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/05 15:33:49 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:02:10 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ typedef struct s_twins
 	char			**trans;
 	struct s_twins	*next;
 }			t_twins;
+
 /////////////////////////
 //	DEFINES
 /////////////////////////
+
 # define SRC 0
 # define TRANS 1
 # define SIMPLE 0
@@ -71,52 +73,22 @@ typedef struct s_twins
 # define WRITE_END 1
 # define HEREDOC ".tmp_here_doc_tmpfile_touch_it_and_you_will_die_!"
 # define HRM "Minishell: warning: delimited by end-of-file (wanted '%s')\n"
-/*
-/////////////////////////
-//	STRUCTURES
-/////////////////////////
-
-typedef struct s_data {
-	int		ac;
-	char	**argv;
-	char	**env;
-}			t_data;
-
-/////////////////////////
-//	INITIALIZATION
-/////////////////////////
-
-t_data	ft_init_data(int ac, char **argv, char **env);
-
-/////////////////////////
-//	COMMANDS
-/////////////////////////
-
-char	**ft_parse_cmd(char *arg);
-void	ft_cmd_not_found(char *str);
-void	ft_print_cmderr(char **validpaths, char **argv);
 
 /////////////////////////
 //	PROMPT
 /////////////////////////
 
-*/
-char		*ft_get_username(t_nod *env);
-int			ft_test(void);
 char		*ft_get_env(char *str, t_nod *env);
-/*
 
 /////////////////////////
-//	BUILD IN
+//	FT_ECHO
 /////////////////////////
-
-*/
-//		ft_echo
 void		ft_echo(char **str);
 void		ft_echo_n(char **str);
 int			ft_check_echo_n(char *str);
-////////////////////////////////////////////////////////////////
-//		ft_export
+/////////////////////////
+//	FT_EXPORT
+/////////////////////////
 int			ft_export(char **str, t_nod *env, int doo);
 void		ft_show_declare(t_nod *env);
 int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
@@ -133,7 +105,7 @@ int			ft_check_middle_identifier(char *str, int type, int i);
 void		ft_choose_export(t_nod *big_nod[3], int do_it, int check,
 				char *str);
 void		ft_add_basic_nod(t_nod *nod, char *str, int i);
-void		ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env);
+t_nod		*ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env);
 
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
@@ -145,18 +117,19 @@ t_nod		*ft_init_nod(char *str);
 char		**ft_env_to_tab(t_nod *nod, t_parsed *lst[2]);
 int			ft_call_export(t_parsed *lst[2], t_nod *env, int i);
 
-////////////////////////////////////////////////////////////////
-//		ft_exit
-int			ft_exit(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
-int			ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab);
-void		ft_check_exit_arg(t_parsed *lst[2], int print_check, t_nod *env,
+/////////////////////////
+//	FT_EXIT
+/////////////////////////
+int			ft_exit(t_core *core, int print_check, t_nod *env, int *tab);
+int			ft_exit_2(t_core *core, int print_check, t_nod *env, int *tab);
+void		ft_check_exit_arg(t_core *core, int print_check, t_nod *env,
 				int *tab);
 int			ft_check_num(char *str);
 long int	ft_long_atoi(const char *nptr);
 void		ft_error_msg(t_parsed *lst);
+void		ft_check_print_exit_error(int check);
 ////////////////////////////////////////////////////////////////
-int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
-				int i);
+int			ft_check_unset_export(t_core *core, t_nod *env, int i);
 void		ft_fuse_end_env(t_nod *first, char **strs);
 void		ft_free_env(t_nod *env);
 void		ft_file_destroy(int i);
@@ -187,12 +160,12 @@ int			ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2]);
 int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);
 int			ft_cmd_not_found_print(t_parsed *lst);
 void		ft_clean_end(t_parsed *lst, int tmp_stdin, int p1[2]);
-void		ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path);
+void		ft_clean_exit(t_parsed *lst, t_nod *env, int p1[2]);
 void		ft_clean_pipex_2(t_parsed *lst[2], t_nod *env, char **tab,
 				char *path);
 void		ft_while(t_nod *env_nod);
 void		ft_execute(char *str, t_nod *env);
-void		ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab,
+void		ft_execute_cmd(t_core *core, t_nod *env, int *id_tab,
 				int p1[2]);
 char		*ft_access(char *str, char *value);
 void		ft_free_double(char **str, char *str2);
@@ -214,7 +187,7 @@ int			ft_init_pipe(t_parsed *lst, int p1[2], int id, int i);
 int			ft_do_need_pipe(t_parsed *lst, int j);
 void		ft_close(int a, int b, int c, int d);
 int			ft_search_built_in(t_parsed *lst);
-int			ft_call_built_in(t_parsed *lst[2], t_nod *env, int *tab);
+int			ft_call_built_in(t_core *core, t_nod *env, int *tab);
 void		ft_clean_connect(int std, int toconnect, int toclose);
 /////////////////////////
 //	HERE_DOC
@@ -233,6 +206,7 @@ void		ft_exit_here_doc_status(t_parsed *lst, int i, t_nod *env);
 int			ft_init_fd(int c);
 int			ft_error_heredoc(t_parsed *lst, t_nod *env, int *i);
 void		ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd);
+
 ////////////////////////////////////////
 //////////////Parsing//////////////////
 //////////////////////////////////////
@@ -353,57 +327,4 @@ void		ft_lst_to_final(t_twins *lst, t_parsed *final);
 void		ft_label_src_into_trans(char **src, char **trans);
 t_parsed	*ft_minishell_parsing(char *str1, t_nod *env);
 
-/*
-/////////////////////////
-//	TESTS
-/////////////////////////
-
-int		ft_such_file(char *filename);
-int		ft_test_files(char **argv, int ac);
-
-/////////////////////////
-//	REDIRECTIONS
-/////////////////////////
-
-void	ft_outfile_to_out(char **paths, int i, char **cmd_a, t_data *data);
-void	ft_append_to_outfile(char **paths, int i, char **cmd_a, t_data *data);
-int		ft_outfile_permission(char *filename);
-void	ft_infile_to_in(char **argv, char **cmd_args, char **validpaths, int i);
-int		ft_infile_permission(char *filename);
-void	ft_clean_connect(int std, int toconnect, int toclose);
-
-/////////////////////////
-//	PATHS PARSING
-/////////////////////////
-
-char	**ft_get_paths(char **env);
-char	**ft_get_fullpaths(char **paths, char *cmd);
-char	**ft_get_validpaths(int ac, char **argv, char **paths);
-char	*ft_get_goodpath(char **cmd, char **fullpaths);
-
-/////////////////////////
-//	TMP_FILE
-/////////////////////////
-
-int		ft_check_tmpname(char *tmpname);
-char	*ft_get_tmpname(char **basename);
-
-/////////////////////////
-//	HERE_DOC
-/////////////////////////
-
-char	*ft_setup_limiter(const char *src);
-int		ft_heredoc_to_file(char **infile, char *limiter);
-char	*ft_heredoc_to_in(char **argv, char **cmd_args, char **vpaths, int i);
-void	ft_parent_hdoc(t_data *data, char **cmd_args, char **validpaths, int i);
-
-/////////////////////////
-//	EXITING
-/////////////////////////
-
-void	ft_clean_exit(char **validpaths, char **cmd_args);
-void	ft_double_fullfree(char **strs1, char **strs2);
-void	ft_unlink_and_free(char *filename);
-void	ft_close_stdfds(void);
-*/
 #endif

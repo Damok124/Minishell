@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:27:57 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:16:11 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,21 @@ void	ft_pwd(char **str)
 {
 	char	*path;
 
+	path = NULL;
 	if (str[1])
 	{
-		path = getcwd(NULL, 6666);
+		path = getcwd(path, 6666);
 		if (path != NULL)
 			printf("%s\n", path);
+		ft_true_free((void **)&path);
 		return ;
 	}
-	path = getcwd(NULL, 6666);
+	path = getcwd(path, ft_strlen(path));
 	if (path != NULL)
 		printf("%s\n", path);
 	else
 		perror("getcwd");
+	ft_true_free((void **)&path);
 }
 
 int	ft_unset(char **str, t_nod *env, int do_it)
@@ -74,7 +77,7 @@ int	ft_unset(char **str, t_nod *env, int do_it)
 		while (tmp != NULL)
 		{
 			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i]) + 1) == 0)
-				ft_free_nod_content(tmp, tmp_2, env);
+				tmp = ft_free_nod_content(tmp, tmp_2, env);
 			tmp_2 = tmp;
 			tmp = tmp->next;
 		}
@@ -86,13 +89,14 @@ int	ft_unset(char **str, t_nod *env, int do_it)
 	return (0);
 }
 
-void	ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env)
+t_nod	*ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env)
 {
 	tmp_2->next = tmp->next;
 	ft_true_free((void **)&tmp->key);
 	ft_true_free((void **)&tmp->value);
 	ft_true_free((void **)&tmp);
 	tmp = env;
+	return (tmp);
 }
 
 int	ft_make_nod(t_nod *big_nod[3], char **str, int i, int found)

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:03:11 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:10:19 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:59:25 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,19 @@ void	ft_error_msg(t_parsed *lst)
 
 int	ft_clean_no_perm(t_core *core, t_nod *env, int check, int id)
 {
+	ft_close(core->p1[0], core->p1[1], -1, -1);
 	if (check == 1 && id == 0)
 	{
-		close(0);
 		ft_clean_end(core->lst[0], core->tmp_stdin, core->p1);
 		ft_true_free((void **)&core->id_tab);
 		ft_free_env(env);
 		exit(1);
 	}
 	return (0);
+}
+
+void	ft_check_print_exit_error(int check)
+{
+	if (check == 0)
+		printf("exit\n");
 }

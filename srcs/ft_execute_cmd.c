@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:17:12 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:01:57 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_child_id;
 
-void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
+void	ft_execute_cmd(t_core *core, t_nod *env, int *id_tab, int p1[2])
 {
 	char	*path;
 	char	**tab;
@@ -22,20 +22,21 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 
 	path = NULL;
 	ret_value = 0;
-	tab = ft_env_to_tab(env, lst);
-	if (lst[1] && lst[1]->cmds)
-		path = ft_access(lst[1]->cmds[0], ft_get_env("PATH", env));
-	if (path == NULL && lst[1]->cmds && ft_search_built_in(lst[1]) == 0)
-		ret_value = ft_cmd_not_found_print(lst[1]);
-	if (ft_check_infile(lst[1]) != 0)
-		ft_choose_here_doc_or_infile(lst[1], lst[1]->empty);
-	if (ft_check_outfile(lst[1]) != 0)
-		ft_choose_outfile(lst[1]);
-	if (path != NULL && ft_search_built_in(lst[1]) == 0 && ret_value == 0)
-		ret_value = execve(path, lst[1]->cmds, tab);
-	else if (ft_search_built_in(lst[1]) != 0)
-		ret_value = ft_call_built_in(lst, env, id_tab);
-	ft_clean_pipex_2(lst, env, tab, path);
+	tab = ft_env_to_tab(env, core->lst);
+	if (core->lst[1] && core->lst[1]->cmds)
+		path = ft_access(core->lst[1]->cmds[0], ft_get_env("PATH", env));
+	if (path == NULL && core->lst[1]->cmds
+		&& ft_search_built_in(core->lst[1]) == 0)
+		ret_value = ft_cmd_not_found_print(core->lst[1]);
+	if (ft_check_infile(core->lst[1]) != 0)
+		ft_choose_here_doc_or_infile(core->lst[1], core->lst[1]->empty);
+	if (ft_check_outfile(core->lst[1]) != 0)
+		ft_choose_outfile(core->lst[1]);
+	if (path != NULL && ft_search_built_in(core->lst[1]) == 0 && ret_value == 0)
+		ret_value = execve(path, core->lst[1]->cmds, tab);
+	else if (ft_search_built_in(core->lst[1]) != 0)
+		ret_value = ft_call_built_in(core, env, id_tab);
+	ft_clean_pipex_2(core->lst, env, tab, path);
 	ft_close(p1[0], p1[1], -1, -1);
 	free(id_tab);
 	exit(ret_value);
@@ -67,13 +68,11 @@ int	ft_cmd_not_found_print(t_parsed *lst)
 	return (127);
 }
 
-void	ft_clean_pipex(t_parsed *lst, t_nod *env, char **tab, char *path)
+void	ft_clean_exit(t_parsed *lst, t_nod *env, int p1[2])
 {
-	ft_free_double(tab, path);
 	ft_free_env(env);
 	ft_free_parsed(lst);
-	(void)path;
-	(void)tab;
+	ft_close(p1[0], p1[1], -1, -1);
 }
 
 char	*ft_access(char *str, char *value)

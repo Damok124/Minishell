@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:34:33 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:38:53 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,26 @@ int	ft_search_built_in(t_parsed *lst)
 	return (0);
 }
 
-int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
+int	ft_check_unset_export(t_core *core, t_nod *env, int i)
 {
-	if (i > 0 || lst[0]->next != NULL)
+	if (i > 0 || core->lst[0]->next != NULL)
 		return (0);
 	i = 0;
-	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "unset", 6) == 0)
-		ft_return_value(ft_unset(lst[1]->cmds, env, 0), env, &i);
-	i = ft_call_export(lst, env, i);
-	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
-		ft_return_value(ft_exit(lst, 0, env, tab), env, &i);
-	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "cd", 3) == 0)
-		ft_return_value(ft_cd(lst[1]->cmds, env, 0), env, &i);
+	if (core->lst[1]->cmds && ft_strncmp(core->lst[1]->cmds[0]
+			, "unset", 6) == 0)
+		ft_return_value(ft_unset(core->lst[1]->cmds, env, 0), env, &i);
+	i = ft_call_export(core->lst, env, i);
+	if (core->lst[1]->cmds && strncmp(core->lst[1]->cmds[0], "exit", 5) == 0)
+		ft_return_value(ft_exit(core, 0, env, core->id_tab), env, &i);
+	if (core->lst[1]->cmds && ft_strncmp(core->lst[1]->cmds[0], "cd", 3) == 0)
+		ft_return_value(ft_cd(core->lst[1]->cmds, env, 0), env, &i);
 	if (i == 1)
-		lst[1] = lst[1]->next;
-	if (lst[1] == NULL)
+		core->lst[1] = core->lst[1]->next;
+	if (core->lst[1] == NULL)
 	{
-		ft_free_parsed(lst[0]);
-		ft_true_free((void **)&tab);
+		ft_close(core->p1[0], core->p1[1], -1, -1);
+		ft_free_parsed(core->lst[0]);
+		ft_true_free((void **)&core->id_tab);
 		return (1);
 	}
 	return (0);

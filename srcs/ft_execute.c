@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:28:21 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:05:01 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	ft_execute_core(t_core *core, t_nod *env, char *str)
 		if (ft_check(core->lst, env, core->tmp_stdin, core->p1) == 1)
 			check = 1;
 		if (check == 0)
-			if (ft_check_unset_export(core->lst, core->id_tab, env, i) == 1)
+			if (ft_check_unset_export(core, env, i) == 1)
 				return ;
 		core->id_tab[i] = ft_init_fork(core->id_tab[i], core->tmp_stdin, check);
 		id = ft_init_pipe(core->lst[1], core->p1, core->id_tab[i], i);
 		if (check == 0 && str != NULL && id == 0)
-			ft_execute_cmd(core->lst, env, core->id_tab, core->p1);
+			ft_execute_cmd(core, env, core->id_tab, core->p1);
 		i = ft_execute_end(core->lst, core->tmp_stdin, i);
 		ft_clean_no_perm(core, env, check, id);
 		check = 0;
