@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/05 13:49:57 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/05 14:09:29 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ typedef struct s_twins
 	char			**trans;
 	struct s_twins	*next;
 }			t_twins;
+
 /////////////////////////
 //	DEFINES
 /////////////////////////
+
 # define SRC 0
 # define TRANS 1
 # define SIMPLE 0
@@ -62,46 +64,19 @@ typedef struct s_twins
 # define WRITE_END 1
 # define HEREDOC ".tmp_here_doc_tmpfile_touch_it_and_you_will_die_!"
 # define HRM "Minishell: warning: delimited by end-of-file (wanted '%s')\n"
-/*
-/////////////////////////
-//	STRUCTURES
-/////////////////////////
-
-typedef struct s_data {
-	int		ac;
-	char	**argv;
-	char	**env;
-}			t_data;
-
-/////////////////////////
-//	INITIALIZATION
-/////////////////////////
-
-t_data	ft_init_data(int ac, char **argv, char **env);
-
-/////////////////////////
-//	COMMANDS
-/////////////////////////
-
-char	**ft_parse_cmd(char *arg);
-void	ft_cmd_not_found(char *str);
-void	ft_print_cmderr(char **validpaths, char **argv);
 
 /////////////////////////
 //	PROMPT
 /////////////////////////
 
-*/
 char		*ft_get_username(t_nod *env);
 int			ft_test(void);
 char		*ft_get_env(char *str, t_nod *env);
-/*
 
 /////////////////////////
 //	BUILD IN
 /////////////////////////
 
-*/
 //		ft_echo
 void		ft_echo(char **str);
 void		ft_echo_n(char **str);
@@ -224,6 +199,7 @@ void		ft_exit_here_doc_status(t_parsed *lst, int i, t_nod *env);
 int			ft_init_fd(int c);
 int			ft_error_heredoc(t_parsed *lst, t_nod *env, int *i);
 void		ft_clean_here_doc(t_parsed *lst, t_nod *env, char *str, int fd);
+
 ////////////////////////////////////////
 //////////////Parsing//////////////////
 //////////////////////////////////////
@@ -344,57 +320,4 @@ void		ft_lst_to_final(t_twins *lst, t_parsed *final);
 void		ft_label_src_into_trans(char **src, char **trans);
 t_parsed	*ft_minishell_parsing(char *str1, t_nod *env);
 
-/*
-/////////////////////////
-//	TESTS
-/////////////////////////
-
-int		ft_such_file(char *filename);
-int		ft_test_files(char **argv, int ac);
-
-/////////////////////////
-//	REDIRECTIONS
-/////////////////////////
-
-void	ft_outfile_to_out(char **paths, int i, char **cmd_a, t_data *data);
-void	ft_append_to_outfile(char **paths, int i, char **cmd_a, t_data *data);
-int		ft_outfile_permission(char *filename);
-void	ft_infile_to_in(char **argv, char **cmd_args, char **validpaths, int i);
-int		ft_infile_permission(char *filename);
-void	ft_clean_connect(int std, int toconnect, int toclose);
-
-/////////////////////////
-//	PATHS PARSING
-/////////////////////////
-
-char	**ft_get_paths(char **env);
-char	**ft_get_fullpaths(char **paths, char *cmd);
-char	**ft_get_validpaths(int ac, char **argv, char **paths);
-char	*ft_get_goodpath(char **cmd, char **fullpaths);
-
-/////////////////////////
-//	TMP_FILE
-/////////////////////////
-
-int		ft_check_tmpname(char *tmpname);
-char	*ft_get_tmpname(char **basename);
-
-/////////////////////////
-//	HERE_DOC
-/////////////////////////
-
-char	*ft_setup_limiter(const char *src);
-int		ft_heredoc_to_file(char **infile, char *limiter);
-char	*ft_heredoc_to_in(char **argv, char **cmd_args, char **vpaths, int i);
-void	ft_parent_hdoc(t_data *data, char **cmd_args, char **validpaths, int i);
-
-/////////////////////////
-//	EXITING
-/////////////////////////
-
-void	ft_clean_exit(char **validpaths, char **cmd_args);
-void	ft_double_fullfree(char **strs1, char **strs2);
-void	ft_unlink_and_free(char *filename);
-void	ft_close_stdfds(void);
-*/
 #endif
