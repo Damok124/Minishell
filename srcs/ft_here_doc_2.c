@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:37:34 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/26 17:20:54 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:36:55 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_error_heredoc(t_parsed *lst, t_nod *env, int *i)
 	if (*i != 0)
 	{
 		ft_free_parsed(lst);
-		ft_return_value(130, env);
+		ft_return_value(130, env, (int [1]){0});
 		*i = 130;
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 13:42:42 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:17:12 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,11 @@ char	*ft_access(char *str, char *value)
 	char	**env;
 
 	i = 0;
-	if (str == NULL || str[0] == '\0')
+	if (str == NULL || str[0] == '\0' || ft_strncmp(str, "/", 2) == 0)
 		return (NULL);
-	if (access(str, R_OK) == 0 && access(str, X_OK) == 0 && access(str, W_OK) == -1
-		&& ft_strncmp(str, "/", 2) != 0)
+	if (access(str, R_OK) == 0 && access(str, X_OK) == 0
+		&& access(str, W_OK) == -1 && ft_strncmp(str, "/", 2) != 0)
 		return (str);
-	if (ft_strncmp(str, "/", 2) == 0)
-		return (NULL);
 	str = ft_strjoin("/", str);
 	env = ft_split(value, ':');
 	i = 0;

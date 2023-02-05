@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 18:52:17 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:34:33 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,12 @@ int	ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env, int i)
 		return (0);
 	i = 0;
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "unset", 6) == 0)
-	{
-		ft_return_value(ft_unset(lst[1]->cmds, env, 0), env);
-		i = 1;
-	}
+		ft_return_value(ft_unset(lst[1]->cmds, env, 0), env, &i);
 	i = ft_call_export(lst, env, i);
 	if (lst && lst[1]->cmds && strncmp(lst[1]->cmds[0], "exit", 5) == 0)
-	{
-		ft_return_value(ft_exit(lst, 0, env, tab), env);
-		i = 1;
-	}
+		ft_return_value(ft_exit(lst, 0, env, tab), env, &i);
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "cd", 3) == 0)
-	{
-		ft_return_value(ft_cd(lst[1]->cmds, env, 0), env);
-		i = 1;
-	}
+		ft_return_value(ft_cd(lst[1]->cmds, env, 0), env, &i);
 	if (i == 1)
 		lst[1] = lst[1]->next;
 	if (lst[1] == NULL)

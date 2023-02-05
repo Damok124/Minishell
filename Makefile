@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+         #
+#    By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/06 17:12:24 by zharzi            #+#    #+#              #
-#    Updated: 2023/02/04 20:10:50 by zharzi           ###   ########.fr        #
+#    Updated: 2023/02/05 14:07:13 by tlarraze         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ ${SRCSDIR}ft_file_type_error.c \
 ${SRCSDIR}ft_id_tab.c \
 ${SRCSDIR}ft_here_doc_utils.c \
 ${SRCSDIR}ft_export.c \
+${SRCSDIR}ft_add_nod.c \
 ${SRCSDIR}ft_export_2.c \
 ${SRCSDIR}ft_export_check.c \
 ${SRCSDIR}ft_clean_pipex_2.c \

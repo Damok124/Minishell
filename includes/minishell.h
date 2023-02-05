@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/05 13:49:57 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/05 15:33:49 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct s_parsed
 	int				hdocs_quant;
 	struct s_parsed	*next;
 }					t_parsed;
+
+typedef struct s_core
+{
+	t_parsed		*lst[2];
+	t_nod			*env;
+	int				p1[2];
+	int				tmp_stdin;
+	int				*id_tab;
+}					t_core;
 
 typedef struct s_twins
 {
@@ -109,15 +118,10 @@ int			ft_check_echo_n(char *str);
 ////////////////////////////////////////////////////////////////
 //		ft_export
 int			ft_export(char **str, t_nod *env, int doo);
-int			ft_minus_before(char **str);
-int			ft_check_export_identifier(char **str);
-int			ft_fuse_export(t_nod *nod, char *str);
 void		ft_show_declare(t_nod *env);
-int			ft_exporting(t_nod *big_nod[3], char **str, int found, int i);
 int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
-int			ft_check_first_export(char **str, int i);
-void		ft_add_declare(t_nod *nod[3], char **str);
-
+void		ft_add_basic_plus_nod(t_nod *nod, char *str, int i);
+void		ft_add_mini_nod_basic(t_nod *nod, char *str, int i);
 int			ft_check_identifier(char *str, int type, int do_it);
 int			ft_check_number_export(char c);
 void		ft_add_to_export_no_value(t_nod *nod, char *str);
@@ -126,6 +130,10 @@ void		ft_add_to_env_no_value(t_nod *nod, char *str);
 void		ft_add_basic(t_nod *nod, char *str);
 void		ft_add_basic_and_plus(t_nod *nod, char *str);
 int			ft_check_middle_identifier(char *str, int type, int i);
+void		ft_choose_export(t_nod *big_nod[3], int do_it, int check,
+				char *str);
+void		ft_add_basic_nod(t_nod *nod, char *str, int i);
+void		ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env);
 
 ////////////////////////////////////////////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
@@ -152,7 +160,7 @@ int			ft_check_unset_export(t_parsed *lst[2], int *tab, t_nod *env,
 void		ft_fuse_end_env(t_nod *first, char **strs);
 void		ft_free_env(t_nod *env);
 void		ft_file_destroy(int i);
-void		ft_return_value(int value, t_nod *env);
+void		ft_return_value(int value, t_nod *env, int *i);
 int			ft_check_file_error(t_parsed *lst, int i);
 /////////////////////////
 //	ID_TAB
@@ -165,14 +173,15 @@ int			ft_get_id_tab_index(int *tab);
 /////////////////////////
 //	EXEC
 /////////////////////////
-int			*ft_init_execute(t_parsed *lst, int *i, int *fd);
+t_core		*ft_init_execute(t_parsed *lst, t_core *core, int *i, int *fd);
 int			ft_init_fork(int id, int tmp_stdin, int check);
 void		ft_pipe(int p1[2], t_parsed *lst[2]);
-void		ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str);
+void		ft_execute_core(t_core *core, t_nod *env, char *str);
 int			ft_execute_end(t_parsed *lst[2], int tmp_stdin, int i);
 int			ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin,
 				int p1[2]);
 int			ft_check_perm(char *str);
+int			ft_clean_no_perm(t_core *core, t_nod *env, int check, int id);
 void		ft_print_error_double(char *str, char *str2);
 int			ft_check(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2]);
 int			ft_check_exit_null_cmd(t_parsed *lst[2], int tmp_stdin, int p1[2]);

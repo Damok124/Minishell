@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 18:53:16 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:27:57 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,7 @@ int	ft_unset(char **str, t_nod *env, int do_it)
 		while (tmp != NULL)
 		{
 			if (ft_strncmp(str[i], tmp->key, ft_strlen(str[i]) + 1) == 0)
-			{
-				tmp_2->next = tmp->next;
-				ft_true_free((void **)&tmp->key);
-				ft_true_free((void **)&tmp->value);
-				ft_true_free((void **)&tmp);
-				tmp = env;
-			}
+				ft_free_nod_content(tmp, tmp_2, env);
 			tmp_2 = tmp;
 			tmp = tmp->next;
 		}
@@ -90,6 +84,15 @@ int	ft_unset(char **str, t_nod *env, int do_it)
 	if (check != 0)
 		return (1);
 	return (0);
+}
+
+void	ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env)
+{
+	tmp_2->next = tmp->next;
+	ft_true_free((void **)&tmp->key);
+	ft_true_free((void **)&tmp->value);
+	ft_true_free((void **)&tmp);
+	tmp = env;
 }
 
 int	ft_make_nod(t_nod *big_nod[3], char **str, int i, int found)

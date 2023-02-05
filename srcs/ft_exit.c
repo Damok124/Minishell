@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/01/27 17:38:23 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:22:43 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	ft_exit_2(t_parsed *lst[2], int print_check, t_nod *env, int *tab)
 		if (print_check == 0)
 			printf("exit\n");
 		i = ft_atol_safe1 (lst[1]->cmds[1], &check);
-		ft_free_parsed(lst[0]);
-		ft_free_env(env);
+		ft_clean_pipex(lst[0], env, NULL, NULL);
 		ft_true_free((void **)&tab);
 		if (check == 0)
 		{

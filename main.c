@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 13:42:02 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:35:51 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_while(t_nod *env_nod)
 		if (g_child_id == 130)
 		{
 			g_child_id = -1;
-			ft_return_value(130, env_nod);
+			ft_return_value(130, env_nod, (int [1]){0});
 		}
 		add_history(str);
 		g_child_id = 1;
@@ -81,11 +81,12 @@ void	ft_while(t_nod *env_nod)
 	}
 }
 
-void	ft_return_value(int value, t_nod *env)
+void	ft_return_value(int value, t_nod *env, int *i)
 {
 	char	*tmp;
 
 	tmp = ft_itoa(value);
+	*i = 1;
 	while (env != NULL)
 	{
 		if (ft_strncmp(env->key, "LEC_RV", 7) == 0)

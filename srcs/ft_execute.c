@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 13:50:10 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:28:21 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,57 +16,47 @@ extern int	g_child_id;
 
 void	ft_execute(char *str, t_nod *env)
 {
-	t_parsed	*lst[2];
-	int			p1[3];
 	int			i;
+	t_core		core;
 
-	lst[0] = ft_minishell_parsing(ft_strtrim(str, "\a\b\t\n\v\f\r "), env);
-	lst[1] = lst[0];
-	p1[0] = -1;
-	p1[1] = -1;
-	i = ft_here_doc(lst[1], env);
-	if (ft_error_heredoc(lst[1], env, &i) != 0)
+	core.lst[0] = ft_minishell_parsing(ft_strtrim(str, "\a\b\t\n\v\f\r "), env);
+	core.lst[1] = core.lst[0];
+	core.p1[0] = -1;
+	core.p1[1] = -1;
+	i = ft_here_doc(core.lst[1], env);
+	if (ft_error_heredoc(core.lst[1], env, &i) != 0)
 		return ;
 	i = 0;
-	ft_execute_core(lst, env, p1, str);
+	ft_execute_core(&core, env, str);
 }
 
-void	ft_execute_core(t_parsed *lst[2], t_nod *env, int p1[2], char *str)
+void	ft_execute_core(t_core *core, t_nod *env, char *str)
 {
-	int	i;
-	int	tmp_stdin;
-	int	*id_tab;
-	int	id;
-	int	check;
+	int		i;
+	int		id;
+	int		check;
 
 	check = 0;
-	if (lst[0] && lst[0]->empty == 1)
+	if (core->lst[0] && core->lst[0]->empty == 1)
 		return ;
-	id_tab = ft_init_execute(lst[1], &i, &tmp_stdin);
-	while (lst[1])
+	core = ft_init_execute(core->lst[1], core, &i, &core->tmp_stdin);
+	while (core->lst[1])
 	{
-		if (ft_check(lst, env, tmp_stdin, p1) == 1)
+		if (ft_check(core->lst, env, core->tmp_stdin, core->p1) == 1)
 			check = 1;
 		if (check == 0)
-			if (ft_check_unset_export(lst, id_tab, env, i) == 1)
+			if (ft_check_unset_export(core->lst, core->id_tab, env, i) == 1)
 				return ;
-		id_tab[i] = ft_init_fork(id_tab[i], tmp_stdin, check);
-		id = ft_init_pipe(lst[1], p1, id_tab[i], i);
+		core->id_tab[i] = ft_init_fork(core->id_tab[i], core->tmp_stdin, check);
+		id = ft_init_pipe(core->lst[1], core->p1, core->id_tab[i], i);
 		if (check == 0 && str != NULL && id == 0)
-			ft_execute_cmd(lst, env, id_tab, p1);
-		i = ft_execute_end(lst, tmp_stdin, i);
-		if (check == 1 && id == 0)
-		{
-			close(0);
-			ft_clean_end(lst[0], tmp_stdin, p1);
-			ft_true_free((void **)&id_tab);
-			ft_free_env(env);
-			exit(1);
-		}
+			ft_execute_cmd(core->lst, env, core->id_tab, core->p1);
+		i = ft_execute_end(core->lst, core->tmp_stdin, i);
+		ft_clean_no_perm(core, env, check, id);
 		check = 0;
 	}
-	ft_wait_id(env, id_tab);
-	ft_clean_end(lst[0], tmp_stdin, p1);
+	ft_wait_id(env, core->id_tab);
+	ft_clean_end(core->lst[0], core->tmp_stdin, core->p1);
 }
 
 int	ft_init_pipe(t_parsed *lst, int p1[2], int id, int i)

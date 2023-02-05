@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:32:06 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/02 18:16:35 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:35:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_call_export(t_parsed *lst[2], t_nod *env, int i)
 {
 	if (lst && lst[1]->cmds && ft_strncmp(lst[1]->cmds[0], "export", 6) == 0)
 	{
-		ft_return_value(ft_export(lst[1]->cmds, env, 0), env);
+		ft_return_value(ft_export(lst[1]->cmds, env, 0), env, (int [1]){0});
 	}
 	return (i);
 }

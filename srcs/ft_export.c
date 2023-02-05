@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/02 18:48:38 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:21:55 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,7 @@ int	ft_export(char **str, t_nod *env, int do_it)
 			check = 1;
 			error = 1;
 		}
-		if (do_it == 0 && check == 0 && ft_strchr(str[i], '=') == NULL)
-			ft_add_to_export_no_value(big_nod[0], str[i]);
-		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 1)
-			ft_add_to_env_no_value(big_nod[0], str[i]);
-		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 0)
-			ft_add_basic(big_nod[0], str[i]);
-		else if (do_it == 0 && check == 0 && ft_search_delimiter(str[i]) == 2)
-			ft_add_basic_and_plus(big_nod[0], str[i]);
+		ft_choose_export(big_nod, do_it, check, str[i]);
 		check = 0;
 		big_nod[0] = env;
 		i++;
@@ -71,22 +64,14 @@ void	ft_add_basic(t_nod *nod, char *str)
 		nod = nod->next;
 	}
 	nod = tmp;
-	while (nod && nod->next != NULL)
-		nod = nod->next;
-	tmp = (t_nod *)malloc(sizeof(t_nod));
-	tmp->next = NULL;
-	nod->next = tmp;
-	tmp->key = ft_substr(str, 0, i);
-	tmp->value = ft_substr(str, i + 1, ft_strlen(str));
-	tmp->declare = 0;
-	free(key_str);
+	ft_add_basic_nod(nod, str, i);
+	ft_true_free((void **)&key_str);
 }
 
 void	ft_add_basic_and_plus(t_nod *nod, char *str)
 {
 	t_nod	*tmp;
 	char	*key_str;
-	char	*value_str;
 	int		i;
 
 	tmp = nod;
@@ -100,26 +85,14 @@ void	ft_add_basic_and_plus(t_nod *nod, char *str)
 		if (ft_strncmp(nod->key, key_str, ft_strlen(nod->key) + 1) == 0)
 		{
 			free(key_str);
-			key_str = ft_substr(str, i + 2, ft_strlen(str));
-			value_str = ft_strjoin(nod->value, key_str);
-			free(nod->value);
-			free(key_str);
-			nod->value = value_str;
-			nod->declare = 0;
+			ft_add_mini_nod_basic(nod, str, i);
 			return ;
 		}
 		nod = nod->next;
 	}
 	nod = tmp;
-	while (nod && nod->next != NULL)
-		nod = nod->next;
-	tmp = (t_nod *)malloc(sizeof(t_nod));
-	tmp->next = NULL;
-	nod->next = tmp;
-	tmp->key = ft_substr(str, 0, i);
-	tmp->value = ft_substr(str, i + 2, ft_strlen(str));
-	tmp->declare = 0;
-	free(key_str);
+	ft_add_basic_plus_nod(nod, str, i);
+	ft_true_free((void **)&key_str);
 }
 
 void	ft_add_to_env_no_value(t_nod *nod, char *str)

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:19:26 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 18:51:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 15:35:26 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_check_redir(t_parsed *lst[2], t_nod *env, int tmp_stdin, int p1[2])
 {
 	if (lst[1] && lst[1]->redirections && ft_check_file(lst[1]) == -1)
 	{
-		ft_return_value(1, env);
+		ft_return_value(1, env, (int [1]){0});
 		(void)p1;
 		(void)tmp_stdin;
 		return (1);
