@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/20 12:56:19 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/05 21:07:39 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_replace_with_val(char **src, char **trans, char *var, int i)
 	tmp = NULL;
 	if (src && src[0] && trans && trans[0] && var)
 	{
-		while (src[0][i] && src[0][i + j] && ft_isalnum(src[0][i + j]))
+		while (src[0][i] && src[0][i + j] \
+			&& (ft_isalnum(src[0][i + j]) || src[0][i + j] == '_'))
 			j++;
 		if (j == 1 && src[0][i] && src[0][i + j] == '?')
 			j = 2;
