@@ -1,1 +1,0 @@
-cat << EOF > file | wc -c | tr -d " " > file2 | echo "$USER" >> file2 | echo '$HOME' >> file2 | echo '"$USER"' >> file2 | "e"c'h'o"""""""" salut
