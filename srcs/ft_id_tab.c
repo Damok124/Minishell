@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:29:33 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 17:30:55 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:51:23 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void	ft_wait_id(t_nod *env, int *tab)
 	while (tab[i] != '\0' && tab[i] != -666)
 	{
 		waitpid(tab[i], &status, 0);
-		status = WEXITSTATUS(status);
-		ft_return_value(status, env);
+		if (status != 2)
+		{
+			status = WEXITSTATUS(status);
+			ft_return_value(status, env);
+		}
+		else
+			ft_return_value(130, env);
 		ft_file_destroy(i);
 		i++;
 	}

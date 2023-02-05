@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 18:47:05 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:42:42 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_execute_cmd(t_parsed *lst[2], t_nod *env, int *id_tab, int p1[2])
 	if (ft_check_outfile(lst[1]) != 0)
 		ft_choose_outfile(lst[1]);
 	if (path != NULL && ft_search_built_in(lst[1]) == 0 && ret_value == 0)
-		execve(path, lst[1]->cmds, tab);
+		ret_value = execve(path, lst[1]->cmds, tab);
 	else if (ft_search_built_in(lst[1]) != 0)
 		ret_value = ft_call_built_in(lst, env, id_tab);
 	ft_clean_pipex_2(lst, env, tab, path);
