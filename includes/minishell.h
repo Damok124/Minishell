@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/05 17:02:10 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:37:11 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int			ft_make_nod(t_nod *big_nod[3], char **str, int i, int found);
 void		ft_add_basic_plus_nod(t_nod *nod, char *str, int i);
 void		ft_add_mini_nod_basic(t_nod *nod, char *str, int i);
 int			ft_check_identifier(char *str, int type, int do_it);
+int			ft_check_first_half(char *str);
+void		ft_export_unset_error_message(char *str, int type);
 int			ft_check_number_export(char c);
 void		ft_add_to_export_no_value(t_nod *nod, char *str);
 int			ft_search_delimiter(char *str);

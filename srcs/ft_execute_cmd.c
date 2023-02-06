@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:22:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 17:01:57 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:06:38 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,4 @@ char	*ft_check_access(char **env, char **path, char *str)
 	(*path) = NULL;
 	return (NULL);
 	(void)str;
-	(void)env;
 }

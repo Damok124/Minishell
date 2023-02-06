@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:36 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 16:38:27 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:21:28 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	ft_call_built_in(t_core *core, t_nod *env, int *id_tab)
 	if (core->lst[1]->cmds && ft_search_built_in(core->lst[1]) == 3)
 		ft_pwd(core->lst[1]->cmds);
 	if (core->lst[1]->cmds && ft_search_built_in(core->lst[1]) == 4)
-		ret = ft_export(core->lst[1]->cmds, env, 1);
+		ret = ft_export(core->lst[1]->cmds, env, 0);
 	if (core->lst[1]->cmds && ft_search_built_in(core->lst[1]) == 5)
-		ft_unset(core->lst[1]->cmds, env, 1);
+		ft_unset(core->lst[1]->cmds, env, 0);
 	if (core->lst[1]->cmds && ft_search_built_in(core->lst[1]) == 6)
 		ft_env(env);
 	if (core->lst[1]->cmds && ft_search_built_in(core->lst[1]) == 7)
@@ -48,14 +48,11 @@ int	ft_call_built_in(t_core *core, t_nod *env, int *id_tab)
 
 char	*ft_get_env(char *str, t_nod *env)
 {
-	t_nod	*tmp;
-
-	tmp = env;
-	while (tmp != NULL)
+	while (env != NULL)
 	{
-		if (ft_strncmp(str, tmp->key, ft_strlen(str) + 1) == 0)
-			return (tmp->value);
-		tmp = tmp->next;
+		if (ft_strncmp(str, env->key, ft_strlen(str) + 1) == 0)
+			return (env->value);
+		env = env->next;
 	}
 	return ("");
 }

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/04 19:10:43 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:14:02 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	ft_init_fork(int id, int tmp_stdin, int check)
 	if (id != 0 && check == 1)
 		check = 0;
 	if (id == 0)
+	{
 		ft_close(tmp_stdin, -1, -1, -1);
+		signal(SIGQUIT, SIG_DFL);
+	}
 	return (id);
 }
 

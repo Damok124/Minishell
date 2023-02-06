@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 17:05:38 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:43:18 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	ft_exit(t_core *core, int print_check, t_nod *env, int *tab)
 			ft_true_free((void **)&tab);
 			exit(1);
 		}
-		i = 0;
 		ft_check_exit_arg(core, print_check, env, tab);
 	}
 	if (ft_exit_2(core, print_check, env, tab) == 1)
 		return (1);
+	i = ft_atoi(ft_get_env("LEC_RV", env));
 	ft_clean_exit(core->lst[0], env, core->p1);
 	ft_true_free((void **)&tab);
-	exit(0);
+	exit(i);
 }
 
 void	ft_check_exit_arg(t_core *core, int print_check,
@@ -81,7 +81,7 @@ int	ft_exit_2(t_core *core, int print_check, t_nod *env, int *tab)
 		ft_close(core->p1[0], core->p1[1], -1, -1);
 		if (check == 0)
 		{
-			ft_putstr_fd("bash: exit: : numeric argument required", 2);
+			ft_putstr_fd("bash: exit: : numeric argument required\n", 2);
 			exit(2);
 		}
 		exit(i);

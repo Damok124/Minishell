@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 15:35:51 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:23:11 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_while(t_nod *env_nod)
 		g_child_id = -1;
 		if (str == NULL)
 		{
-			printf("exit");
+			printf("exit\n");
 			break ;
 		}
 		ft_true_free((void **)&str);

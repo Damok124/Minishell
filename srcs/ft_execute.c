@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:01:46 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 17:05:01 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:00:56 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_execute(char *str, t_nod *env)
 	core.lst[1] = core.lst[0];
 	core.p1[0] = -1;
 	core.p1[1] = -1;
+	core.env = env;
 	i = ft_here_doc(core.lst[1], env);
 	if (ft_error_heredoc(core.lst[1], env, &i) != 0)
 		return ;
