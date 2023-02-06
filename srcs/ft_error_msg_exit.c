@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:03:11 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 16:38:09 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:17:13 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int	ft_clean_no_perm(t_core *core, t_nod *env, int check, int id)
 	return (0);
 }
 
-void	ft_check_print_exit_error(int check)
+void	ft_print_exit_error(t_core *core, int print_check, int *check)
 {
-	if (check == 0)
+	if (ft_strncmp(core->lst[1]->cmds[1], "-9223372036854775808", 22) == 0)
+		*check = 1;
+	if (print_check == 0)
 		printf("exit\n");
 }

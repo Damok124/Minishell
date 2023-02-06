@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/06 16:37:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:17:05 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void		ft_check_exit_arg(t_core *core, int print_check, t_nod *env,
 int			ft_check_num(char *str);
 long int	ft_long_atoi(const char *nptr);
 void		ft_error_msg(t_parsed *lst);
-void		ft_check_print_exit_error(int check);
+void		ft_print_exit_error(t_core *core, int print_check, int *check);
 ////////////////////////////////////////////////////////////////
 int			ft_check_unset_export(t_core *core, t_nod *env, int i);
 void		ft_fuse_end_env(t_nod *first, char **strs);

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:33:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 16:43:18 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:17:11 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	ft_exit_2(t_core *core, int print_check, t_nod *env, int *tab)
 	check = 1;
 	if (core->lst[1]->cmds && core->lst[1]->cmds[1] && !core->lst[1]->cmds[2])
 	{
-		ft_check_print_exit_error(print_check);
 		i = ft_atol_safe1 (core->lst[1]->cmds[1], &check);
+		ft_print_exit_error(core, print_check, &check);
 		ft_clean_exit(core->lst[0], env, core->p1);
 		ft_true_free((void **)&tab);
 		ft_close(core->p1[0], core->p1[1], -1, -1);
