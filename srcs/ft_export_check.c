@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:51:15 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 16:37:48 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:48:52 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_check_identifier(char *str, int type, int do_it)
 	}
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	if (ft_check_first_half(str) == 1)
+	if (ft_check_first_half(str, type) == 1)
 	{
 		ft_export_unset_error_message(str, type);
 		return (1);
@@ -34,7 +34,7 @@ int	ft_check_identifier(char *str, int type, int do_it)
 	return (0);
 }
 
-int	ft_check_first_half(char *str)
+int	ft_check_first_half(char *str, int type)
 {
 	int	i;
 
@@ -53,6 +53,8 @@ int	ft_check_first_half(char *str)
 			return (1);
 		i++;
 	}
+	if (type != 0 && str[i] == '=')
+		return (1);
 	return (0);
 }
 
