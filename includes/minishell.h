@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/06 18:17:05 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:05:49 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,15 @@ void		ft_choose_export(t_nod *big_nod[3], int do_it, int check,
 void		ft_add_basic_nod(t_nod *nod, char *str, int i);
 t_nod		*ft_free_nod_content(t_nod *tmp, t_nod *tmp_2, t_nod *env);
 
-////////////////////////////////////////////////////////////////
+/////////////////////////
+//	FT_CD
+/////////////////////////
 int			ft_cd(char **str, t_nod *env, int i);
+int			ft_chdir_home(char *str, t_nod *env, int i);
+void		ft_call_chdir(t_nod *tmp, t_nod *env);
+int			ft_chdir(char *str, t_nod *env);
+
+////////////////////////////////////////////////////////////////
 void		ft_pwd(char **str);
 int			ft_unset(char **str, t_nod *env, int do_it);
 void		ft_env(t_nod *env);

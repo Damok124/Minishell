@@ -6,39 +6,11 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:58:13 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 16:16:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:57:26 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_cd(char **str, t_nod *env, int i)
-{
-	char	*str_2;
-
-	if (str && str[1] != NULL && str[2])
-	{
-		if (i == 0)
-			ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
-		return (1);
-	}
-	if (!str[1])
-	{
-		chdir(ft_get_env("HOME", env));
-		return (0);
-	}
-	if (str && str[1] && chdir(str[1]) == -1)
-	{
-		if (i == 0)
-		{
-			str_2 = ft_strjoin(str[1], " : No such file or directory\n");
-			ft_putstr_fd(str_2, 2);
-			free(str_2);
-		}
-		return (1);
-	}
-	return (0);
-}
 
 void	ft_pwd(char **str)
 {
