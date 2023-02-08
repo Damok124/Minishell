@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/08 18:36:21 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:46:13 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void		ft_execute_cmd(t_core *core, t_nod *env, int *id_tab,
 char		*ft_access(t_parsed *lst, char *str, char *value);
 int			ft_call_print_error(t_parsed *lst, int i);
 int			ft_check_dir_file(t_parsed *lst, char *str);
-int			ft_big_check_access(t_parsed *lst, char *str);
+int			ft_big_check_access( t_parsed *lst, char *str, int type);
 void		ft_free_double(char **str, char *str2);
 char		*ft_check_access(char **env, char **path, char *str);
 int			ft_redirection(t_parsed *lst);

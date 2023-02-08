@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 15:31:21 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/08 18:38:03 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:52:57 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ char	*ft_access(t_parsed *lst, char *str, char *value)
 	int			i;
 	char		**env;
 
-	if (access(str, R_OK) == 0 && access(str, X_OK) == 0
-		&& access(str, W_OK) == -1 && ft_strncmp(str, "/", 2) != 0)
+	if (ft_big_check_access(lst, str, 0) == 1)
 		return (str);
 	if (ft_check_dir_file(lst, str) == 1)
 		return (NULL);
-	if (access(lst->cmds[0], F_OK) == 0 && access(lst->cmds[0], X_OK) == 0
-		&& ft_strncmp(lst->cmds[0], "./", 2) != 0)
+	if (ft_big_check_access(lst, str, 1) == 1)
 		return (lst->cmds[0]);
 	str = ft_strjoin("/", lst->cmds[0]);
 	env = ft_split(value, ':');
@@ -43,6 +41,24 @@ char	*ft_access(t_parsed *lst, char *str, char *value)
 	return (NULL);
 }
 
+int	ft_big_check_access( t_parsed *lst, char *str, int type)
+{
+	if (type == 0)
+	{
+		if (access(str, R_OK) == 0 && access(str, X_OK) == 0
+			&& access(str, W_OK) == -1 && ft_strncmp(str, "/", 2) != 0)
+			return (1);
+	}
+	if (type == 1)
+	{
+		str = lst->cmds[0];
+		if (access(lst->cmds[0], F_OK) == 0 && access(lst->cmds[0], X_OK) == 0
+			&& ft_strncmp(lst->cmds[0], "./", 2) != 0)
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_check_dir_file(t_parsed *lst, char *str)
 {
 	struct stat	sb;
@@ -50,8 +66,8 @@ int	ft_check_dir_file(t_parsed *lst, char *str)
 	int			i;
 
 	i = stat(str, &sb);
-	if (access(str + 2, F_OK) == 0 && access(str + 2, X_OK) == 0
-		&& i != -1 && S_ISREG(sb.st_mode))
+	if (ft_strncmp(str, "./", 2) == 0 && access(str + 2, F_OK) == 0
+		&& access(str + 2, X_OK) == 0 && i != -1 && S_ISREG(sb.st_mode))
 	{
 		path = ft_strdup(str + 2);
 		free(str);
