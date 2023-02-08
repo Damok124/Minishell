@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/08 18:46:13 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:02:58 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void		ft_replace_with_val(char **src, char **trans, char *var, int i);
 void		ft_reveal_ambi_redirect(char **src, char **trans);
 void		ft_disable_unnamed_var_env(char **trans);
 void		ft_disable_no_name_var_env(char **src, char **trans);
+void		ft_disable_pipe_var_env(char **trans);
 
 /////////////////////////
 //	INITIALIZERS

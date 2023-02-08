@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:58:19 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/05 13:49:42 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/08 19:01:11 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	ft_disable_var_env(char **src, char **trans)
 	}
 	ft_disable_unnamed_var_env(trans);
 	ft_disable_no_name_var_env(src, trans);
+	ft_disable_pipe_var_env(trans);
 }
