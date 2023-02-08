@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:21:35 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/05 14:21:55 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:13:31 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_add_to_env_no_value(t_nod *nod, char *str)
 	t_nod	*tmp;
 
 	tmp = nod;
+	str = ft_cut_plus(str);
 	while (nod)
 	{
 		if (ft_strncmp(nod->key, str, ft_strlen(nod->key) + 1) == 0)
@@ -117,7 +118,7 @@ void	ft_add_to_env_no_value(t_nod *nod, char *str)
 	tmp = (t_nod *)malloc(sizeof(t_nod));
 	tmp->next = NULL;
 	nod->next = tmp;
-	tmp->key = ft_strdup(str);
+	tmp->key = ft_strdup(ft_check_plus_key(str));
 	tmp->value = ft_strdup("");
 	tmp->declare = 1;
 }
@@ -129,7 +130,7 @@ void	ft_add_to_export_no_value(t_nod *nod, char *str)
 	tmp = nod;
 	while (nod)
 	{
-		if (ft_strncmp(nod->key, str, ft_strlen(nod->key)) == 0)
+		if (ft_strncmp(nod->key, str, ft_strlen(nod->key) + 1) == 0)
 			return ;
 		nod = nod->next;
 	}

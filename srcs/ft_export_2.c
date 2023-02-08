@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:32:06 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 15:00:42 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:28:44 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	ft_show_declare(t_nod *env)
 		if (env->declare == 0)
 			printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		if (env->declare == 1)
-			printf("declare -x %s\"%s\"\n", env->key, env->value);
+			printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		if (env->declare == 2)
-			printf("declare -x %s\n", env->key);
+			printf("declare -x %s=\n", env->key);
 		if (env->declare == 4)
 			printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		env = env->next;
