@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:11:56 by zharzi            #+#    #+#             */
-/*   Updated: 2023/02/07 20:46:21 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/08 18:36:21 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,10 @@ void		ft_while(t_nod *env_nod);
 void		ft_execute(char *str, t_nod *env);
 void		ft_execute_cmd(t_core *core, t_nod *env, int *id_tab,
 				int p1[2]);
-char		*ft_access(char *str, char *value);
+char		*ft_access(t_parsed *lst, char *str, char *value);
+int			ft_call_print_error(t_parsed *lst, int i);
+int			ft_check_dir_file(t_parsed *lst, char *str);
+int			ft_big_check_access(t_parsed *lst, char *str);
 void		ft_free_double(char **str, char *str2);
 char		*ft_check_access(char **env, char **path, char *str);
 int			ft_redirection(t_parsed *lst);

@@ -6,7 +6,7 @@
 /*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:56:10 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 14:23:11 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:12:35 by tlarraze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	ft_while(t_nod *env_nod)
 			g_child_id = -1;
 			ft_return_value(130, env_nod, (int [1]){0});
 		}
-		add_history(str);
+		if (ft_strlen(str) != 0)
+			add_history(str);
 		g_child_id = 1;
 		if (str != NULL)
 			ft_execute(str, env_nod);
