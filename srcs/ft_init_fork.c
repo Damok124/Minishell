@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_fork.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 14:08:45 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/06 14:14:02 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:55:09 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	ft_pipe(int p1[2], t_parsed *lst[2])
 
 void	ft_free_double(char **str, char *str2)
 {
-	int	i;
-
-	i = 0;
 	ft_full_free((void **)str);
 	ft_true_free((void **)&str2);
 }

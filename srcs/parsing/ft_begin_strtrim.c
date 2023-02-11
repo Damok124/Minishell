@@ -6,7 +6,7 @@
 /*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:19:54 by zharzi            #+#    #+#             */
-/*   Updated: 2023/01/25 17:20:18 by zharzi           ###   ########.fr       */
+/*   Updated: 2023/02/11 12:56:28 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ char	*ft_begin_strtrim(char const *s1, char const *set)
 {
 	char	*str;
 	ssize_t	i;
-	ssize_t	j;
 
 	i = 0;
-	j = ft_strlen(s1);
 	if (s1)
 	{
 		while (s1 && s1[i] && ft_strchr(set, s1[i]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlarraze <tlarraze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zharzi <zharzi@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:03 by tlarraze          #+#    #+#             */
-/*   Updated: 2023/02/07 13:40:00 by tlarraze         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:53:47 by zharzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ int	ft_check_unset_export(t_core *core, t_nod *env, int i)
 char	**ft_env_to_tab(t_nod *nod, t_parsed *lst[2])
 {
 	char	**strs;
-	char	*tmp;
 	t_nod	*first;
 	int		i;
 
 	i = 0;
 	first = nod;
-	tmp = NULL;
 	if (ft_search_built_in(lst[1]) == 7)
 		return (NULL);
 	while (nod)
